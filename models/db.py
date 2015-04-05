@@ -101,6 +101,7 @@ ProfesionPersona = db.define_table('profesion_persona',
 Curso = db.define_table('curso',
                 Field('titulo', length=150),
                 Field('docente', Persona),
+                Field('lugar', 'string'),
                 Field('fecha_inicio', 'datetime'),
                 Field('fecha_fin', 'datetime'),
                 Field('valor', 'decimal(8,2)', default=0.0),
@@ -115,6 +116,7 @@ Inscripto = db.define_table('inscripto',
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'text'),
                 Field('curso_persona', unique=True),
+                Field('pago', 'boolean'),
                 auth.signature,
                 format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido),
                 )
@@ -134,11 +136,17 @@ Documentos = db.define_table('documentos',
                 format='%(nombre)s'
                 )
 
-CFecha = db.define_table('documentos',
+CFecha = db.define_table('cfecha',
                 Field('curso', Curso),
                 Field('fecha', 'date'),
                 Field('hora_inicio', 'time'),
                 Field('hora_fin', 'time'),
+                auth.signature,
+                )
+
+Asistencia = db.define_table('asistencia',
+                Field('cfecha', CFecha),
+                Field('inscripto', Inscripto),
                 auth.signature,
                 )
 
