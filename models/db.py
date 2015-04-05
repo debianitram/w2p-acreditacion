@@ -73,6 +73,7 @@ auth.settings.reset_password_requires_verification = True
 
 
 ## TABLES
+
 Profesion = db.define_table('profesion',
                 Field('nombre','string'),
                 auth.signature
@@ -87,7 +88,7 @@ Persona = db.define_table('persona',
                 Field('telefono', 'string'),
                 Field('domicilio', 'string'),
                 Field('profesion', Profesion),
-                format='%(nombre)s'
+                format='%(apellido)s'
                 )
 
 ProfesionPersona = db.define_table('profesion_persona',
@@ -102,7 +103,7 @@ Curso = db.define_table('curso',
                 Field('fecha_fin', 'datetime'),
                 Field('valor', 'decimal(8,2)'),
                 auth.signature,
-                format='%(nombre)s'
+                format='%(titulo)s'
                 )
 
 Inscripto = db.define_table('inscriptos',
@@ -111,7 +112,21 @@ Inscripto = db.define_table('inscriptos',
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'texto'),
-                Field('index'),
+                Field('index','string'),
+                auth.signature,
+                )
+
+Pagos = db.define_table('pagos',
+                Field('monto', 'decimal(8,2)'),
+                Field('fecha', 'datetime'),
+                Field('inscripto', Inscripto),
+                auth.signature,
+                )
+
+Documentos = db.define_table('documentos',
+                Field('nombre', 'string'),
+                Field('documento', 'upload'),
+                Field('curso', Curso),
                 auth.signature,
                 format='%(nombre)s'
                 )
