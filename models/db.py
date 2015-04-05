@@ -75,18 +75,18 @@ auth.settings.reset_password_requires_verification = True
 ## TABLES
 Profesion = db.define_table('profesion',
                 Field('nombre'),
+                Field('abreviatura', length=5),
                 auth.signature,
                 format='%(nombre)s'
                 )
 
 Persona = db.define_table('persona',
-                Field('nombre'),
-                Field('apellido'),
-                Field('profesion', Profesion),
-                Field('email'),
-                Field('matricula'),
-                Field('telefono'),
-                Field('domicilio'),
+                Field('nombre', length=50),
+                Field('apellido', length=50),
+                Field('email', length=100),
+                Field('matricula', length=15),
+                Field('telefono', length=30),
+                Field('domicilio', length=150),
                 auth.signature,
                 format='%(apellido)s, %(nombre)s',
                 )
@@ -94,11 +94,13 @@ Persona = db.define_table('persona',
 ProfesionPersona = db.define_table('profesion_persona',
                 Field('profesion', Profesion),
                 Field('persona', Persona),
-                auth.signature
+                auth.signature,
+                format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido),
                 )
 
 Curso = db.define_table('curso',
-                Field('titulo'),
+                Field('titulo', length=150),
+                Field('docente', Persona),
                 Field('fecha_inicio', 'datetime'),
                 Field('fecha_fin', 'datetime'),
                 Field('valor', 'decimal(8,2)', default=0.0),
@@ -114,18 +116,19 @@ Inscripto = db.define_table('inscripto',
                 Field('sugerencia', 'text'),
                 Field('curso_persona', unique=True),
                 auth.signature,
+                format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido),
                 )
 
 Pagos = db.define_table('pagos',
                 Field('inscripto', Inscripto),
-                Field('monto', 'decimal(8,2)'),
-                Field('fecha', 'datetime'),
+                Field('monto', 'decimal(8,2)', default=0.0),
+                Field('fecha', 'datetime', default=request.now),
                 auth.signature,
                 )
 
 Documentos = db.define_table('documentos',
                 Field('curso', Curso),
-                Field('nombre'),
+                Field('nombre', length=150),
                 Field('documento', 'upload'),
                 auth.signature,
                 format='%(nombre)s'
