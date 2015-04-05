@@ -134,4 +134,16 @@ Documentos = db.define_table('documentos',
                 format='%(nombre)s'
                 )
 
+CFecha = db.define_table('documentos',
+                Field('curso', Curso),
+                Field('fecha', 'date'),
+                Field('hora_inicio', 'time'),
+                Field('hora_fin', 'time'),
+                auth.signature,
+                )
+
+
+
+
+
 
