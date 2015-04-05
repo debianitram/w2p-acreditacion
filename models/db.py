@@ -101,7 +101,7 @@ Curso = db.define_table('curso',
                 Field('titulo'),
                 Field('fecha_inicio', 'datetime'),
                 Field('fecha_fin', 'datetime'),
-                Field('valor', 'decimal(8,2)', defaut=0.0),
+                Field('valor', 'decimal(8,2)', default=0.0),
                 auth.signature,
                 format='%(titulo)s'
                 )
@@ -112,7 +112,7 @@ Inscripto = db.define_table('inscripto',
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'text'),
-                Field('index'),
+                Field('curso_persona', unique=True),
                 auth.signature,
                 )
 
