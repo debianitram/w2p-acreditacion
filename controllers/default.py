@@ -17,17 +17,8 @@ def index():
     return auth.wiki()
     """
     response.flash = T("Hello World")
-    return auth.wiki()
+    return dict()
 
-
-def student():
-    form = SQLFORM.grid(Student)
-    return dict(form=form)
-    
-
-def person():
-    form = SQLFORM.grid(Person)
-    return dict(form=form)
 
 def user():
     """

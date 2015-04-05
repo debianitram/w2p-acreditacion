@@ -91,15 +91,3 @@ auth.settings.reset_password_requires_verification = True
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
 
-Person = db.define_table('person',
-            Field('first_name'),
-            Field('surname'),
-            Field('docs'),
-            format='%(first_name)s')
-            
-            
-Student = db.define_table('student',
-            Field('person', Person),
-            Field('sprint'))
-
-
