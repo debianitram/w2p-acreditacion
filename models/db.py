@@ -99,8 +99,9 @@ ProfesionPersona = db.define_table('profesion_persona',
                 )
 
 Curso = db.define_table('curso',
-                Field('titulo', length=150),
+                Field('titulo', length=200),
                 Field('docente', Persona),
+                Field('lugar', length=200),
                 Field('fecha_inicio', 'datetime'),
                 Field('fecha_fin', 'datetime'),
                 Field('valor', 'decimal(8,2)', default=0.0),
