@@ -73,60 +73,60 @@ auth.settings.reset_password_requires_verification = True
 
 
 ## TABLES
-
 Profesion = db.define_table('profesion',
-                Field('nombre','string'),
-                auth.signature
+                Field('nombre'),
+                auth.signature,
                 format='%(nombre)s'
                 )
 
 Persona = db.define_table('persona',
-                Field('nombre', 'string'),
-                Field('apellido', 'string'),
-                Field('email', 'string'),
-                Field('matricula', 'string'),
-                Field('telefono', 'string'),
-                Field('domicilio', 'string'),
+                Field('nombre'),
+                Field('apellido'),
                 Field('profesion', Profesion),
-                format='%(apellido)s'
+                Field('email'),
+                Field('matricula'),
+                Field('telefono'),
+                Field('domicilio'),
+                auth.signature,
+                format='%(apellido)s, %(nombre)s',
                 )
 
 ProfesionPersona = db.define_table('profesion_persona',
-                Field('persona', Persona),
                 Field('profesion', Profesion),
+                Field('persona', Persona),
                 auth.signature
                 )
 
 Curso = db.define_table('curso',
-                Field('titulo', 'string'),
+                Field('titulo'),
                 Field('fecha_inicio', 'datetime'),
                 Field('fecha_fin', 'datetime'),
-                Field('valor', 'decimal(8,2)'),
+                Field('valor', 'decimal(8,2)', defaut=0.0),
                 auth.signature,
                 format='%(titulo)s'
                 )
 
-Inscripto = db.define_table('inscriptos',
-                Field('persona', Persona),
+Inscripto = db.define_table('inscripto',
                 Field('curso', Curso),
+                Field('persona', Persona),
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
-                Field('sugerencia', 'texto'),
-                Field('index','string'),
+                Field('sugerencia', 'text'),
+                Field('index'),
                 auth.signature,
                 )
 
 Pagos = db.define_table('pagos',
+                Field('inscripto', Inscripto),
                 Field('monto', 'decimal(8,2)'),
                 Field('fecha', 'datetime'),
-                Field('inscripto', Inscripto),
                 auth.signature,
                 )
 
 Documentos = db.define_table('documentos',
-                Field('nombre', 'string'),
-                Field('documento', 'upload'),
                 Field('curso', Curso),
+                Field('nombre'),
+                Field('documento', 'upload'),
                 auth.signature,
                 format='%(nombre)s'
                 )
