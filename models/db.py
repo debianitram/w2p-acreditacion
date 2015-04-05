@@ -71,25 +71,49 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
-#########################################################################
-## Define your tables below (or better in another model file) for example
-##
-## >>> db.define_table('mytable',Field('myfield','string'))
-##
-## Fields can be 'string','text','password','integer','double','boolean'
-##       'date','time','datetime','blob','upload', 'reference TABLENAME'
-## There is an implicit 'id integer autoincrement' field
-## Consult manual for more options, validators, etc.
-##
-## More API examples for controllers:
-##
-## >>> db.mytable.insert(myfield='value')
-## >>> rows=db(db.mytable.myfield=='value').select(db.mytable.ALL)
-## >>> for row in rows: print row.id, row.myfield
-#########################################################################
 
-## after defining tables, uncomment below to enable auditing
-# auth.enable_record_versioning(db)
+## TABLES
+Profesion = db.define_table('profesion',
+                Field('nombre','string'),
+                auth.signature
+                format='%(nombre)s'
+                )
 
+Persona = db.define_table('persona',
+                Field('nombre', 'string'),
+                Field('apellido', 'string'),
+                Field('email', 'string'),
+                Field('matricula', 'string'),
+                Field('telefono', 'string'),
+                Field('domicilio', 'string'),
+                Field('profesion', Profesion),
+                format='%(nombre)s'
+                )
+
+ProfesionPersona = db.define_table('profesion_persona',
+                Field('persona', Persona),
+                Field('profesion', Profesion),
+                auth.signature
+                )
+
+Curso = db.define_table('curso',
+                Field('titulo', 'string'),
+                Field('fecha_inicio', 'datetime'),
+                Field('fecha_fin', 'datetime'),
+                Field('valor', 'decimal(8,2)'),
+                auth.signature,
+                format='%(nombre)s'
+                )
+
+Inscripto = db.define_table('inscriptos',
+                Field('persona', Persona),
+                Field('curso', Curso),
+                Field('fecha_inscripcion', 'datetime'),
+                Field('consultas_docente', 'text'),
+                Field('sugerencia', 'texto'),
+                Field('index'),
+                auth.signature,
+                format='%(nombre)s'
+                )
 
 
