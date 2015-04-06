@@ -28,7 +28,7 @@ else:
     ## from google.appengine.api.memcache import Client
     ## session.connect(request, response, db = MEMDB(Client()))
 
-## by default give a view/generic.extension to all actions from localhost
+## by default give a view/generic.extension hhto all actions from localhost
 ## none otherwise. a pattern can be 'controller/function.extension'
 response.generic_patterns = ['*'] if request.is_local else []
 ## choose a style for forms
@@ -89,6 +89,12 @@ Persona = db.define_table('persona',
                 Field('domicilio', length=150),
                 auth.signature,
                 format='%(apellido)s, %(nombre)s',
+                )
+
+TipoPersona = db.define_table('tipo_persona',
+                Field('nombre'),
+                auth.signature,
+                format='%(nombre)s'
                 )
 
 ProfesionPersona = db.define_table('profesion_persona',
