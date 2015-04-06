@@ -1,4 +1,3 @@
-
 ########### Readable/Writable ###########
 # Inscripto
 Inscripto.curso.writable = False
