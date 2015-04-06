@@ -80,17 +80,12 @@ Profesion = db.define_table('profesion',
                 format='%(nombre)s'
                 )
 
-TipoPersona = db.define_table('tipo_persona',
-                Field('nombre'),
-                auth.signature,
-                format='%(nombre)s'
-                )
 
 Persona = db.define_table('persona',
                 Field('nombre', length=50),
                 Field('apellido', length=50),
-                Field('tipo', TipoPersona),
                 Field('profesion', Profesion),
+                Field('docente', 'boolean'),
                 Field('email', length=100),
                 Field('matricula', length=15),
                 Field('telefono', length=30),
