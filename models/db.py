@@ -77,42 +77,41 @@ Profesion = db.define_table('profesion',
                 Field('nombre'),
                 Field('abreviatura', length=5),
                 auth.signature,
+                common_filter=lambda q: db.profesion.is_active == True,
                 format='%(nombre)s'
                 )
+
 
 Persona = db.define_table('persona',
                 Field('nombre', length=50),
                 Field('apellido', length=50),
+                Field('profesion', Profesion),
+                Field('docente', 'boolean'),
+                Field('dni', length=30),
                 Field('email', length=100),
                 Field('matricula', length=15),
                 Field('telefono', length=30),
                 Field('domicilio', length=150),
                 auth.signature,
+                common_filter=lambda q: db.persona.is_active == True,
                 format='%(apellido)s, %(nombre)s',
-                )
-
-TipoPersona = db.define_table('tipo_persona',
-                Field('nombre'),
-                auth.signature,
-                format='%(nombre)s'
                 )
 
 ProfesionPersona = db.define_table('profesion_persona',
                 Field('profesion', Profesion),
                 Field('persona', Persona),
                 auth.signature,
+                common_filter=lambda q: db.profesion_persona.is_active == True,
                 format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido),
                 )
 
 Curso = db.define_table('curso',
                 Field('titulo', length=200),
-                Field('docente', Persona),
-                Field('lugar', 'string'),
                 Field('lugar', length=200),
-                Field('fecha_inicio', 'datetime'),
-                Field('fecha_fin', 'datetime'),
+                Field('docente', Persona),
                 Field('valor', 'decimal(8,2)', default=0.0),
                 auth.signature,
+                common_filter=lambda q: db.curso.is_active == True,
                 format='%(titulo)s'
                 )
 
@@ -122,7 +121,7 @@ Inscripto = db.define_table('inscripto',
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'text'),
-                Field('curso_persona', 'string'),
+                Field('curso_persona'),
                 Field('pago', 'boolean'),
                 auth.signature,
                 format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido),
