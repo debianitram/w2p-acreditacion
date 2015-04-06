@@ -731,3 +731,20 @@ web2py_trap_link = jQuery.web2py.trap_link;
 web2py_calc_entropy = jQuery.web2py.calc_entropy;
 */
 /* compatibility code - end*/
+
+
+
+/*   MENU  DROPDOWN AOM */
+
+$(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');       
+        }
+    );
+});

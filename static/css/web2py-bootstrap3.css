@@ -314,3 +314,46 @@ input[type=checkbox], input[type=radio] {
 .btn {
     margin-right: 4px;
 }
+
+/* CSS DROPDOWN AOM */
+
+
+
+.nav-tabs {
+  display: inline-block !important;
+  border-bottom: none !important;
+  padding-top: 15px !important;
+  font-weight: bold !important;
+}
+.nav-tabs > li > a, 
+.nav-tabs > li > a:hover, 
+.nav-tabs > li > a:focus, 
+.nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.nav-list { border-bottom: 1px solid #eee !important; }
+.nav-list > li { 
+  padding: 20px 15px 15px !important;
+  border-left: 1px solid #eee !important; 
+  width: 200px;
+}
+.nav-list > li:last-child { border-right: 1px solid #eee !important; }
+.nav-list > li > a:hover { text-decoration: none !important; }
+.nav-list > li > a > span {
+  display: block !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  color: #473939;
+}
+
+.mega-dropdown { position: static !important;}
+.mega-dropdown-menu {
+  padding: 20px 15px 15px !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
