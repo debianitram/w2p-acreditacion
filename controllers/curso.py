@@ -1,17 +1,21 @@
 #!-*- encoding:utf-8 -*-
 # Colmenalabs 2015
+from gluon.tools import prettydate
+
 
 @auth.requires_login()
 def index():
-    response.title = 'Administración Curso'
+    response.title = 'Administración'
+    response.subtitle = 'grilla'
     createargs = viewargs = None
 
     ### Config Grid
-    fields = (Curso.titulo, Curso.docente, Curso.valor, Curso.created_on)
+    fields = (Curso.titulo, Curso.precio, Curso.created_on)
     # Represent Columns
-    Curso.docente.represent = lambda v, r: SPAN(Persona._format % r['docente'])
-    Curso.valor.represent = lambda v, r: SPAN('$ {:,.2f}'.format(v),
+    Curso.precio.represent = lambda v, r: SPAN('$ {:,.2f}'.format(v),
                                               _class='label label-success')
+    Curso.created_on.represent = lambda v, r: SPAN(prettydate(v),
+                                                   _title=v)
     # Readable&Writable
     Curso.created_on.readable = True
 
@@ -19,7 +23,10 @@ def index():
                         csv=False,
                         fields=fields,
                         maxtextlength=200,
+                        ondelete=hide_record,
+                        user_signature=True,
                         showbuttontext=False,
-                        orderby=~Curso.created_on)
+                        orderby=~Curso.created_on,
+                        )
 
     return dict(grid=grid)

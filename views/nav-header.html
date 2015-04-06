@@ -14,11 +14,11 @@
                 {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
             </ul>
             {{if response.menu:}}
-            {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
+                {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
             {{pass}}
             <ul class="nav navbar-nav"> 
                 <li class="dropdown mega-dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>       
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu <span class="caret"></span></a>       
                     <div class="dropdown-menu mega-dropdown-menu">
                         <div class="container-fluid">
                             <!-- Tab panes -->
