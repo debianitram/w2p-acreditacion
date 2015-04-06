@@ -5,7 +5,7 @@
 ## Customize your APP title, subtitle and menus here
 #########################################################################
 
-response.logo = A(B('CPCEC'),
+response.logo = A(B(request.controller.title()),
                   _class="navbar-brand",_href="#",
                   _id="web2py-logo")
 response.title = 'Acreditación'

@@ -32,8 +32,10 @@
         <script src="{{=URL('static','js/respond-1.4.2.min.js')}}"></script>
         <![endif]-->
     <!-- Favicons -->
-    {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
-    {{block head}}{{end}}
+    {{include 'web2py_ajax.html'}}
+    <div class="container-fluid">
+      {{block head}}{{end}}
+    </div>
     {{
     # using sidebars need to know what sidebar you want to use
     mc0 = 'col-md-12'
