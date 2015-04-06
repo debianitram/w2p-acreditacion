@@ -108,11 +108,8 @@ ProfesionPersona = db.define_table('profesion_persona',
 
 Curso = db.define_table('curso',
                 Field('titulo', length=200),
-                Field('docente', Persona),
-                Field('lugar', 'string'),
                 Field('lugar', length=200),
-                Field('fecha_inicio', 'datetime'),
-                Field('fecha_fin', 'datetime'),
+                Field('docente', Persona),
                 Field('valor', 'decimal(8,2)', default=0.0),
                 auth.signature,
                 format='%(titulo)s'
