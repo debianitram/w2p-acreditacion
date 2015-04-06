@@ -9,6 +9,9 @@ Pagos.inscripto.writable = False
 # Documentos
 Documentos.curso.writable = False
 
+# CFecha
+CFecha.curso.writable = False
+
 
 ########### Requires - Validators ###########
 # Profesion
