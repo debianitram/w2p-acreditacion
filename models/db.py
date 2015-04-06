@@ -77,6 +77,7 @@ Profesion = db.define_table('profesion',
                 Field('nombre'),
                 Field('abreviatura', length=5),
                 auth.signature,
+                common_filter=lambda q: db.profesion.is_active == True,
                 format='%(nombre)s'
                 )
 
@@ -86,11 +87,13 @@ Persona = db.define_table('persona',
                 Field('apellido', length=50),
                 Field('profesion', Profesion),
                 Field('docente', 'boolean'),
+                Field('dni', length=30),
                 Field('email', length=100),
                 Field('matricula', length=15),
                 Field('telefono', length=30),
                 Field('domicilio', length=150),
                 auth.signature,
+                common_filter=lambda q: db.persona.is_active == True,
                 format='%(apellido)s, %(nombre)s',
                 )
 
@@ -98,6 +101,7 @@ ProfesionPersona = db.define_table('profesion_persona',
                 Field('profesion', Profesion),
                 Field('persona', Persona),
                 auth.signature,
+                common_filter=lambda q: db.profesion_persona.is_active == True,
                 format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido),
                 )
 
@@ -107,6 +111,7 @@ Curso = db.define_table('curso',
                 Field('docente', Persona),
                 Field('valor', 'decimal(8,2)', default=0.0),
                 auth.signature,
+                common_filter=lambda q: db.curso.is_active == True,
                 format='%(titulo)s'
                 )
 
