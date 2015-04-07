@@ -7,29 +7,58 @@
 {{end}}
 
 <div class='row'>
-    <div class='well'>
+    <div> <!-- Well ?-->
         {{if grid.view_form:}}
+            {{=grid.view_form.custom.begin}}
+                <div class='row'>
+                    <div class='col-lg-8'>
+                        <div class='row-fluid'>
+                            <div id='curso-fecha'>
+                                {{=grid}}
+                            </div>
+                        </div>
 
-            <div class='row'>
-                <div class='col-lg-8'>
-                    Tabla Detalle del Curso
-                </div>
-                <div class='col-lg-4'>
-                    Información manipulación del registro
-                </div>
-            </div>
+                        <div class='row-fluid'>
+                            <!-- Add Fechas -->
+                            <div class="col-xs-4">
+                                <label>fecha</label>
+                                <input type="date" class="form-control" name='fecha'>
+                            </div>
+                            <div class="col-xs-2">
+                                <label>inicio</label>
+                                <input type="time" class="form-control" name='hora_inicio'>
+                            </div>
+                            <div class="col-xs-2">
+                                <label>fin</label>
+                                <input type="time" class="form-control" name='hora_fin'>
+                            </div>
+                            <div class='col-xs-1'>
+                                <button type='button' onclick="ajax('{{=URL('curso', 'add_date')}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">add</button>
+                            </div>
+                        </div>
 
-            <div class='row'>
-                <div class='col-lg-8'>
-                    Botonera | Add Inscripto | Importar Inscriptos
-                </div>
-            </div>
+                        
 
-            <div class='row'>
-                <div class='col-lg-8'>
-                    Lista de inscriptos
+                    </div>
+
+
+                    <div class='col-lg-4'>
+                        {{include 'signature.html'}}
+                    </div>
                 </div>
-            </div>
+
+                <div class='row'>
+                    <div class='col-lg-8'>
+                        Botonera | Add Inscripto | Importar Inscriptos
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-lg-8'>
+                        Lista de inscriptos
+                    </div>
+                </div>
+            {{=grid.view_form.custom.end}}
 
 
         {{else:}}
