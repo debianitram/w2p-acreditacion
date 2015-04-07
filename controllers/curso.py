@@ -26,9 +26,8 @@ def index():
 
     if 'view' in request.args:
         response.subtitle = 'Detalle'
+        readable_signature(Curso)
         
-
-
 
     grid = SQLFORM.grid(Curso,
                         csv=False,
@@ -36,9 +35,16 @@ def index():
                         maxtextlength=200,
                         ondelete=hide_record,
                         oncreate=curso_aux.oncreate,
+                        onupdate=curso_aux.oncreate,
                         user_signature=True,
                         showbuttontext=False,
                         orderby=~Curso.created_on,
                         )
 
     return dict(grid=grid)
+
+
+
+def add_date():
+    print(request.vars)
+    return 'jQuery("#curso-fecha").toggle();'

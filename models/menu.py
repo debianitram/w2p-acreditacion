@@ -4,13 +4,7 @@
 #########################################################################
 ## Customize your APP title, subtitle and menus here
 #########################################################################
-if request.controller.title()=='Default':
-	controller_title = 'Inicio'
-else:
-	controller_title = request.controller.title()
-
-
-response.logo = A(B(controller_title),
+response.logo = A(B('CPCEC Acreditación'),
                   _class="navbar-brand",_href="#",
                   _id="web2py-logo")
 response.title = 'Acreditación'
