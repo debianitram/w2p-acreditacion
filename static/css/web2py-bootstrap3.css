@@ -341,7 +341,7 @@ input[type=checkbox], input[type=radio] {
 .nav-list > li { 
   padding: 20px 15px 15px !important;
   border-left: 1px solid #eee !important; 
-  width: 200px;
+  width: 250px;
 }
 .nav-list > li:last-child { border-right: 1px solid #eee !important; }
 .nav-list > li > a:hover { text-decoration: none !important; }

@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+
+{{block head}}
+    <h2>{{=request.controller.title()}} <small>Administración > {{=response.subtitle}}</small></h2>
+    <hr>
+{{end}}
+
+
+{{=grid}}
