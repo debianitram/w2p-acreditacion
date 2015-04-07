@@ -101,6 +101,7 @@ Pagos = db.define_table('pagos',
                 Field('inscripto', Inscripto),
                 Field('monto', 'decimal(8,2)', default=0.0),
                 Field('fecha', 'datetime', default=request.now),
+                Field('nro_recibo', length=50),
                 auth.signature
                 
                 )
