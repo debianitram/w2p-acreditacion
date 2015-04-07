@@ -44,8 +44,8 @@ Profesion = db.define_table('profesion',
                 Field('nombre'),
                 Field('abreviatura', length=5),
                 auth.signature,
-                common_filter=lambda q: db.profesion.is_active == True,
-                format='%(nombre)s'
+                common_filter=lambda q: db.profesion.is_active == True
+                
                 )
 
 Persona = db.define_table('persona',
@@ -60,16 +60,16 @@ Persona = db.define_table('persona',
                 Field('domicilio', length=150),
                 auth.signature,
                 common_filter=lambda q: db.persona.is_active == True,
-                format='%(apellido)s, %(nombre)s',
-                migrate=True,
-                fake_migrate=True
+                format='%(apellido)s, %(nombre)s'
+                
                 )
 
 ProfesionPersona = db.define_table('profesion_persona',
                 Field('profesion', Profesion),
                 Field('persona', Persona),
                 auth.signature,
-                format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido),
+                format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido)
+                
                 )
 
 Curso = db.define_table('curso',
@@ -78,9 +78,8 @@ Curso = db.define_table('curso',
                 Field('precio', 'decimal(8,2)', default=0.0),
                 auth.signature,
                 common_filter=lambda q: db.curso.is_active == True,
-                format='%(titulo)s',
-                migrate=True,
-                fake_migrate=True
+                format='%(titulo)s'
+                
                 )
 
 Inscripto = db.define_table('inscripto',
@@ -94,14 +93,16 @@ Inscripto = db.define_table('inscripto',
                 Field('pago', 'boolean', default=False),
                 Field('finalizo', 'boolean', default=False),
                 auth.signature,
-                format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido),
+                format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido)
+                
                 )
 
 Pagos = db.define_table('pagos',
                 Field('inscripto', Inscripto),
                 Field('monto', 'decimal(8,2)', default=0.0),
                 Field('fecha', 'datetime', default=request.now),
-                auth.signature,
+                auth.signature
+                
                 )
 
 Documentos = db.define_table('documentos',
@@ -110,6 +111,7 @@ Documentos = db.define_table('documentos',
                 Field('documento', 'upload'),
                 auth.signature,
                 format='%(nombre)s'
+                
                 )
 
 CFecha = db.define_table('cfecha',
@@ -117,13 +119,15 @@ CFecha = db.define_table('cfecha',
                 Field('fecha', 'date'),
                 Field('hora_inicio', 'time'),
                 Field('hora_fin', 'time'),
-                auth.signature,
+                auth.signature
+                
                 )
 
 Asistencia = db.define_table('asistencia',
                 Field('cfecha', CFecha),
                 Field('inscripto', Inscripto),
-                auth.signature,
+                auth.signature
+                
                 )
 
 

@@ -317,8 +317,6 @@ input[type=checkbox], input[type=radio] {
 
 /* CSS DROPDOWN AOM */
 
-
-
 .nav-tabs {
   display: inline-block !important;
   border-bottom: none !important;
@@ -333,6 +331,10 @@ input[type=checkbox], input[type=radio] {
 .nav-tabs > li.active > a:focus {
   border: none !important;
   border-radius: 0 !important;
+  color: #473939;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    color:#23527C;
 }
 
 .nav-list { border-bottom: 1px solid #eee !important; }
