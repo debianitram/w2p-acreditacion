@@ -6,4 +6,73 @@
 {{end}}
 
 
-{{=grid}}
+<div class='row'>
+    <div> <!-- Well ?-->
+        {{if grid.view_form:}}
+            {{=grid.view_form.custom.begin}}
+                <div class='row'>
+                    <div class='col-lg-8'>
+						<div class="tabbable-panel">
+							<div class="tabbable-line">
+								<ul class="nav nav-tabs ">
+									<li class="active">
+										<a href="#tab_default_1" data-toggle="tab">
+										Información </a>
+									</li>
+									<li>
+										<a href="#tab_default_2" data-toggle="tab">
+										Inscripciones </a>
+									</li>
+									<li>
+										<a href="#tab_default_3" data-toggle="tab">
+										Pagos </a>
+									</li>
+									<li>
+										<a href="#tab_default_4" data-toggle="tab">
+										Asistencias </a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_default_1">
+										
+											{{=grid}}
+										
+										<div class="clearfix"></div>
+									</div>
+									<div class="tab-pane" id="tab_default_2">
+										<p>
+											Howdy, I'm in Tab 2.
+										</p>
+										<div class="clearfix"></div>
+									</div>
+									<div class="tab-pane" id="tab_default_3">
+										<p>
+											Howdy, I'm in Tab 3.
+										</p>
+									</div>
+									<div class="tab-pane" id="tab_default_4">
+										<p>
+											Howdy, I'm in Tab 4.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>    
+                               
+                    </div>        
+                    <div class='col-lg-4'>
+                        {{include 'signature.html'}}
+                    </div>
+                </div>
+
+            {{=grid.view_form.custom.end}}
+
+
+        {{else:}}
+            {{=grid}}
+
+        {{pass}}
+
+    </div>
+</div>
