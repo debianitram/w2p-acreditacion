@@ -6,6 +6,34 @@
         </div>
     </div>
 </div>
+
 <div class='row'>
-    {{=inscriptos}}
+    {{if inscriptos:}}
+        <div class='table-responsive'>
+            <table id='reclamos-gestores' class="table table-striped table-bordered" cellspacing="0">
+            
+                <thead>
+                    <tr>
+                        <th>Inscripto</th>
+                        <th>Matricula</th>
+                        <th>Documento</th>
+                        <th>Pago?</th>
+                        <th>Controles</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{for row in inscriptos:}}
+                        <tr>
+                            <td>{{=label_inscripto(row)}}</td>
+                            <td>{{=row.persona.matricula or 'sin matricula'}}</td>
+                            <td>{{=row.persona.dni or '-'}}
+                            <td>{{=row.pago}}</td>
+                            <td>Botones</td>
+
+                        </tr>
+                    {{pass}}
+                </tbody>
+            </table>
+    {{pass}}
 </div>

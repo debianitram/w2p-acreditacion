@@ -50,6 +50,7 @@ Profesion = db.define_table('profesion',
                 )
 
 Persona = db.define_table('persona',
+                Field('profesion', Profesion),
                 Field('nombre', length=50),
                 Field('apellido', length=50),
                 Field('dni_tipo', length=15),
@@ -62,14 +63,6 @@ Persona = db.define_table('persona',
                 common_filter=lambda q: db.persona.is_active == True,
                 format='%(apellido)s, %(nombre)s',
                 fake_migrate=True,
-                )
-
-ProfesionPersona = db.define_table('profesion_persona',
-                Field('profesion', Profesion),
-                Field('persona', Persona),
-                auth.signature,
-                format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido)
-                
                 )
 
 Curso = db.define_table('curso',
