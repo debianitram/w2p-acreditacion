@@ -22,7 +22,7 @@ Persona.apellido.requires = IS_NOT_EMPTY()
 Persona.email.requires = IS_EMAIL()
 
 # Curso
-Curso.titulo.requires = IS_NOT_EMPTY()
+Curso.titulo.requires = [IS_NOT_IN_DB(db, Curso.titulo)]
 
 
 

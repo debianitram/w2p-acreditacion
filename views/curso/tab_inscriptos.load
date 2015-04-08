@@ -7,5 +7,5 @@
     </div>
 </div>
 <div class='row'>
-    {{=grid_inscriptos}}
+    {{=inscriptos}}
 </div>
