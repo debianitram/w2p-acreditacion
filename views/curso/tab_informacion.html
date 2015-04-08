@@ -1,0 +1,32 @@
+<div class="panel panel-info">
+    <div class="container" style="margin-top:10px; margin-bottom:10px;">
+        <b>Título:</b> {{=grid.view_form.custom.widget.titulo}} <br>
+        <b>Lugar</b> {{=grid.view_form.custom.widget.lugar}} <br>
+        <b>Precio</b> {{=grid.view_form.custom.widget.precio}} <br>
+        <br>
+        <b>Fechas</b><br>
+        <div id='curso-fecha'>
+            fuyteyut
+        </div>
+
+        <div class="row">
+            <!-- Add Fechas -->
+            <div class="col-xs-3">
+                <label>fecha</label>
+                <input type="date" class="form-control" name='fecha'>
+            </div>
+            <div class="col-xs-2">
+                <label>inicio</label>
+                <input type="time" class="form-control" name='hora_inicio'>
+            </div>
+            <div class="col-xs-2">
+                <label>fin</label>
+                <input type="time" class="form-control" name='hora_fin'>
+            </div>
+            <div class='col-xs-1'>
+                <br>
+                <button type='button' onclick="ajax('{{=URL('curso', 'add_date', vars=dict(curso=grid.view_form.custom.dspval.id))}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">agregar</button>
+            </div>
+        </div>
+    </div>
+</div>

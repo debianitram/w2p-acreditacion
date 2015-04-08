@@ -17,37 +17,29 @@
                             <div class="tabbable-line">
                                 <ul class="nav nav-tabs ">
                                     <li class="active">
-                                        <a href="#tab_default_1" data-toggle="tab">
+                                        <a href="#tab_informacion" data-toggle="tab">
                                         Información </a>
                                     </li>
                                     <li>
-                                        <a href="#tab_default_2" data-toggle="tab">
-                                        Fechas </a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab_default_3" data-toggle="tab">
+                                        <a href="#tab_inscriptos" data-toggle="tab">
                                         Inscriptos </a>
                                     </li>
                                     <li>
-                                        <a href="#tab_default_4" data-toggle="tab">
+                                        <a href="#tab_asistencia" data-toggle="tab">
                                         Asistencias </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="tab_default_1">
+                                    <div class="tab-pane active" id="tab_informacion">
                                         <div class="well">
                                            <div id='curso-fecha'>
-                                                {{=grid}}
+                                                {{include 'curso/tab_informacion.html'}}
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
-                                    <div class="tab-pane" id="tab_default_2">
-                                        {{include 'curso/add_date.html'}}
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="tab-pane" id="tab_default_3">
+                                    <div class="tab-pane" id="tab_inscriptos">
                                          <div class='row'>
                                             <div class='col-lg-8'>
                                                 <div id="tab" class="btn-group">
@@ -63,7 +55,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="tab_default_4">
+                                    <div class="tab-pane" id="tab_asistencia">
                                         <p>
                                             
                                         </p>
