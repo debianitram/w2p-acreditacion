@@ -739,11 +739,11 @@ web2py_calc_entropy = jQuery.web2py.calc_entropy;
 $(document).ready(function(){
     $(".dropdown").hover(            
         function() {
-            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $('.dropdown-menu', this).stop( true, true ).slideDown("medium");
             $(this).toggleClass('open');        
         },
         function() {
-            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $('.dropdown-menu', this).stop( true, true ).slideUp("medium");
             $(this).toggleClass('open');       
         }
     );
