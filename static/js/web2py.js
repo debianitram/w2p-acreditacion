@@ -747,4 +747,15 @@ $(document).ready(function(){
             $(this).toggleClass('open');       
         }
     );
+
+    $('#btn-agregar-fecha').click(function(){
+      $('.div-agregar-fecha').toggle();
+    });
+
+    $('#btn-agregar-docente').click(function(){
+      $('.div-agregar-docente').toggle();
+    });
+
 });
+
+

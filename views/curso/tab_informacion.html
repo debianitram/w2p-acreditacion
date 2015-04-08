@@ -5,28 +5,37 @@
         <b>Precio</b> {{=grid.view_form.custom.widget.precio}} <br>
         <br>
         <b>Fechas</b><br>
-        <div id='curso-fecha'>
-            fuyteyut
+        <div id='curso-fecha'>       
         </div>
-
-        <div class="row">
-            <!-- Add Fechas -->
-            <div class="col-xs-3">
-                <label>fecha</label>
-                <input type="date" class="form-control" name='fecha'>
+        <button type='button' id="btn-agregar-fecha" class="btn btn-xs">Agregar Fecha</button>
+        <div class="div-agregar-fecha" style="display:none;">
+            <div class="row">
+                <!-- Add Fechas -->
+                <div class="col-xs-3">
+                    <label>Agregar fechas</label>
+                    <input type="date" class="form-control" name='fecha'>
+                </div>
+                <div class="col-xs-2">
+                    <label>inicio</label>
+                    <input type="time" class="form-control" name='hora_inicio'>
+                </div>
+                <div class="col-xs-2">
+                    <label>fin</label>
+                    <input type="time" class="form-control" name='hora_fin'>
+                </div>
+                <div class='col-xs-1'>
+                    <br>
+                    <button type='button' onclick="ajax('{{=URL('curso', 'add_date', vars=dict(curso=grid.view_form.custom.dspval.id))}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">+</button>
+                </div>
             </div>
-            <div class="col-xs-2">
-                <label>inicio</label>
-                <input type="time" class="form-control" name='hora_inicio'>
-            </div>
-            <div class="col-xs-2">
-                <label>fin</label>
-                <input type="time" class="form-control" name='hora_fin'>
-            </div>
-            <div class='col-xs-1'>
-                <br>
-                <button type='button' onclick="ajax('{{=URL('curso', 'add_date', vars=dict(curso=grid.view_form.custom.dspval.id))}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">agregar</button>
-            </div>
+        </div>
+        <br>
+        <b>Docentes</b><br>
+        <div id='curso-docente'>       
+        </div>
+        <button type='button' id="btn-agregar-docente" class="btn btn-xs">Agregar Docente</button>
+        <div class="div-agregar-docente" style="display:none;">
+        agregar docente
         </div>
     </div>
 </div>
