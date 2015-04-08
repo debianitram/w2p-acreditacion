@@ -1,8 +1,10 @@
 <div class="panel panel-default">
-<div class="panel-heading">Logs</div>
+<div class="panel-heading">Registro</div>
     <div class="panel-body">
         <ul class="list-group">
-            <li class="list-group-item"><b>Creado:</b></li>
+            <div class="registro-label">
+                Creado
+            </div>
             <li class="list-group-item">
                 <span class='glyphicon glyphicon-user'> 
                     {{=grid.view_form.custom.widget.created_by}}
@@ -13,7 +15,9 @@
                     {{=grid.view_form.custom.widget.created_on}}
                 </span>
             </li>
-            <li class="list-group-item"><b>Editado:</b></li>
+            <div class="registro-label" style="margin-top:10px;">
+                Editado
+            </div>
             <li class="list-group-item">
                 <span class='glyphicon glyphicon-user'>
                     {{=grid.view_form.custom.widget.modified_by}}

@@ -449,3 +449,16 @@ Licensed under MIT
   padding-bottom: 15px;
 }
 
+.list-group-item {
+    padding: 3px 5px !important;
+}
+.panel-body{
+    padding-bottom:0px !important;
+}
+.registro-label{
+    margin-top:5px;
+    border-bottom: 4px solid #fbcdcf;
+    font-weight: 550;
+    font-size: 15px;
+}
+
