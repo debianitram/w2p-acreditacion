@@ -34,25 +34,26 @@
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="tab_default_1">
-										
+										<div class="well">
 											{{=grid}}
-										
+											<div class="clearfix"></div>
+										</div>
 										<div class="clearfix"></div>
 									</div>
 									<div class="tab-pane" id="tab_default_2">
 										<p>
-											Howdy, I'm in Tab 2.
+											{{=LOAD('persona','inscripto.load',ajax=True)}}
 										</p>
 										<div class="clearfix"></div>
 									</div>
 									<div class="tab-pane" id="tab_default_3">
 										<p>
-											Howdy, I'm in Tab 3.
+											{{=LOAD('persona','pagos.load',ajax=True)}}
 										</p>
 									</div>
 									<div class="tab-pane" id="tab_default_4">
 										<p>
-											Howdy, I'm in Tab 4.
+											{{=LOAD('persona','asistencia.load',ajax=True)}}
 										</p>
 									</div>
 								</div>
@@ -71,7 +72,6 @@
 
         {{else:}}
             {{=grid}}
-
         {{pass}}
 
     </div>
