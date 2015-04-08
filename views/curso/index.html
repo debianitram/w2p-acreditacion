@@ -40,14 +40,12 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="tab-pane" id="tab_inscriptos">
-                                         <div class='row'>
-                                            <div class='col-lg-8'>
-                                                <div id="tab" class="btn-group">
-                                                  <a href="#prices2" class="btn btn-large btn-default" data-toggle="tab">Inscribir Nuevo</a>
-                                                  <a href="#features2" class="btn btn-large btn-default" data-toggle="tab">Importar Inscriptos</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                         {{=LOAD(c='curso',
+                                                 f='tab_inscriptos.load',
+                                                 args=(grid.view_form.custom.dspval.id),
+                                                 ajax=True,
+                                                 ajax_trap=False,
+                                                 )}}
 
                                         <div class='row'>
                                             <div class='col-lg-8'>

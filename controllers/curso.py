@@ -44,12 +44,12 @@ def index():
     return dict(grid=grid)
 
 
-def tab_inscripto():
-    curso = request.args(0, cast=int)
-    inscriptos = Inscripto.curso == curso
-    grid_inscriptos = SQLFORM.grid(inscriptos)
 
-    return dict(grid_inscriptos=grid_inscriptos)
+def tab_inscriptos():
+    curso = request.args(0, cast=int)
+    inscriptos = db(Inscripto.curso == curso).select()
+
+    return dict(inscriptos=inscriptos)
 
 
 def add_date():

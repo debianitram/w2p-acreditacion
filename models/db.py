@@ -44,14 +44,15 @@ Profesion = db.define_table('profesion',
                 Field('nombre'),
                 Field('abreviatura', length=5),
                 auth.signature,
-                common_filter=lambda q: db.profesion.is_active == True
-                
+                common_filter=lambda q: db.profesion.is_active == True,
+                format='%(nombre)s',
+                fake_migrate=True,
                 )
 
 Persona = db.define_table('persona',
+                Field('profesion', Profesion),
                 Field('nombre', length=50),
                 Field('apellido', length=50),
-                Field('profesion', Profesion),
                 Field('dni_tipo', length=15),
                 Field('dni', length=30),
                 Field('email', length=100),
@@ -60,16 +61,8 @@ Persona = db.define_table('persona',
                 Field('domicilio', length=150),
                 auth.signature,
                 common_filter=lambda q: db.persona.is_active == True,
-                format='%(apellido)s, %(nombre)s'
-                
-                )
-
-ProfesionPersona = db.define_table('profesion_persona',
-                Field('profesion', Profesion),
-                Field('persona', Persona),
-                auth.signature,
-                format=lambda r: '%s: %s' % (r.profesion.abreviatura, r.persona.apellido)
-                
+                format='%(apellido)s, %(nombre)s',
+                fake_migrate=True,
                 )
 
 Curso = db.define_table('curso',
@@ -85,7 +78,7 @@ Curso = db.define_table('curso',
 Inscripto = db.define_table('inscripto',
                 Field('curso', Curso),
                 Field('persona', Persona),
-                Field('docente', 'boolean'),
+                Field('docente', 'boolean', default=False),
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'text'),
