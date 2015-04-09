@@ -1,41 +1,60 @@
 <div class="panel panel-danger">
     <div class="container" style="margin-top:10px; margin-bottom:10px;">
-        <b>Título:</b> {{=grid.view_form.custom.widget.titulo}} <br>
-        <b>Lugar</b> {{=grid.view_form.custom.widget.lugar}} <br>
-        <b>Precio</b> {{=grid.view_form.custom.widget.precio}} <br>
-        <br>
-        <b>Fechas</b><br>
-        <div id='curso-fecha'>       
+        <div class="row">
+            <table class="col-md-8 table-bordered table-condensed tabla-curso">
+                <tbody>
+                    <tr>
+                        <td><b>Título</b></td>
+                        <td>{{=grid.view_form.custom.widget.titulo}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Lugar</b></td>
+                        <td>{{=grid.view_form.custom.widget.lugar}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Precio</b></td>
+                        <td>{{=grid.view_form.custom.widget.precio}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <button type='button' id="btn-agregar-fecha" class="btn btn-xs">Agregar Fecha</button>
-        <div class="div-agregar-fecha" style="display:none;">
-            <div class="row">
-                <!-- Add Fechas -->
-                <div class="col-xs-3">
-                    <label>Agregar fechas</label>
-                    <input type="date" class="form-control" name='fecha'>
+        <br>
+        <div class="row">
+            <div class="content-docente-curso">
+                <b>Fechas</b><br>
+                <div id='curso-fecha'>       
                 </div>
-                <div class="col-xs-2">
-                    <label>inicio</label>
-                    <input type="time" class="form-control" name='hora_inicio'>
+                <button type='button' id="btn-agregar-fecha" class="btn btn-xs">Agregar Fecha</button>
+                <div class="div-agregar-fecha" style="display:none;">
+                    <div class="row">
+                        <!-- Add Fechas -->
+                        <div class="col-xs-3">
+                            <label>Agregar fechas</label>
+                            <input type="date" class="form-control" name='fecha'>
+                        </div>
+                        <div class="col-xs-2">
+                            <label>inicio</label>
+                            <input type="time" class="form-control" name='hora_inicio'>
+                        </div>
+                        <div class="col-xs-2">
+                            <label>fin</label>
+                            <input type="time" class="form-control" name='hora_fin'>
+                        </div>
+                        <div class='col-xs-1'>
+                            <br>
+                            <button type='button' onclick="ajax('{{=URL('curso', 'add_date', vars=dict(curso=grid.view_form.custom.dspval.id))}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">+</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-2">
-                    <label>fin</label>
-                    <input type="time" class="form-control" name='hora_fin'>
+                <br>
+                <b>Docentes</b><br>
+                <div id='curso-docente'>       
                 </div>
-                <div class='col-xs-1'>
-                    <br>
-                    <button type='button' onclick="ajax('{{=URL('curso', 'add_date', vars=dict(curso=grid.view_form.custom.dspval.id))}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">+</button>
+                <button type='button' id="btn-agregar-docente" class="btn btn-xs">Agregar Docente</button>
+                <div class="div-agregar-docente" style="display:none;">
+                agregar docente
                 </div>
             </div>
-        </div>
-        <br>
-        <b>Docentes</b><br>
-        <div id='curso-docente'>       
-        </div>
-        <button type='button' id="btn-agregar-docente" class="btn btn-xs">Agregar Docente</button>
-        <div class="div-agregar-docente" style="display:none;">
-        agregar docente
         </div>
     </div>
 </div>
