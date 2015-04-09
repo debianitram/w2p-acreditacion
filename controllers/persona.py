@@ -6,16 +6,23 @@ from gluon.tools import prettydate
 @auth.requires_login()
 def index():
     response.title = 'Administración'
-    response.subtitle = 'grilla'
+    response.subtitle = 'Listado'
     createargs = viewargs = None
 
     ### Config Grid
-    fields = (Persona.nombre, Persona.apellido, Persona.dni, Persona.matricula, Persona.created_on)
-    # Represent Columns
-    Persona.created_on.represent = lambda v, r: SPAN(prettydate(v),
-                                                   _title=v)
-    # Readable&Writable
-    Persona.created_on.readable = True
+    fields = (Persona.nombre,
+              Persona.apellido,
+              Persona.dni,
+              Persona.matricula)
+
+    if 'new' in request.args or 'edit' in request.args:
+        response.subtitle = 'Nuevo' if 'new' in request.args else 'Edición'
+
+
+    if 'view' in request.args:
+        response.subtitle = 'Detalle'
+        readable_signature(Persona)
+
 
     grid = SQLFORM.grid(Persona,
                         csv=False,

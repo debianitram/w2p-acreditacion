@@ -6,7 +6,7 @@ import curso_aux
 @auth.requires_login()
 def index():
     response.title = 'Administración'
-    response.subtitle = 'Grilla'
+    response.subtitle = 'Listado'
     createargs = viewargs = None
 
     ### Config Grid
@@ -47,8 +47,8 @@ def index():
 
 def tab_inscriptos():
     curso = request.args(0, cast=int)
-    inscriptos = db(Inscripto.curso == curso).select()
-
+    query = ((Inscripto.curso == curso) & (Inscripto.docente != True))
+    inscriptos = db(query).select()
     return dict(inscriptos=inscriptos)
 
 
