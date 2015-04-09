@@ -1,3 +1,7 @@
+<!-- Add script for dataTables -->
+{{response.files.append(URL('static', 'media/css/jquery.dataTables.css'))}}
+{{response.files.append(URL('static', 'media/js/jquery.dataTables.min.js'))}}
+
 {{extend 'layout.html'}}
 
 
@@ -40,11 +44,11 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="tab-pane" id="tab_inscriptos">
-                                         {{=LOAD(c='curso',
-                                                 f='tab_inscriptos.load',
-                                                 args=(grid.view_form.custom.dspval.id),
-                                                 ajax=True,
-                                                 )}}
+                                        {{=LOAD(c='curso',
+                                                f='tab_inscriptos.load',
+                                                args=(grid.view_form.custom.dspval.id),
+                                                ajax=True)
+                                        }}
 
                                         <div class='row'>
                                             <div class='col-lg-8'>
@@ -54,7 +58,7 @@
                                     </div>
                                     <div class="tab-pane" id="tab_asistencia">
                                         <p>
-                                            
+                                            Control de las asistencias!
                                         </p>
                                     </div>
                                 </div>
@@ -75,4 +79,5 @@
 
     </div>
 </div>
+
 

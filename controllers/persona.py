@@ -36,6 +36,7 @@ def index():
 
     return dict(grid=grid)
 
+
 def inscripto():
 	grid2 = SQLFORM.grid(Inscripto,
                         csv=False,
