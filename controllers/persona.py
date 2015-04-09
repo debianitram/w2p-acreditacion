@@ -46,25 +46,3 @@ def inscripto():
                         orderby=~Inscripto.created_on,
                         )
 	return dict(grid2=grid2)
-
-def pagos():
-	grid3 = SQLFORM.grid(Pagos,
-                        csv=False,
-                        maxtextlength=200,
-                        ondelete=hide_record,
-                        user_signature=True,
-                        showbuttontext=False,
-                        orderby=~Pagos.created_on,
-                        )
-	return dict(grid3=grid3)
-
-def asistencia():
-	grid4 = SQLFORM.grid(Asistencia,
-                        csv=False,
-                        maxtextlength=200,
-                        ondelete=hide_record,
-                        user_signature=True,
-                        showbuttontext=False,
-                        orderby=~Asistencia.created_on,
-                        )
-	return dict(grid4=grid4)

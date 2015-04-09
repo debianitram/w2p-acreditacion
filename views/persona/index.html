@@ -16,44 +16,44 @@
 							<div class="tabbable-line">
 								<ul class="nav nav-tabs ">
 									<li class="active">
-										<a href="#tab_default_1" data-toggle="tab">
+										<a href="#tab_informacion" data-toggle="tab">
 										Información </a>
 									</li>
 									<li>
-										<a href="#tab_default_2" data-toggle="tab">
+										<a href="#tab_inscripciones" data-toggle="tab">
 										Inscripciones </a>
 									</li>
 									<li>
-										<a href="#tab_default_3" data-toggle="tab">
+										<a href="#tab_pagos" data-toggle="tab">
 										Pagos </a>
 									</li>
 									<li>
-										<a href="#tab_default_4" data-toggle="tab">
+										<a href="#tab_asistencias" data-toggle="tab">
 										Asistencias </a>
 									</li>
 								</ul>
 								<div class="tab-content">
-									<div class="tab-pane active" id="tab_default_1">
-										<div class="well">
-											{{=grid}}
+									<div class="tab-pane active" id="tab_informacion">
+										<div class="">
+											{{include 'persona/tab_informacion.html'}}
 											<div class="clearfix"></div>
 										</div>
 										<div class="clearfix"></div>
 									</div>
-									<div class="tab-pane" id="tab_default_2">
+									<div class="tab-pane" id="tab_inscripciones">
 										<p>
 											{{=LOAD('persona','inscripto.load',ajax=True)}}
 										</p>
 										<div class="clearfix"></div>
 									</div>
-									<div class="tab-pane" id="tab_default_3">
+									<div class="tab-pane" id="tab_pagos">
 										<p>
-											{{=LOAD('persona','pagos.load',ajax=True)}}
+											
 										</p>
 									</div>
-									<div class="tab-pane" id="tab_default_4">
+									<div class="tab-pane" id="tab_asistencias">
 										<p>
-											{{=LOAD('persona','asistencia.load',ajax=True)}}
+											
 										</p>
 									</div>
 								</div>
