@@ -13,7 +13,8 @@ def index():
     fields = (Persona.nombre,
               Persona.apellido,
               Persona.dni,
-              Persona.matricula)
+              Persona.matricula
+              )
 
     if 'new' in request.args or 'edit' in request.args:
         response.subtitle = 'Nuevo' if 'new' in request.args else 'Edición'
@@ -38,9 +39,16 @@ def index():
 
 
 def inscripto():
+
+        fields2 = (Inscripto.curso,
+               Inscripto.fecha_inscripcion,
+               Inscripto.finalizo,
+               Inscripto.pago)
+
 	grid2 = SQLFORM.grid(Inscripto,
                         csv=False,
                         maxtextlength=200,
+                        fields=fields2,
                         ondelete=hide_record,
                         user_signature=True,
                         showbuttontext=False,

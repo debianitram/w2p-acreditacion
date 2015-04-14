@@ -16,6 +16,7 @@
             {{if response.menu:}}
                 {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
             {{pass}}
+            
             <ul class="nav navbar-nav"> 
                 <li class="dropdown mega-dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu <span class="caret"></span></a>       
@@ -32,7 +33,7 @@
                                 <div class="tab-pane" id="cursos">
                                     <ul class="nav-list list-inline">
                                         <li><a href="{{=URL('curso', 'index')}}"><img src="{{=URL('static', 'images/menu-img/book_stack.png')}}" width='70' height='70'><span>Gestion Cursos</span></a></li>
-                                        <li><a href="#"><img src="{{=URL('static', 'images/menu-img/purchase_order.png')}}" width='70' height='70'><span>Reportes</span></a></li>
+                                        <li><a href="{{=URL('inscripto', 'index')}}"><img src="{{=URL('static', 'images/menu-img/purchase_order.png')}}" width='70' height='70'><span>Consultar Inscriptos</span></a></li>
                                     </ul>
                                 </div>
                             </div>
