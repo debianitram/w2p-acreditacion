@@ -39,6 +39,9 @@ auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
 
+# Config String to Search for Field
+PersonaSearch = '{nombre} {apellido} {dni} {matricula}'
+
 ## Define Tables
 Profesion = db.define_table('profesion',
                 Field('nombre'),
@@ -48,6 +51,7 @@ Profesion = db.define_table('profesion',
                 format='%(nombre)s',
                 fake_migrate=True,
                 )
+
 
 Persona = db.define_table('persona',
                 Field('profesion', Profesion),
@@ -59,10 +63,11 @@ Persona = db.define_table('persona',
                 Field('matricula', length=15),
                 Field('telefono', length=30),
                 Field('domicilio', length=150),
+                Field('fsearch',
+                      compute=lambda r: PersonaSearch.format(**r.as_dict())),
                 auth.signature,
                 common_filter=lambda q: db.persona.is_active == True,
                 format='%(apellido)s, %(nombre)s',
-                fake_migrate=True,
                 )
 
 Curso = db.define_table('curso',
@@ -113,8 +118,8 @@ CFecha = db.define_table('cfecha',
                 Field('fecha', 'date'),
                 Field('hora_inicio', 'time'),
                 Field('hora_fin', 'time'),
-                auth.signature
-                
+                auth.signature,
+                format=lambda r: '%s, %s' % (r.curso.titulo, r.fecha)
                 )
 
 Asistencia = db.define_table('asistencia',
