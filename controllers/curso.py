@@ -52,6 +52,19 @@ def tab_inscriptos():
     return dict(inscriptos=inscriptos)
 
 
-def add_date():
+def add_docente():
+    """ Add Docente from Ajax """
+    print request.vars
+    return ''
+
+
+def add_fecha():
+    """ Add Fecha from Ajax """
     print(request.vars)
     return 'jQuery("#curso-fecha").toggle();'
+
+
+
+def delete_item():
+    print(request.vars)
+    return 'Ok'

@@ -5,7 +5,7 @@ def index():
     createargs = viewargs = None
 
     ### Config Grid
-    fields = (Inscripto.persona.nombre,
+    fields = (Inscripto.persona,
                Inscripto.curso,
                Inscripto.fecha_inscripcion,
                Inscripto.finalizo,
@@ -19,6 +19,7 @@ def index():
         response.subtitle = 'Detalle'
         readable_signature(Persona)
 
+    Inscripto.persona.represent = lambda value, row: Persona._format % value
 
     grid = SQLFORM.grid(Inscripto,
                         csv=False,

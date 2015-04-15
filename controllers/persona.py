@@ -1,7 +1,7 @@
 #!-*- encoding:utf-8 -*-
 # Colmenalabs 2015
 from gluon.tools import prettydate
-
+from gluon.serializers import json
 
 @auth.requires_login()
 def index():
@@ -38,20 +38,10 @@ def index():
     return dict(grid=grid)
 
 
-def inscripto():
 
-        fields2 = (Inscripto.curso,
-               Inscripto.fecha_inscripcion,
-               Inscripto.finalizo,
-               Inscripto.pago)
-
-	grid2 = SQLFORM.grid(Inscripto,
-                        csv=False,
-                        maxtextlength=200,
-                        fields=fields2,
-                        ondelete=hide_record,
-                        user_signature=True,
-                        showbuttontext=False,
-                        orderby=~Inscripto.created_on,
-                        )
-	return dict(grid2=grid2)
+def persona_ajax():
+    query = str(request.vars.query)
+    result = db(Persona.fsearch.lower().contains(query.lower()))
+    if not result.isempty():
+        return json([{'value': Persona._format % r.as_dict()} \
+                    for r in result.select()])
