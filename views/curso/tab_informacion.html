@@ -1,54 +1,126 @@
 <div class="row-fluid">
-    <table class="col-md-8 table-bordered table-condensed tabla-curso">
+    <table class="col-xs-12 table-condensed table-responsive">
         <tbody>
             <tr>
                 <td><b>Título</b></td>
                 <td>{{=grid.view_form.custom.widget.titulo}}</td>
+                <td>
+                    <b>Fechas</b>
+                    <div class='pull-right'>
+                        <button type='button' class="btn btn-xs" data-toggle="collapse" data-target='#add-fecha'>
+                            <span class='glyphicon glyphicon-plus'></span>
+                        </button>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td><b>Lugar</b></td>
                 <td>{{=grid.view_form.custom.widget.lugar}}</td>
+                <td rowspan="2">
+                    <ul class='list-group'>
+                        <li class="list-group-item" data-target='cfecha-0'>
+                            <a class='btn btn-xs remove-item'>
+                                <span class='glyphicon glyphicon-minus-sign'></span>
+                            </a>
+                            20/05/2015 10:45 hs
+                            </li>
+                        <li class="list-group-item" data-target='cfecha-1'>
+                             <a class='btn btn-xs remove-item'>
+                                <span class='glyphicon glyphicon-minus-sign'></span>
+                             </a>
+                            20/05/2015 10:45 hs
+                        </li>
+                    </ul>
+                </td>
             </tr>
             <tr>
                 <td><b>Precio</b></td>
                 <td>{{=grid.view_form.custom.widget.precio}}</td>
             </tr>
+            <tr>
+                <td valign="top">
+                    <b>Docentes</b>
+                    <div class='pull-right'>
+                        <button type='button' class="btn btn-xs" data-toggle="collapse" data-target='#add-docente'>
+                            <span class='glyphicon glyphicon-plus'></span>
+                        </button>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <ul class='list-group'>
+                        <li class="list-group-item" data-target='inscripto-0'>
+                            <a class='btn btn-xs remove-item'>
+                                <span class='glyphicon glyphicon-minus-sign'></span>
+                            </a>
+                            Alt. Marello, Adrian
+                        </li>
+                        <li class="list-group-item" data-target='inscripto-1'>
+                            <a class='btn btn-xs remove-item'>
+                                <span class='glyphicon glyphicon-minus-sign'></span>
+                            </a>
+                            CPN Miranda, Juan Ignacio</li>
+                        <li class="list-group-item" data-target='inscripto-2'>
+                        <a class='btn btn-xs remove-item'>
+                            <span class='glyphicon glyphicon-minus-sign'></span>
+                        </a>
+                            CPN Miranda, Juan Ignacio</li>
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
 
-<div class="row-fluid">
-    <div class='col-md-10'>
-        <label>Fechas</label>
-        <button type='button' id="btn-agregar-fecha" class="btn btn-xs">Agregar Fecha</button>
-        <div class="div-agregar-fecha" style="display:none;">
-            <!-- Add Fechas -->
-            <div class="col-xs-3">
-                <label>Agregar fechas</label>
-                <input type="date" class="form-control" name='fecha'>
-            </div>
-            <div class="col-xs-2">
-                <label>inicio</label>
-                <input type="time" class="form-control" name='hora_inicio'>
-            </div>
-            <div class="col-xs-2">
-                <label>fin</label>
-                <input type="time" class="form-control" name='hora_fin'>
-            </div>
-            <div class='col-xs-1'>
-                <br>
-                <button type='button' onclick="ajax('{{=URL('curso', 'add_date', vars=dict(curso=grid.view_form.custom.dspval.id))}}', ['fecha', 'hora_inicio', 'hora_fin'], ':eval')">+</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div clss='row-fluid'>
-    <div class='col-md-10'>
-        <label>Docentes</label>
-        <button type='button' id="btn-agregar-docente" class="btn btn-xs">Agregar Docente</button>
-        <div class="div-agregar-docente" style="display:none;">
-            agregar docente
-        </div>
+
+<div class="row-fluid">
+    <div id='add-fecha' class="collapse">
+        <table class="col-xs-12 table-condensed table-responsive">
+            <tbody>
+                <tr>
+                    <th>Fecha</th>
+                    <td><input type="date" class="form-control" name='fecha'></td>
+                    <th>Inicio</th>
+                    <td><input type="time" class="form-control" name='hora_inicio'></td>
+                    <th>Fin</th>
+                    <td><input type="time" class="form-control" name='hora_fin'></td>
+                    <td>
+                        <button class='btn btn-xs btn-primary'
+                                onclick="ajax(
+                                '{{=URL('curso',
+                                        'add_date',
+                                        args=grid.view_form.custom.dspval.id,
+                                        user_signature=True)}}',
+                                ['fecha', 'hora_inicio', 'hora_fin'],
+                                ':eval')">
+                            <span class='glyphicon glyphicon-plus-sign'></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id='add-docente' class="collapse">
+        <table class="col-xs-12 table-condensed table-responsive">
+            <tbody>
+                <tr>
+                    <th width="20%">Añadir Docente</th>
+                    <td>
+                        <input class="typeahead form-control" type="string" name='docente'>
+                        <button class='btn btn-xs btn-primary'
+                                onclick="ajax(
+                                '{{=URL('curso', 
+                                        'add_docente', 
+                                        args=grid.view_form.custom.dspval.id,
+                                        user_signature=True)}}', 
+                                ['docente'],
+                                ':eval')">
+                                <span class='glyphicon glyphicon-plus-sign'></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
