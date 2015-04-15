@@ -732,8 +732,3 @@ web2py_calc_entropy = jQuery.web2py.calc_entropy;
 */
 /* compatibility code - end*/
 
-
-
-
-
-
