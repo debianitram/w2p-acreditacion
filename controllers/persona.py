@@ -57,3 +57,9 @@ def tab_pagos():
     query = ((Pagos.inscripto == Inscripto.id) & (Inscripto.persona == persona))
     pagos = db(query).select()
     return dict(pagos=pagos)
+
+def tab_asistencias():
+    persona = request.args(0, cast=int)
+    query = ((Asistencia.inscripto == Inscripto.id) & (Inscripto.persona == persona))
+    asistencias = db(query).select()
+    return dict(asistencias=asistencias)
