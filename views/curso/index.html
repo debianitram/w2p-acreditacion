@@ -14,7 +14,8 @@
 <div class='row'>
     <div> <!-- Well ?-->
         {{if grid.view_form:}}
-            {{=grid.view_form.custom.begin}}
+            {{object = grid.view_form.custom}}
+            {{=object.begin}}
                 <div class='row'>
                     <div class='col-lg-8'>
                        
@@ -44,7 +45,7 @@
                                     <div class="tab-pane" id="tab_inscriptos">
                                         {{=LOAD(c='curso',
                                                 f='tab_inscriptos.load',
-                                                args=(grid.view_form.custom.dspval.id),
+                                                args=(object.dspval.id),
                                                 ajax=True)
                                         }}
                                         <div class="clearfix"></div>
@@ -52,7 +53,7 @@
                                     <div class="tab-pane" id="tab_asistencia">
                                         {{=LOAD(c='curso',
                                                 f='tab_asistencias.load',
-                                                args=(grid.view_form.custom.dspval.id),
+                                                args=(object.dspval.id),
                                                 ajax=True)
                                         }}
                                         <div class="clearfix"></div>
@@ -65,7 +66,7 @@
                         {{include 'signature.html'}}
                     </div>
                 </div>
-            {{=grid.view_form.custom.end}}
+            {{=object.end}}
 
 
         {{else:}}

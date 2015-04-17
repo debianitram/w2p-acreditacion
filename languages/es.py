@@ -215,6 +215,7 @@
 'Forgot username?': '¿Olvidó el nombre de usuario?',
 'Forms and Validators': 'Formularios y validadores',
 'Free Applications': 'Aplicaciones Libres',
+'Fsearch': 'Fsearch',
 'Functions with no doctests will result in [passed] tests.': 'Funciones sin doctests equivalen a pruebas [aceptadas].',
 'Group %(group_id)s created': 'Grupo %(group_id)s creado',
 'Group ID': 'ID de Grupo',

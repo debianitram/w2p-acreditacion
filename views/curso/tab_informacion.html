@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <td><b>Título</b></td>
-                <td>{{=grid.view_form.custom.widget.titulo}}</td>
+                <td>{{=object.widget.titulo}}</td>
                 <td>
                     <b>Fechas</b>
                     <div class='pull-right'>
@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td><b>Lugar</b></td>
-                <td>{{=grid.view_form.custom.widget.lugar}}</td>
+                <td>{{=object.widget.lugar}}</td>
                 <td rowspan="2">
                     <ul class='list-group'>
                         <li class="list-group-item" data-target='cfecha-0'>
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td><b>Precio</b></td>
-                <td>{{=grid.view_form.custom.widget.precio}}</td>
+                <td>{{=object.widget.precio}}</td>
             </tr>
             <tr>
                 <td valign="top">
@@ -75,52 +75,56 @@
 
 <div class="row-fluid">
     <div id='add-fecha' class="collapse">
-        <table class="col-xs-12 table-condensed table-responsive">
-            <tbody>
-                <tr>
-                    <th>Fecha</th>
-                    <td><input type="date" class="form-control" name='fecha'></td>
-                    <th>Inicio</th>
-                    <td><input type="time" class="form-control" name='hora_inicio'></td>
-                    <th>Fin</th>
-                    <td><input type="time" class="form-control" name='hora_fin'></td>
-                    <td>
-                        <button class='btn btn-xs btn-primary'
-                                onclick="ajax(
-                                '{{=URL('curso',
-                                        'add_date',
-                                        args=grid.view_form.custom.dspval.id,
-                                        user_signature=True)}}',
-                                ['fecha', 'hora_inicio', 'hora_fin'],
-                                ':eval')">
-                            <span class='glyphicon glyphicon-plus-sign'></span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <pre>
+            <table class="col-xs-8 table-condensed table-responsive">
+                <tbody>
+                    <tr>
+                        <th>Fecha</th>
+                        <td><input type="date" class="form-control" name='fecha'></td>
+                        <th>Inicio</th>
+                        <td><input type="time" class="form-control" name='hora_inicio'></td>
+                        <th>Fin</th>
+                        <td><input type="time" class="form-control" name='hora_fin'></td>
+                        <td>
+                            <button class='btn btn-xs btn-primary'
+                                    onclick="ajax(
+                                    '{{=URL('curso',
+                                            'add_date',
+                                            args=object.dspval.id,
+                                            user_signature=True)}}',
+                                    ['fecha', 'hora_inicio', 'hora_fin'],
+                                    ':eval')">
+                                <span class='glyphicon glyphicon-plus-sign'></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </pre>
     </div>
 
     <div id='add-docente' class="collapse">
-        <table class="col-xs-12 table-condensed table-responsive">
-            <tbody>
-                <tr>
-                    <th width="20%">Añadir Docente</th>
-                    <td>
-                        <input class="typeahead form-control" type="string" name='docente'>
-                        <button class='btn btn-xs btn-primary'
-                                onclick="ajax(
-                                '{{=URL('curso', 
-                                        'add_docente', 
-                                        args=grid.view_form.custom.dspval.id,
-                                        user_signature=True)}}', 
-                                ['docente'],
-                                ':eval')">
-                                <span class='glyphicon glyphicon-plus-sign'></span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <pre>
+            <table class="col-xs-8 table-condensed table-responsive">
+                <tbody>
+                    <tr>
+                        <th>Añadir Docente</th>
+                        <td>
+                            <input class="typeahead form-control" type="string" name='docente'>
+                            <button class='btn btn-xs btn-primary'
+                                    onclick="ajax(
+                                    '{{=URL('curso', 
+                                            'add_docente', 
+                                            args=object.dspval.id,
+                                            user_signature=True)}}', 
+                                    ['docente'],
+                                    ':eval')">
+                                    <span class='glyphicon glyphicon-plus-sign'></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </pre>
     </div>
 </div>
