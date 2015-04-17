@@ -183,6 +183,7 @@
 'Enter a number between %(min)g and %(max)g': 'Enter a number between %(min)g and %(max)g',
 'Enter a valid email address': 'Enter a valid email address',
 'enter a value': 'introduzca un valor',
+'Enter a value': 'Enter a value',
 'Enter an integer between %(min)g and %(max)g': 'Enter an integer between %(min)g and %(max)g',
 'enter an integer between %(min)g and %(max)g': 'introduzca un entero entre %(min)g y %(max)g',
 'enter date and time as %(format)s': 'introduzca fecha y hora como %(format)s',

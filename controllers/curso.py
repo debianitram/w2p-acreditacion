@@ -31,7 +31,7 @@ def index():
         f_cfecha = (CFecha.id, CFecha.fecha, CFecha.hora_inicio, CFecha.hora_fin)
         f_docente = (Inscripto.id, Inscripto.persona, Inscripto.docente)
         viewargs = dict(
-            fecha = lambda c: Curso(c).cfecha.select(*f_cfecha),
+            fecha = lambda c: Curso(c).cfecha.select(*f_cfecha, orderby=CFecha.fecha),
             docente = lambda c: Curso(c).inscripto.select(*f_docente).find(lambda r: r['docente'])
         )
         
@@ -75,8 +75,18 @@ def add_docente():
 
 def add_fecha():
     """ Add Fecha from Ajax """
-    print(request.vars)
-    return 'jQuery("#curso-fecha").toggle();'
+    curso = request.args(0, cast=int)
+    dates = request.vars
+    dates.update(curso=curso)
+
+    result = CFecha.validate_and_insert(**dates)
+
+    if not result.errors:
+        return ''
+    else:
+        return "alert('%s');" % 'Errores al cargar la fecha'
+    
+    return ''
 
 
 def delete_item():

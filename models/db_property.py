@@ -24,5 +24,11 @@ Persona.email.requires = IS_EMAIL()
 # Curso
 Curso.titulo.requires = [IS_NOT_IN_DB(db, Curso.titulo)]
 
+# CFecha
+CFecha.curso.requires = IS_NOT_EMPTY()
+CFecha.fecha.requires = IS_NOT_EMPTY()
+CFecha.hora_inicio.requires = IS_NOT_EMPTY()
+CFecha.hora_fin.requires = IS_NOT_EMPTY()
+
 
 

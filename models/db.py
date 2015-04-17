@@ -110,11 +110,11 @@ Documentos = db.define_table('documentos',
 
 CFecha = db.define_table('cfecha',
                 Field('curso', Curso),
-                Field('fecha', 'date'),
-                Field('hora_inicio', 'time'),
-                Field('hora_fin', 'time'),
+                Field('fecha', 'date', required=True),
+                Field('hora_inicio', 'time', required=True),
+                Field('hora_fin', 'time', required=True),
                 auth.signature,
-                format=lambda r: '%s, %s' % (r.curso.titulo, r.fecha)
+                format=lambda r: '%s, %s' % (r.curso.titulo, r.fecha),
                 )
 
 Asistencia = db.define_table('asistencia',
