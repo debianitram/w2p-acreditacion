@@ -49,7 +49,6 @@ Profesion = db.define_table('profesion',
                 auth.signature,
                 common_filter=lambda q: db.profesion.is_active == True,
                 format='%(nombre)s',
-                fake_migrate=True,
                 )
 
 
@@ -77,7 +76,6 @@ Curso = db.define_table('curso',
                 auth.signature,
                 common_filter=lambda q: db.curso.is_active == True,
                 format='%(titulo)s'
-                
                 )
 
 Inscripto = db.define_table('inscripto',
@@ -92,7 +90,6 @@ Inscripto = db.define_table('inscripto',
                 Field('finalizo', 'boolean', default=False),
                 auth.signature,
                 format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido)
-                
                 )
 
 Pagos = db.define_table('pagos',
@@ -101,7 +98,6 @@ Pagos = db.define_table('pagos',
                 Field('fecha', 'datetime', default=request.now),
                 Field('nro_recibo', length=50),
                 auth.signature
-                
                 )
 
 Documentos = db.define_table('documentos',
@@ -110,7 +106,6 @@ Documentos = db.define_table('documentos',
                 Field('documento', 'upload'),
                 auth.signature,
                 format='%(nombre)s'
-                
                 )
 
 CFecha = db.define_table('cfecha',
@@ -126,7 +121,6 @@ Asistencia = db.define_table('asistencia',
                 Field('cfecha', CFecha),
                 Field('inscripto', Inscripto),
                 auth.signature
-                
                 )
 
 

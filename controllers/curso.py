@@ -1,6 +1,7 @@
 #!-*- encoding:utf-8 -*-
 # Colmenalabs 2015
 from gluon.tools import prettydate
+from gluon.storage import Storage
 import curso_aux
 
 @auth.requires_login()
@@ -27,11 +28,18 @@ def index():
     if 'view' in request.args:
         response.subtitle = 'Detalle'
         readable_signature(Curso)
+        f_cfecha = (CFecha.id, CFecha.fecha, CFecha.hora_inicio, CFecha.hora_fin)
+        f_docente = (Inscripto.id, Inscripto.persona, Inscripto.docente)
+        viewargs = dict(
+            fecha = lambda c: Curso(c).cfecha.select(*f_cfecha),
+            docente = lambda c: Curso(c).inscripto.select(*f_docente).find(lambda r: r['docente'])
+        )
         
 
     grid = SQLFORM.grid(Curso,
                         csv=False,
                         fields=fields,
+                        viewargs=viewargs,
                         maxtextlength=200,
                         ondelete=hide_record,
                         oncreate=curso_aux.oncreate,
@@ -51,6 +59,7 @@ def tab_inscriptos():
     inscriptos = db(query).select()
     return dict(inscriptos=inscriptos)
 
+
 def tab_asistencias():
     curso = request.args(0, cast=int)
     query = ((Asistencia.inscripto == Inscripto.id) & (Inscripto.curso == curso))
@@ -68,7 +77,6 @@ def add_fecha():
     """ Add Fecha from Ajax """
     print(request.vars)
     return 'jQuery("#curso-fecha").toggle();'
-
 
 
 def delete_item():

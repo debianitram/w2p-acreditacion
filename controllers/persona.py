@@ -46,17 +46,20 @@ def persona_ajax():
         return json([{'value': Persona._format % r.as_dict()} \
                     for r in result.select()])
 
+
 def tab_inscripciones():
     persona = request.args(0, cast=int)
     query = ((Inscripto.persona == persona) & (Inscripto.docente != True))
     inscripciones = db(query).select()
     return dict(inscripciones=inscripciones)
 
+
 def tab_pagos():
     persona = request.args(0, cast=int)
     query = ((Pagos.inscripto == Inscripto.id) & (Inscripto.persona == persona))
     pagos = db(query).select()
     return dict(pagos=pagos)
+
 
 def tab_asistencias():
     persona = request.args(0, cast=int)

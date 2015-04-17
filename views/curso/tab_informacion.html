@@ -3,7 +3,7 @@
         <tbody>
             <tr>
                 <td><b>Título</b></td>
-                <td>{{=object.widget.titulo}}</td>
+                <td>{{=object.custom.widget.titulo}}</td>
                 <td>
                     <b>Fechas</b>
                     <div class='pull-right'>
@@ -15,27 +15,23 @@
             </tr>
             <tr>
                 <td><b>Lugar</b></td>
-                <td>{{=object.widget.lugar}}</td>
+                <td>{{=object.custom.widget.lugar}}</td>
                 <td rowspan="2">
                     <ul class='list-group'>
-                        <li class="list-group-item" data-target='cfecha-0'>
-                            <a class='btn btn-xs remove-item'>
-                                <span class='glyphicon glyphicon-minus-sign'></span>
-                            </a>
-                            20/05/2015 10:45 hs
-                            </li>
-                        <li class="list-group-item" data-target='cfecha-1'>
-                             <a class='btn btn-xs remove-item'>
-                                <span class='glyphicon glyphicon-minus-sign'></span>
-                             </a>
-                            20/05/2015 10:45 hs
-                        </li>
+                        {{for f in object.attributes["fecha"](object.custom.dspval.id):}}
+                            <li class="list-group-item" data-target='cfecha-{{=f.id}}'>
+                                <a class='btn btn-xs remove-item'>
+                                    <span class='glyphicon glyphicon-minus-sign'></span>
+                                </a>
+                                {{=f.fecha}} | {{='{:%H:%M} hs'.format(f.hora_inicio)}} | {{='{:%H:%M} hs'.format(f.hora_fin)}}
+                                </li>
+                        {{pass}}
                     </ul>
                 </td>
             </tr>
             <tr>
                 <td><b>Precio</b></td>
-                <td>{{=object.widget.precio}}</td>
+                <td>{{=object.custom.widget.precio}}</td>
             </tr>
             <tr>
                 <td valign="top">
@@ -48,22 +44,14 @@
                 </td>
                 <td colspan="2">
                     <ul class='list-group'>
-                        <li class="list-group-item" data-target='inscripto-0'>
-                            <a class='btn btn-xs remove-item'>
-                                <span class='glyphicon glyphicon-minus-sign'></span>
-                            </a>
-                            Alt. Marello, Adrian
-                        </li>
-                        <li class="list-group-item" data-target='inscripto-1'>
-                            <a class='btn btn-xs remove-item'>
-                                <span class='glyphicon glyphicon-minus-sign'></span>
-                            </a>
-                            CPN Miranda, Juan Ignacio</li>
-                        <li class="list-group-item" data-target='inscripto-2'>
-                        <a class='btn btn-xs remove-item'>
-                            <span class='glyphicon glyphicon-minus-sign'></span>
-                        </a>
-                            CPN Miranda, Juan Ignacio</li>
+                        {{for d in object.attributes["docente"](object.custom.dspval.id):}}
+                            <li class="list-group-item" data-target='inscripto-{{=d.id}}'>
+                                <a class='btn btn-xs remove-item'>
+                                    <span class='glyphicon glyphicon-minus-sign'></span>
+                                </a>
+                                {{=label_inscripto(d)}}
+                            </li>
+                        {{pass}}
                     </ul>
                 </td>
             </tr>
@@ -90,7 +78,7 @@
                                     onclick="ajax(
                                     '{{=URL('curso',
                                             'add_date',
-                                            args=object.dspval.id,
+                                            args=object.custom.dspval.id,
                                             user_signature=True)}}',
                                     ['fecha', 'hora_inicio', 'hora_fin'],
                                     ':eval')">
@@ -115,7 +103,7 @@
                                     onclick="ajax(
                                     '{{=URL('curso', 
                                             'add_docente', 
-                                            args=object.dspval.id,
+                                            args=object.custom.dspval.id,
                                             user_signature=True)}}', 
                                     ['docente'],
                                     ':eval')">
