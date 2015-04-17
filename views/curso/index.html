@@ -50,7 +50,11 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="tab-pane" id="tab_asistencia">
-                                        <p>Control de las asistencias!</p>
+                                        {{=LOAD(c='curso',
+                                                f='tab_asistencias.load',
+                                                args=(grid.view_form.custom.dspval.id),
+                                                ajax=True)
+                                        }}
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>

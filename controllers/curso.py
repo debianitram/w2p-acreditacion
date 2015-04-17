@@ -51,6 +51,12 @@ def tab_inscriptos():
     inscriptos = db(query).select()
     return dict(inscriptos=inscriptos)
 
+def tab_asistencias():
+    curso = request.args(0, cast=int)
+    query = ((Asistencia.inscripto == Inscripto.id) & (Inscripto.curso == curso))
+    asistencias = db(query).select()
+    return dict(asistencias=asistencias)
+
 
 def add_docente():
     """ Add Docente from Ajax """

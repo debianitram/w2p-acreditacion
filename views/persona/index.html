@@ -42,19 +42,33 @@
 									</div>
 									<div class="tab-pane" id="tab_inscripciones">
 										<p>
-											{{=LOAD('persona','inscripto.load',ajax=True)}}
+											{{=LOAD(c='persona',
+                                                f='tab_inscripciones.load',
+                                                args=(grid.view_form.custom.dspval.id),
+                                                ajax=True)
+                                        	}}
 										</p>
 										<div class="clearfix"></div>
 									</div>
 									<div class="tab-pane" id="tab_pagos">
 										<p>
-											
+											{{=LOAD(c='persona',
+                                                f='tab_pagos.load',
+                                                args=(grid.view_form.custom.dspval.id),
+                                                ajax=True)
+                                        	}}
 										</p>
+										<div class="clearfix"></div>
 									</div>
 									<div class="tab-pane" id="tab_asistencias">
 										<p>
-											
+											{{=LOAD(c='persona',
+                                                f='tab_asistencias.load',
+                                                args=(grid.view_form.custom.dspval.id),
+                                                ajax=True)
+                                        	}}
 										</p>
+										<div class="clearfix"></div>
 									</div>
 								</div>
 							</div>
