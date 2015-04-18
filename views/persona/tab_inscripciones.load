@@ -16,6 +16,7 @@
                             <th>Cursos</th>
                             <th>Finalizo</th>
                             <th>Pago</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,16 +24,24 @@
                             <tr>
                                 <td>{{=row.curso.titulo}}</td>
                                  <td>{{if row.finalizo:}}
-                                        <center><span class="label label-success">Si</span></center>
+                                        <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}
-                                        <center><span class="label label-danger">No</span></span></center>
+                                        <center><span class='glyphicon glyphicon-remove'></span></center>
                                     {{pass}}
                                 </td>
                                 <td>{{if row.pago:}}
-                                        <center><span class="label label-success">Si</span></center>
+                                        <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}
-                                        <center><span class="label label-danger">No</span></span></center>
+                                        <center><span class='glyphicon glyphicon-remove'></span></center>
                                     {{pass}}
+                                </td>
+                                <td>
+                                    <button class='btn btn-default btn-sm' title='Abonar'>
+                                        <span class='glyphicon glyphicon-usd'></span>
+                                    </button>
+                                    <button class='btn btn-danger btn-sm' title='Eliminar'>
+                                        <span class='glyphicon glyphicon-remove-sign'></span>
+                                    </button>
                                 </td>
                             </tr>
                         {{pass}}
