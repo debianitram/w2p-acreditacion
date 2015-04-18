@@ -50,6 +50,10 @@ def index():
                         orderby=~Curso.created_on,
                         )
 
+    if 'view' in request.args:
+        for i in grid.elements('.btn'):
+            i.add_class('btn-xs btn-warning',)
+
     return dict(grid=grid)
 
 
@@ -79,6 +83,8 @@ def add_docente():
     inscripto.consultas_docente = '-'
     inscripto.sugerencia = '-'
     result = Inscripto.validate_and_insert(**inscripto)
+
+    # Próxima versión: Comprobar la persona no está inscripta en el curso.
 
     if result.errors:
         return "alert('%s');" % 'Error al intentar cargar un docente'
