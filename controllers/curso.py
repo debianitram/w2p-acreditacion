@@ -4,6 +4,7 @@ from gluon.tools import prettydate
 from gluon.storage import Storage
 import curso_aux
 
+
 @auth.requires_login()
 def index():
     response.title = 'Administración'
@@ -52,7 +53,6 @@ def index():
     return dict(grid=grid)
 
 
-
 def tab_inscriptos():
     curso = request.args(0, cast=int)
     query = ((Inscripto.curso == curso) & (Inscripto.docente != True))
@@ -69,7 +69,20 @@ def tab_asistencias():
 
 def add_docente():
     """ Add Docente from Ajax """
-    print request.vars
+    inscripto = Storage()
+    inscripto.pago = True
+    inscripto.finalizo = True
+    inscripto.docente = True
+    inscripto.fecha_inscripcion = request.now
+    inscripto.curso = request.args(0, cast=int)
+    inscripto.persona = request.vars.get('inscripto_docente')
+    inscripto.consultas_docente = '-'
+    inscripto.sugerencia = '-'
+    result = Inscripto.validate_and_insert(**inscripto)
+
+    if result.errors:
+        return "alert('%s');" % 'Error al intentar cargar un docente'
+
     return ''
 
 
@@ -81,9 +94,7 @@ def add_fecha():
 
     result = CFecha.validate_and_insert(**dates)
 
-    if not result.errors:
-        return ''
-    else:
+    if result.errors:
         return "alert('%s');" % 'Errores al cargar la fecha'
     
     return ''
