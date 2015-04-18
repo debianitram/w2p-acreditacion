@@ -15,18 +15,31 @@ $(document).ready(function(){
     );
 
     $('#add-docente .typeahead').typeahead(
-        {hint: true, highlight: true, minLength: 4},
-        {name: 'states',
-        displayKey: 'value',
-        source:
-            function (query, process) {
+        {
+            hint: true,
+            highlight: true,
+            minLength: 4
+        },
+        {
+            name: 'states',
+            displayKey: 'value',
+            source: function (query, process) {
+                var self = this;
+                self.map = {};
                 return $.get("/acreditacion/persona/persona_ajax", 
                             {'query': query},
                             function(data){
-                                return process(JSON.parse(data));
+                                result = JSON.parse(data);
+                                $.each(result, function(id, item){
+                                    self.map[item.value] = item.id;
+                                });
+                                return process(result);
                             }
-                        );
-            }
+                );
+            },
         }
-    );
+        
+    ).bind("typeahead:selected", function(obj, datum, name) {
+        $('#inscripto-docente-id').val(datum.id);
+    });
 });

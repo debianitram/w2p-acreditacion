@@ -113,8 +113,10 @@ CFecha = db.define_table('cfecha',
                 Field('fecha', 'date', required=True),
                 Field('hora_inicio', 'time', required=True),
                 Field('hora_fin', 'time', required=True),
+                # Field('nuevo_campo', 'integer'),
                 auth.signature,
                 format=lambda r: '%s, %s' % (r.curso.titulo, r.fecha),
+                migrate=True
                 )
 
 Asistencia = db.define_table('asistencia',
