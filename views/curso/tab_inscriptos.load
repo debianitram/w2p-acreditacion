@@ -49,10 +49,10 @@
                         {{pass}}
                     </tbody>
                 </table>
+            </div>
         {{pass}}
     </div>
 </div>
-
 
 <script>
     $('#curso-inscriptos').dataTable();
