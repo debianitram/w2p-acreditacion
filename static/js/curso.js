@@ -8,7 +8,7 @@ $(document).ready(function(){
             $.get("/acreditacion/curso/delete_item/",
                 {'target': target},
                 function(data){
-                    console.log(data);
+                    $('*[data-target='+data+']').slideToggle();
                 }
             );
         }

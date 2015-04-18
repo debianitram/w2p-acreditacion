@@ -101,5 +101,8 @@ def add_fecha():
 
 
 def delete_item():
-    print(request.vars)
-    return 'Ok'
+    target = request.vars.get('target')
+    table, object_id = target.split('-')
+    db[table](object_id).delete_record()
+
+    return target
