@@ -5,7 +5,7 @@ $(document).ready(function(){
             Item = $(this).parent()[0];
             target = Item.dataset.target;
 
-            $.get("/acreditacion/curso/delete_item/",
+            $.get("/init/curso/delete_item/",
                 {'target': target},
                 function(data){
                     $('*[data-target='+data+']').slideToggle();
@@ -26,7 +26,7 @@ $(document).ready(function(){
             source: function (query, process) {
                 var self = this;
                 self.map = {};
-                return $.get("/acreditacion/persona/persona_ajax", 
+                return $.get("/init/persona/persona_ajax", 
                             {'query': query},
                             function(data){
                                 result = JSON.parse(data);

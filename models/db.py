@@ -7,7 +7,9 @@ myconf = AppConfig(reload=True)
 
 db = DAL(myconf.take('db.uri'),
          pool_size=myconf.take('db.pool_size', cast=int),
-         check_reserved=['all'])
+         check_reserved=['all'],
+         fake_migrate_all=True,
+         migrate=False)
 
 response.generic_patterns = ['*'] if request.is_local else []
 
