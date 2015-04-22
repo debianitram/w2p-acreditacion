@@ -41,7 +41,6 @@ def index():
 
 def persona_ajax():
     query = str(request.vars.query)
-    print(query)
     result = db(Persona.fsearch.lower().contains(query.lower()))
     if not result.isempty():
         return json([{'id': r.id, 'value': Persona._format % r.as_dict()} \

@@ -61,7 +61,7 @@ def tab_inscriptos():
     curso = request.args(0, cast=int)
     query = ((Inscripto.curso == curso) & (Inscripto.docente != True))
     inscriptos = db(query).select()
-    return dict(inscriptos=inscriptos)
+    return dict(inscriptos=inscriptos, curso=curso)
 
 
 def tab_asistencias():
@@ -90,6 +90,31 @@ def add_docente():
         return "alert('%s');" % 'Error al intentar cargar un docente'
 
     return ''
+
+
+def add_inscriptos():
+    response.view = 'curso/add_inscriptos.html'
+    curso = Curso(request.args(0, cast=int))
+
+    if request.ajax:
+        inscriptos = request.vars.get('curso_inscripto', None)
+
+        if inscriptos:
+            if not isinstance(inscriptos, (list, tuple)):
+                inscriptos = [inscriptos, ]
+                
+            for count, item in enumerate(inscriptos):
+                # Evitamos dos inscriptos iguales.
+                if item not in inscriptos[count + 1: -1]:
+                    Inscripto.validate_and_insert(curso=curso.id,
+                                                  persona=int(item),
+                                                  fecha_inscripcion=request.now)
+
+            return 'console.log("Redireccionar al curso y activar la pestania de inscriptos");'
+        else:
+            return 'console.log("No se enviaron datos");'
+
+    return dict(curso=curso)
 
 
 def add_fecha():

@@ -9,7 +9,7 @@ db = DAL(myconf.take('db.uri'),
          pool_size=myconf.take('db.pool_size', cast=int),
          check_reserved=['all'],
          fake_migrate_all=True,
-         migrate=False)
+         migrate=Fals)e
 
 response.generic_patterns = ['*'] if request.is_local else []
 
