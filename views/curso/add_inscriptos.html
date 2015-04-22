@@ -1,0 +1,46 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+    <h2>{{=request.controller.title()}} <small> > Añadir inscriptos > {{=curso.titulo}}</small></h2>
+    <hr>
+{{end}}
+
+<div class='well'>
+    <div class='row'>
+        <div class='col-xs-6 col-sm-offset-2'>
+            <div class='form-horizontal'>
+                <div class='form-group'>
+                    <label for='curso-inscripto'>Buscar persona</label>
+                    <div class='form-label'>
+                        <div class='pull-right'>
+                            <button class='btn btn-sm btn-success new-inscripto'>
+                                Añadir al curso <span class='glyphicon glyphicon-plus-sign'></span>
+                            </button>
+                            <button class='btn btn-sm btn-danger'>
+                                Persona <span class='glyphicon glyphicon-plus-sign'></span>
+                            </button>
+                        </div>
+                        <input id='typeahead-id' type='hidden'>
+                        <input id='curso-inscripto' class='typeahead form-control' type='text'>
+                    </div>
+                </div>
+                
+                <div class='form-group'>
+                    <ul class='list-group'></ul>
+                </div>
+
+                <button class='btn btn-primary' onclick="ajax(
+                                                '{{=URL('curso',
+                                                        'add_inscriptos',
+                                                        args=curso.id)}}',
+                                                ['curso_inscripto'],
+                                                ':eval')">
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{block page_js}}
+    <script src="{{=URL('static', 'js/curso.js')}}"></script>
+{{end page_js}}

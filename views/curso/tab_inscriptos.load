@@ -2,8 +2,8 @@
     <div class='col-lg-12'>
         <div class='pull-right'>
             <div class="btn-group">
-                <a class="btn btn-xs btn-default">Inscribir Nuevo</a>
-                <a class="btn btn-xs btn-default">Importar Inscriptos</a>
+                <a href="{{=URL('curso', 'add_inscriptos', args=curso)}}" class="btn btn-xs btn-default open-modal">Inscribir Nuevo</a>
+                <a class="btn btn-xs btn-default" data-title='Importar Inscripto' data-type='import_inscripto'>Importar Inscriptos</a>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
 
                     <tbody>
                         {{for row in inscriptos:}}
-                            <tr>
+                            <tr id='inscripto-{{=row.id}}'>
                                 <td>{{=label_inscripto(row)}}</td>
                                 <td>{{=row.persona.matricula or 'sin matricula'}}</td>
                                 <td>{{=row.persona.dni or '-'}}
@@ -37,12 +37,12 @@
                                     {{pass}}
                                 </td>
                                 <td>
-                                    <button class='btn btn-default btn-sm' title='Abonar'>
+                                    <a class='btn btn-default btn-sm' title='Abonar'>
                                         <span class='glyphicon glyphicon-usd'></span>
-                                    </button>
-                                    <button class='btn btn-danger btn-sm' title='Eliminar'>
+                                    </a>
+                                    <a class='btn btn-danger btn-sm remove-item' title='Eliminar'>
                                         <span class='glyphicon glyphicon-remove-sign'></span>
-                                    </button>
+                                    </a>
                                 </td>
 
                             </tr>
