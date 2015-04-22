@@ -9,7 +9,7 @@ db = DAL(myconf.take('db.uri'),
          pool_size=myconf.take('db.pool_size', cast=int),
          check_reserved=['all'],
          fake_migrate_all=True,
-         migrate=Fals)e
+         migrate=False)
 
 response.generic_patterns = ['*'] if request.is_local else []
 
@@ -80,6 +80,7 @@ Curso = db.define_table('curso',
                 format='%(titulo)s'
                 )
 
+
 Inscripto = db.define_table('inscripto',
                 Field('curso', Curso),
                 Field('persona', Persona),
@@ -91,7 +92,7 @@ Inscripto = db.define_table('inscripto',
                 Field('pago', 'boolean', default=False),
                 Field('finalizo', 'boolean', default=False),
                 auth.signature,
-                format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido)
+                format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido),
                 )
 
 Pagos = db.define_table('pagos',

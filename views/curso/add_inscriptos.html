@@ -1,7 +1,7 @@
 {{extend 'layout.html'}}
 
 {{block head}}
-    <h2>{{=request.controller.title()}} <small> > Añadir inscriptos > {{=curso.titulo}}</small></h2>
+    <h2>{{=request.controller.title()}} <small> > {{=curso.titulo}} > Añadir inscriptos</small></h2>
     <hr>
 {{end}}
 
@@ -10,15 +10,13 @@
         <div class='col-xs-6 col-sm-offset-2'>
             <div class='form-horizontal'>
                 <div class='form-group'>
-                    <label for='curso-inscripto'>Buscar persona</label>
+                    <label for='curso-inscripto'>Buscar Persona</label>
                     <div class='form-label'>
                         <div class='pull-right'>
                             <button class='btn btn-sm btn-success new-inscripto'>
                                 Añadir al curso <span class='glyphicon glyphicon-plus-sign'></span>
                             </button>
-                            <button class='btn btn-sm btn-danger'>
-                                Persona <span class='glyphicon glyphicon-plus-sign'></span>
-                            </button>
+                            {{=modal.btn()}}
                         </div>
                         <input id='typeahead-id' type='hidden'>
                         <input id='curso-inscripto' class='typeahead form-control' type='text'>
@@ -35,12 +33,13 @@
                                                         args=curso.id)}}',
                                                 ['curso_inscripto'],
                                                 ':eval')">
-                    Enviar
+                    Guardar
                 </button>
             </div>
         </div>
     </div>
 </div>
+{{=modal.modal()}}
 {{block page_js}}
     <script src="{{=URL('static', 'js/curso.js')}}"></script>
 {{end page_js}}

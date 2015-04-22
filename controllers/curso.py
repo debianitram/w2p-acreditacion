@@ -2,6 +2,8 @@
 # Colmenalabs 2015
 from gluon.tools import prettydate
 from gluon.storage import Storage
+
+from web2py_modal import modal_reference
 import curso_aux
 
 
@@ -96,7 +98,17 @@ def add_inscriptos():
     response.view = 'curso/add_inscriptos.html'
     curso = Curso(request.args(0, cast=int))
 
-    if request.ajax:
+    key = str(Inscripto.persona).replace('.', '_')
+    modal = modal_reference(Inscripto.persona,
+                            btn_title='Añadir Persona',
+                            btn_icon='glyphicon glyphicon-plus-sign',
+                            btn_name='Persona',
+                            btn_class='btn btn-danger btn-sm',
+                            modal_title='Nueva Persona',
+                            modal_key=key)
+
+
+    if request.ajax and not request.vars._ajax_add:
         inscriptos = request.vars.get('curso_inscripto', None)
 
         if inscriptos:
@@ -110,11 +122,15 @@ def add_inscriptos():
                                                   persona=int(item),
                                                   fecha_inscripcion=request.now)
 
-            return 'console.log("Redireccionar al curso y activar la pestania de inscriptos");'
+            redirect(URL(c='curso',
+                         f='index',
+                         args=('view', Curso._tablename, curso.id),
+                         user_signature=True),
+                    client_side=True)
         else:
-            return 'console.log("No se enviaron datos");'
+            return 'alert("Debe cargar una persona al curso");'
 
-    return dict(curso=curso)
+    return dict(curso=curso, modal=modal)
 
 
 def add_fecha():
