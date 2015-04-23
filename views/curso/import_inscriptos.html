@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+    <h2>{{=request.controller.title()}} <small> > {{=curso.titulo}} > Importar Inscriptos</small></h2>
+    <hr>
+{{end}}
+
+<div class='row'>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well well-lg">
+            {{=form}}
+        </div>
+    </div>
+</div>
