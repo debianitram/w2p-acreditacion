@@ -60,9 +60,18 @@ def index():
 
 
 def tab_inscriptos():
+    # Represent
+    Inscripto.persona.represent = lambda r, v: SPAN('Saludos')
+    
     curso = request.args(0, cast=int)
     query = ((Inscripto.curso == curso) & (Inscripto.docente != True))
-    inscriptos = db(query).select()
+    # Fields
+    fields = (Inscripto.id,
+              Inscripto.persona,
+              Inscripto.pago)
+
+    inscriptos = db(query).select(*fields)
+
     return dict(inscriptos=inscriptos, curso=curso)
 
 
@@ -102,8 +111,8 @@ def add_inscriptos():
     modal = modal_reference(Inscripto.persona,
                             btn_title='Añadir Persona',
                             btn_icon='glyphicon glyphicon-plus-sign',
-                            btn_name='Persona',
-                            btn_class='btn btn-danger btn-sm',
+                            btn_name='Nueva Persona',
+                            btn_class='btn btn-default btn-xs',
                             modal_title='Nueva Persona',
                             modal_key=key)
 
@@ -117,7 +126,7 @@ def add_inscriptos():
                 
             for count, item in enumerate(inscriptos):
                 # Evitamos dos inscriptos iguales.
-                if item not in inscriptos[count + 1: -1]:
+                if item not in inscriptos[count:]:
                     Inscripto.validate_and_insert(curso=curso.id,
                                                   persona=int(item),
                                                   fecha_inscripcion=request.now)
@@ -128,7 +137,7 @@ def add_inscriptos():
                          user_signature=True),
                     client_side=True)
         else:
-            return 'alert("Debe cargar una persona al curso");'
+            return 'alert("Inscriba una persona al curso");'
 
     return dict(curso=curso, modal=modal)
 

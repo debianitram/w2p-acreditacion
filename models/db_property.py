@@ -31,4 +31,7 @@ CFecha.hora_inicio.requires = IS_NOT_EMPTY()
 CFecha.hora_fin.requires = IS_NOT_EMPTY()
 
 
-
+########### Requires - Validators ###########
+# Persona
+Persona.dni_tipo.label = 'DNI Tipo'
+Persona.dni.label = 'DNI'

@@ -153,6 +153,8 @@
 'Disk Cache Keys': 'Llaves de Caché en Disco',
 'Disk Cleared': 'Disco limpiado',
 'Dni': 'Dni',
+'DNI': 'DNI',
+'DNI Tipo': 'DNI Tipo',
 'Dni Tipo': 'Dni Tipo',
 'Docente': 'Docente',
 'Docs': 'Docs',
