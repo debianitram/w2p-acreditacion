@@ -103,6 +103,28 @@ def add_docente():
     return ''
 
 
+def import_inscriptos():
+    response.view = 'curso/import_inscriptos.html'
+    curso = Curso(request.args(0, cast=int))
+
+    form = SQLFORM.factory(
+            Field('csv_inscriptos',
+                  'upload',
+                  label='Archivo CSV',
+                  uploadfolder='uploads/csv/'),
+            formstyle='bootstrap3_stacked')
+
+
+    if form.process().accepted:
+        csvfile = request.vars.csv_inscriptos.file
+        print type(csvfile)
+        csvfile.seek(0)
+        print csvfile.read()
+
+
+    return dict(form=form, curso=curso)
+
+
 def add_inscriptos():
     response.view = 'curso/add_inscriptos.html'
     curso = Curso(request.args(0, cast=int))

@@ -12,6 +12,14 @@ $('.remove-item').on('click',
     }
 );
 
+$('.remove-item-nodb').on('click',
+    function(event){
+        Item = $(this).parent()[0];
+        Item.remove();
+    }
+);
+
+
 $('.typeahead').typeahead(
     {
         hint: true,
@@ -50,7 +58,7 @@ $('.new-inscripto').on('click',
 
             UL      = $('.list-group');
             item = "<li class='list-group-item' id='inscripto-[id-inscripto]'> \
-                        <a class='btn btn-xs remove-li'><span class='glyphicon glyphicon-minus-sign'></span></a> \
+                        <a class='btn btn-xs remove-item-nodb'><span class='glyphicon glyphicon-minus-sign'></span></a> \
                         <input type='hidden' name='curso_inscripto', value='[id-inscripto]'> \
                         [value-inscripto] \
                     </li>";
@@ -66,3 +74,5 @@ $('.new-inscripto').on('click',
         }
     }
 );
+
+

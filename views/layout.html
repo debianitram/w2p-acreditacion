@@ -96,14 +96,5 @@
     <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
     <script src="{{=URL('static','js/menu.js')}}"></script>
     {{block page_js}}{{end page_js}}
-    {{if response.google_analytics_id:}}
-    <!-- Analytics ==================================== -->
-    <script src="{{=URL('static','js/analytics.min.js')}}"></script>
-    <script type="text/javascript">
-      analytics.initialize({
-      'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
-      });
-    </script>
-    {{pass}}
   </body>
 </html>
