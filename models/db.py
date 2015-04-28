@@ -42,7 +42,7 @@ auth.settings.reset_password_requires_verification = True
 
 
 # Config String to Search for Field
-PersonaSearch = '{nombre} {apellido} {dni} {matricula}'
+PersonaSearch = '{nombre_apellido} {dni} {matricula}'
 
 ## Define Tables
 Profesion = db.define_table('profesion',

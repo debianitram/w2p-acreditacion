@@ -24,7 +24,7 @@
                         {{for row in asistencias:}}
                             <tr>
                                 <td>{{=row.asistencia.cfecha.fecha}}</td>
-                                <td>{{=row.inscripto.persona.apellido}}, {{=row.inscripto.persona.nombre}}</td>
+                                <td>{{=row.inscripto.persona.nombre_apellido}}</td>
                             </tr>
                         {{pass}}
                     </tbody>

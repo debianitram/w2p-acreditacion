@@ -19,7 +19,8 @@
                             <th>Inscripto</th>
                             <th>Matricula</th>
                             <th>Documento</th>
-                            <th>Pago?</th>
+                            <th>Pago</th>
+                            <th>Asistencia</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -30,21 +31,34 @@
                                 <td>{{=label_inscripto(row)}}</td>
                                 <td>{{=row.persona.matricula or 'sin matricula'}}</td>
                                 <td>{{=row.persona.dni or '-'}}
-                                <td>{{if row.pago:}}
+                                <td>
+                                    {{if row.pago:}}
                                         <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}
                                         <center><span class='glyphicon glyphicon-remove'></span></center>
                                     {{pass}}
                                 </td>
                                 <td>
-                                    <a class='btn btn-default btn-sm' title='Abonar'>
+                                    {{if row.finalizo:}}
+                                        <center><span class='glyphicon glyphicon-ok'></span></center>
+                                    {{else:}}
+                                        <center><span class='glyphicon glyphicon-remove'></span></center>
+                                    {{pass}}</td>
+                                <td>
+                                    <a id="btn-abonar" class='btn btn-default btn-sm btn-accion' title='Abonar' 
+                                    data-title="" data-content="<b><span style='font-size:18px;'>Quiere realizar el pago ?</span><b>" data-button="<button id='edit-form' class='btn btn-primary'>Aceptar</button><button class='btn btn-danger' data-dismiss='modal' aria-hidden='true'>Cancelar</button>">
                                         <span class='glyphicon glyphicon-usd'></span>
                                     </a>
-                                    <a class='btn btn-danger btn-sm remove-item' title='Eliminar'>
-                                        <span class='glyphicon glyphicon-remove-sign'></span>
+                                    <a id="btn-asistio" class='btn btn-default btn-sm btn-accion' title='Asistio' data-title="" data-content="<b><span style='font-size:18px;'>Confirmar la asistencia ?</span><b>" data-button="<button id='edit-form' class='btn btn-primary'>Aceptar</button><button class='btn btn-danger' data-dismiss='modal' aria-hidden='true'>Cancelar</button>">
+                                        <span class='glyphicon glyphicon glyphicon-list-alt'></span>
                                     </a>
-                                </td>
-
+                                    <a id="btn-imp-certificado" class='btn btn-info btn-sm btn-accion' title='Imprimir Certificado'>
+                                        <span class='glyphicon glyphicon-print'></span>
+                                    </a>
+                                    <a class='btn btn-danger btn-sm remove-item btn-accion' title='Eliminar'>
+                                        <span class='glyphicon glyphicon-remove-sign'></span>
+                                    </a>  
+                                </td> 
                             </tr>
                         {{pass}}
                     </tbody>
@@ -54,6 +68,39 @@
     </div>
 </div>
 
+<!-- MODAL -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Dialog</h3>
+        </div>
+        <div class="modal-body">
+            <form role="form"  class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="mutual">Example: </label>
+                    <div class="col-sm-6">
+                        <input type="text" id="example-form" value="" class="form-control">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button id="edit-form"  data-id-mutual="" class="btn btn-primary">Save</button>
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
     $('#curso-inscriptos').dataTable();
+    $('.btn-accion').click(function(){
+        $('#myModal .modal-header').html("<b>"+$(this).attr('data-title')+"<b>");
+        $('#myModal .modal-body').html("<b>"+$(this).attr('data-content')+"<b>");
+        $('#myModal .modal-footer').html("<b>"+$(this).attr('data-button')+"<b>");
+        $('#myModal').modal('show');
+    });
 </script>

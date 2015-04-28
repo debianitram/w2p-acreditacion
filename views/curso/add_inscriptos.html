@@ -11,6 +11,9 @@
         <div class='well well-lg'>
             <div class='form-horizontal'>
                 <div class='form-group'>
+                    <a class='btn btn-default btn-sm btn-asistio' title='Asistio' href="{{=URL('curso', 'index/view/curso', args=curso.id, user_signature=True)}}">
+                        <span class='glyphicon glyphicon-arrow-left'></span>
+                    </a><hr>
                     <label for='curso-inscripto'>Buscar Persona</label>
                     <div class='form-label'>
                         <div class='pull-right'>
@@ -28,14 +31,16 @@
                     <ul class='list-group'></ul>
                 </div>
 
-                <button class='btn btn-primary' onclick="ajax(
-                                                '{{=URL('curso',
-                                                        'add_inscriptos',
-                                                        args=curso.id)}}',
-                                                ['curso_inscripto'],
-                                                ':eval')">
-                    Guardar
-                </button>
+                <div class='form-group'>
+                    <button class='btn btn-primary' onclick="ajax(
+                                                    '{{=URL('curso',
+                                                            'add_inscriptos',
+                                                            args=curso.id)}}',
+                                                    ['curso_inscripto'],
+                                                    ':eval')">
+                        Guardar
+                    </button>
+                </div>
             </div>
         </div>
     </div>

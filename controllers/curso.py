@@ -64,11 +64,13 @@ def tab_inscriptos():
     Inscripto.persona.represent = lambda r, v: SPAN('Saludos')
     
     curso = request.args(0, cast=int)
-    query = ((Inscripto.curso == curso) & (Inscripto.docente != True))
+    query = ((Inscripto.curso == curso) & (Inscripto.docente != True) & (Persona.id == Inscripto.persona))
     # Fields
     fields = (Inscripto.id,
               Inscripto.persona,
-              Inscripto.pago)
+              Inscripto.pago,
+              Inscripto.finalizo
+              )
 
     inscriptos = db(query).select(*fields)
 
