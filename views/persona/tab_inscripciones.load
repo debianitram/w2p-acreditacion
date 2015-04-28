@@ -23,7 +23,7 @@
                         {{for row in inscripciones:}}
                             <tr>
                                 <td>{{=row.curso.titulo}}</td>
-                                 <td>{{if row.finalizo:}}
+                                 <td>{{if row.acreditado:}}
                                         <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}
                                         <center><span class='glyphicon glyphicon-remove'></span></center>

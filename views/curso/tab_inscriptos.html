@@ -20,6 +20,7 @@
                             <th>Matricula</th>
                             <th>Documento</th>
                             <th>Pago?</th>
+                            <th>Acreditado?</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -36,6 +37,12 @@
                                         <center><span class='glyphicon glyphicon-remove'></span></center>
                                     {{pass}}
                                 </td>
+                                <td>{{if row.acreditado:}}
+                                        <center><span class='glyphicon glyphicon-ok'></span></center>
+                                    {{else:}}
+                                        <center><span class='glyphicon glyphicon-remove'></span></center>
+                                    {{pass}}
+                                </td>                                    
                                 <td>
                                     <a class='btn btn-default btn-sm' title='Abonar'>
                                         <span class='glyphicon glyphicon-usd'></span>
