@@ -42,7 +42,7 @@ auth.settings.reset_password_requires_verification = True
 
 
 # Config String to Search for Field
-PersonaSearch = '{nombre} {apellido} {dni} {matricula}'
+PersonaSearch = '{nombre_apellido} {dni} {matricula} {domicilio}'
 
 ## Define Tables
 Profesion = db.define_table('profesion',
@@ -86,11 +86,10 @@ Inscripto = db.define_table('inscripto',
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'text'),
-                Field('curso_persona'),
                 Field('pago', 'boolean', default=False),
-                Field('finalizo', 'boolean', default=False),
+                Field('acreditado', 'boolean', default=False),
                 auth.signature,
-                format=lambda r: '%s: %s' % (r.curso.titulo, r.persona.apellido),
+                format=lambda r: '%s> %s' % (r.curso.titulo, r.persona.apellido),
                 )
 
 Pagos = db.define_table('pagos',
@@ -106,7 +105,7 @@ Documentos = db.define_table('documentos',
                 Field('nombre', length=150),
                 Field('documento', 'upload'),
                 auth.signature,
-                format='%(nombre)s'
+                format=lambda r: '%s> Archivo: %s' % (r.curso.titulo, r.nombre)
                 )
 
 CFecha = db.define_table('cfecha',
@@ -115,8 +114,7 @@ CFecha = db.define_table('cfecha',
                 Field('hora_inicio', 'time', required=True),
                 Field('hora_fin', 'time', required=True),
                 auth.signature,
-                format=lambda r: '%s, %s' % (r.curso.titulo, r.fecha),
-                migrate=True
+                format=lambda r: '%s> Fecha: %s' % (r.curso.titulo, r.fecha),
                 )
 
 Asistencia = db.define_table('asistencia',

@@ -68,7 +68,8 @@ def tab_inscriptos():
     # Fields
     fields = (Inscripto.id,
               Inscripto.persona,
-              Inscripto.pago)
+              Inscripto.pago,
+              Inscripto.acreditado)
 
     inscriptos = db(query).select(*fields)
 
