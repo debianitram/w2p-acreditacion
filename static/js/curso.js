@@ -75,4 +75,11 @@ $('.new-inscripto').on('click',
     }
 );
 
+$('#add-fecha').on('show.bs.collapse', function () {
+    $('#add-docente').collapse('hide');
+});
+
+$('#add-docente').on('show.bs.collapse', function () {
+    $('#add-fecha').collapse('hide');
+})
 

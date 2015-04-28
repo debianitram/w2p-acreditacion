@@ -23,6 +23,14 @@ response.google_analytics_id = None
 ## this is the main application menu add/remove items as required
 #########################################################################
 
-response.menu = []
+response.menu = [(T('Inicio'), False, URL('default', 'index')),
+	(T('Personas'), False, '#', [
+               	(T('Gestión Profesiones'), False, URL('profesion', 'index')),
+                (T('Gestión Personas'), False, URL('persona', 'index'))
+              ]),
+    (T('Cursos'), False, '#',[
+    			(T('Gestión Cursos'), False, URL('curso', 'index')),
+    			(T('Reportes'), False, URL('default', 'index')),
+    	])]
 
 if "auth" in locals(): auth.wikimenu() 

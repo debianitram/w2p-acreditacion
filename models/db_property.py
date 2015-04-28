@@ -17,8 +17,7 @@ CFecha.curso.writable = False
 Profesion.nombre.requires = IS_NOT_EMPTY()
 
 # Persona
-Persona.nombre.requires = IS_NOT_EMPTY()
-Persona.apellido.requires = IS_NOT_EMPTY()
+Persona.nombre_apellido.requires = IS_NOT_EMPTY()
 Persona.email.requires = IS_EMAIL()
 
 # Curso
@@ -33,5 +32,4 @@ CFecha.hora_fin.requires = IS_NOT_EMPTY()
 
 ########### Requires - Validators ###########
 # Persona
-Persona.dni_tipo.label = 'DNI Tipo'
 Persona.dni.label = 'DNI'
