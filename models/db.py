@@ -8,8 +8,8 @@ myconf = AppConfig(reload=True)
 db = DAL(myconf.take('db.uri'),
          pool_size=myconf.take('db.pool_size', cast=int),
          check_reserved=['all'],
-         fake_migrate_all=True,
-         migrate=False)
+         migrate=True
+         )
 
 response.generic_patterns = ['*'] if request.is_local else []
 
@@ -56,9 +56,7 @@ Profesion = db.define_table('profesion',
 
 Persona = db.define_table('persona',
                 Field('profesion', Profesion),
-                Field('nombre', length=50),
-                Field('apellido', length=50),
-                Field('dni_tipo', length=15),
+                Field('nombre_apellido', length=250),
                 Field('dni', length=30),
                 Field('email', length=100),
                 Field('matricula', length=15),
@@ -68,7 +66,7 @@ Persona = db.define_table('persona',
                       compute=lambda r: PersonaSearch.format(**r.as_dict())),
                 auth.signature,
                 common_filter=lambda q: db.persona.is_active == True,
-                format='%(apellido)s, %(nombre)s',
+                format='%(nombre_apellido)s',
                 )
 
 Curso = db.define_table('curso',
@@ -116,7 +114,6 @@ CFecha = db.define_table('cfecha',
                 Field('fecha', 'date', required=True),
                 Field('hora_inicio', 'time', required=True),
                 Field('hora_fin', 'time', required=True),
-                # Field('nuevo_campo', 'integer'),
                 auth.signature,
                 format=lambda r: '%s, %s' % (r.curso.titulo, r.fecha),
                 migrate=True

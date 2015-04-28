@@ -10,8 +10,7 @@ def index():
     createargs = viewargs = None
 
     ### Config Grid
-    fields = (Persona.nombre,
-              Persona.apellido,
+    fields = (Persona.nombre_apellido,
               Persona.dni,
               Persona.matricula
               )
