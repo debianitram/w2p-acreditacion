@@ -8,3 +8,5 @@ sessions/*
 uploads/*
 databases/*
 cron/*
+.pythonhistory
+progress.log

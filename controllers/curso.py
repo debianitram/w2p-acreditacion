@@ -69,7 +69,7 @@ def tab_inscriptos():
     fields = (Inscripto.id,
               Inscripto.persona,
               Inscripto.pago,
-              Inscripto.finalizo
+              Inscripto.acreditado
               )
 
     inscriptos = db(query).select(*fields)
@@ -150,7 +150,7 @@ def add_inscriptos():
                 
             for count, item in enumerate(inscriptos):
                 # Evitamos dos inscriptos iguales.
-                if item not in inscriptos[count:]:
+                if item not in inscriptos[count + 1:]:
                     Inscripto.validate_and_insert(curso=curso.id,
                                                   persona=int(item),
                                                   fecha_inscripcion=request.now)

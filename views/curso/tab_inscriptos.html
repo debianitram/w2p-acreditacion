@@ -21,6 +21,7 @@
                             <th>Documento</th>
                             <th>Pago</th>
                             <th>Asistencia</th>
+                            <th>Pago?</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -38,13 +39,13 @@
                                         <center><span class='glyphicon glyphicon-remove'></span></center>
                                     {{pass}}
                                 </td>
-                                <td>
-                                    {{if row.finalizo:}}
+                                <td>{{if row.acreditado:}}
                                         <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}
                                         <center><span class='glyphicon glyphicon-remove'></span></center>
-                                    {{pass}}</td>
-                                <td>
+                                    {{pass}}
+                                </td>   
+                                <td>                                 
                                     <a id="btn-abonar" class='btn btn-default btn-sm btn-accion' title='Abonar' 
                                     data-title="" data-content="<b><span style='font-size:18px;'>Quiere realizar el pago ?</span><b>" data-button="<button id='edit-form' class='btn btn-primary'>Aceptar</button><button class='btn btn-danger' data-dismiss='modal' aria-hidden='true'>Cancelar</button>">
                                         <span class='glyphicon glyphicon-usd'></span>
@@ -97,6 +98,7 @@
 
 <script>
     $('#curso-inscriptos').dataTable();
+
     $('.btn-accion').click(function(){
         $('#myModal .modal-header').html("<b>"+$(this).attr('data-title')+"<b>");
         $('#myModal .modal-body').html("<b>"+$(this).attr('data-content')+"<b>");
