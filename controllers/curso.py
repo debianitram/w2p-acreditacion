@@ -88,7 +88,7 @@ def add_docente():
     """ Add Docente from Ajax """
     inscripto = Storage()
     inscripto.pago = True
-    inscripto.finalizo = True
+    inscripto.acreditado = True
     inscripto.docente = True
     inscripto.fecha_inscripcion = request.now
     inscripto.curso = request.args(0, cast=int)

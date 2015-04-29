@@ -2,9 +2,7 @@
 {{response.files.append(URL('static', 'media/css/jquery.dataTables.css'))}}
 {{response.files.append(URL('static', 'media/js/jquery.dataTables.min.js'))}}
 
-
 {{extend 'layout.html'}}
-
 
 {{block head}}
     <h2>{{=request.controller.title()}} <small> > {{=response.subtitle}}</small></h2>
@@ -17,23 +15,17 @@
             {{object = grid.view_form}}
             {{=object.custom.begin}}
                 <div class='row'>
-                    <div class='col-lg-8'>
+                    <div class='col-md-9'>
                        
                         <div class="tabbable-panel">
                             <div class="tabbable-line">
                                 <ul class="nav nav-tabs ">
                                     <li class="active">
-                                        <a href="#tab_informacion" data-toggle="tab">
-                                        Información </a>
+                                        <a href="#tab_informacion" data-toggle="tab"> Información </a>
                                     </li>
                                     <li>
-                                        <a href="#tab_inscriptos" data-toggle="tab">
-                                        Inscriptos </a>
+                                        <a href="#tab_inscriptos" data-toggle="tab"> Inscriptos </a>
                                     </li>
-                                    <!--<li>
-                                        <a href="#tab_asistencia" data-toggle="tab">
-                                        Asistencias </a>
-                                    </li>-->
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab_informacion">
@@ -51,20 +43,11 @@
                                         }}
                                         <div class="clearfix"></div>
                                     </div>
-                                    <div class="tab-pane" id="tab_asistencia">
-                                        {{=LOAD(c='curso',
-                                                f='tab_asistencias',
-                                                args=(object.custom.dspval.id),
-                                                target='tab_asistencia_load',
-                                                ajax=True)
-                                        }}
-                                        <div class="clearfix"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class='col-lg-4'>
+                    <div class='col-md-3 col-xs-12'>
                         {{include 'signature.html'}}
                     </div>
                 </div>

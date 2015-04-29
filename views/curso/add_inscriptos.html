@@ -11,9 +11,6 @@
         <div class='well well-lg'>
             <div class='form-horizontal'>
                 <div class='form-group'>
-                    <a class='btn btn-default btn-sm btn-asistio' title='Asistio' href="{{=URL('curso', 'index/view/curso', args=curso.id, user_signature=True)}}">
-                        <span class='glyphicon glyphicon-arrow-left'></span>
-                    </a><hr>
                     <label for='curso-inscripto'>Buscar Persona</label>
                     <div class='form-label'>
                         <div class='pull-right'>
@@ -21,6 +18,12 @@
                                 Añadir al Curso <span class='glyphicon glyphicon-plus-sign'></span>
                             </button>
                             {{=modal.btn()}}
+                            {{=A(SPAN(_class='glyphicon glyphicon-arrow-left'), ' Atrás',
+                                _href=URL(c='curso', f='index', args=('view', 'curso', curso.id),
+                                          user_signature=True),
+                                _class='btn btn-xs btn-default'
+                                )
+                            }}
                         </div>
                         <input id='typeahead-id' type='hidden'>
                         <input id='curso-inscripto' class='typeahead form-control' type='text'>

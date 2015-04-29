@@ -8,6 +8,14 @@
 <div class='row'>
     <div class="col-md-8 col-md-offset-2">
         <div class="well well-lg">
+            <div class='pull-right'>
+                {{=A(SPAN(_class='glyphicon glyphicon-arrow-left'), ' Atrás',
+                    _href=URL(c='curso', f='index', args=('view', 'curso', curso.id),
+                              user_signature=True),
+                    _class='btn btn-xs btn-default'
+                    )
+                }}
+            </div>
             {{=form}}
         </div>
     </div>

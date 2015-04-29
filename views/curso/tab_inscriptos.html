@@ -19,9 +19,9 @@
                             <th>Inscripto</th>
                             <th>Matricula</th>
                             <th>Documento</th>
-                            <th>Pago</th>
-                            <th>Asistencia</th>
-                            <th>Pago?</th>
+                            <th>Domicilio</th>
+                            <th><span class='glyphicon glyphicon-usd' title='Abonó?'></span></th>
+                            <th><span class='glyphicon glyphicon glyphicon-list-alt' title='Se acreditó?'></span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -31,7 +31,8 @@
                             <tr id='inscripto-{{=row.id}}'>
                                 <td>{{=label_inscripto(row)}}</td>
                                 <td>{{=row.persona.matricula or 'sin matricula'}}</td>
-                                <td>{{=row.persona.dni or '-'}}
+                                <td>{{=row.persona.dni or '-'}}</td>
+                                <td>{{=row.persona.domicilio or '-'}}</td>
                                 <td>
                                     {{if row.pago:}}
                                         <center><span class='glyphicon glyphicon-ok'></span></center>
@@ -46,17 +47,17 @@
                                     {{pass}}
                                 </td>   
                                 <td>                                 
-                                    <a id="btn-abonar" class='btn btn-default btn-sm btn-accion' title='Abonar' 
+                                    <a id="btn-abonar" class='btn btn-default btn-xs btn-accion' title='Abonar' 
                                     data-title="" data-content="<b><span style='font-size:18px;'>Quiere realizar el pago ?</span><b>" data-button="<button id='edit-form' class='btn btn-primary'>Aceptar</button><button class='btn btn-danger' data-dismiss='modal' aria-hidden='true'>Cancelar</button>">
                                         <span class='glyphicon glyphicon-usd'></span>
                                     </a>
-                                    <a id="btn-asistio" class='btn btn-default btn-sm btn-accion' title='Asistio' data-title="" data-content="<b><span style='font-size:18px;'>Confirmar la asistencia ?</span><b>" data-button="<button id='edit-form' class='btn btn-primary'>Aceptar</button><button class='btn btn-danger' data-dismiss='modal' aria-hidden='true'>Cancelar</button>">
+                                    <a id="btn-asistio" class='btn btn-default btn-xs btn-accion' title='Asistio' data-title="" data-content="<b><span style='font-size:18px;'>Confirmar la asistencia ?</span><b>" data-button="<button id='edit-form' class='btn btn-primary'>Aceptar</button><button class='btn btn-danger' data-dismiss='modal' aria-hidden='true'>Cancelar</button>">
                                         <span class='glyphicon glyphicon glyphicon-list-alt'></span>
                                     </a>
-                                    <a id="btn-imp-certificado" class='btn btn-info btn-sm btn-accion' title='Imprimir Certificado'>
+                                    <a id="btn-imp-certificado" class='btn btn-info btn-xs btn-accion' title='Imprimir Certificado'>
                                         <span class='glyphicon glyphicon-print'></span>
                                     </a>
-                                    <a class='btn btn-danger btn-sm remove-item btn-accion' title='Eliminar'>
+                                    <a class='btn btn-danger btn-xs remove-item btn-accion' title='Eliminar'>
                                         <span class='glyphicon glyphicon-remove-sign'></span>
                                     </a>  
                                 </td> 
