@@ -1,12 +1,4 @@
 <div class='row-fluid'>
-    <div class='col-lg-8'>
-        <div class="btn-group">
-            
-        </div>
-    </div>
-</div>
-
-<div class='row-fluid'>
     <div class='col-lg-12'>
         {{if inscripciones:}}
             <div class='table-responsive' style="margin-top:10px;">
@@ -16,7 +8,6 @@
                             <th>Cursos</th>
                             <th>Finalizo</th>
                             <th>Pago</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,14 +25,6 @@
                                     {{else:}}
                                         <center><span class='glyphicon glyphicon-remove'></span></center>
                                     {{pass}}
-                                </td>
-                                <td>
-                                    <button class='btn btn-default btn-sm' title='Abonar'>
-                                        <span class='glyphicon glyphicon-usd'></span>
-                                    </button>
-                                    <button class='btn btn-danger btn-sm' title='Eliminar'>
-                                        <span class='glyphicon glyphicon-remove-sign'></span>
-                                    </button>
                                 </td>
                             </tr>
                         {{pass}}

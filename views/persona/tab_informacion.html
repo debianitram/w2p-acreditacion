@@ -1,14 +1,38 @@
-<div class="panel panel-default">
-    <div class="container" style="margin-top:10px; margin-bottom:10px;">
-    <table class="col-xs-12 table-condensed table-responsive">
+<div class='row-fluid'>
+    <div class='col-xs-12'>
+        <div class='pull-right'>
+            {{=TABLE(TBODY(TR(*[TD(c) for c in grid.components[0]])))}}
+        </div>
+    </div>
+</div>
+
+<div class='row-fluid'>
+    <table class="col-xs-12 table-condensed table-hover table-responsive">
         <tbody> 
-            <tr><td><b>Nombre y Apellido:</b> {{=grid.view_form.custom.widget.nombre_apellido}}</td></tr>
-            <tr><td><b>DNI:</b> {{=grid.view_form.custom.widget.dni}}</td></tr> 
-            <tr><td><b>Email:</b> {{=grid.view_form.custom.widget.email}}</td></tr>
-            <tr><td><b>Matricula:</b> {{=grid.view_form.custom.widget.matricula}}</td></tr>
-            <tr><td><b>Telefono:</b> {{=grid.view_form.custom.widget.telefono}}</td></tr>
-            <tr><td><b>Domicilio:</b> {{=grid.view_form.custom.widget.domicilio}}</td></tr>       
+            <tr>
+                <td width="20%"><b>Nombre y Apellido:</b></td>
+                <td>{{=grid.view_form.custom.widget.nombre_apellido}}</td>
+            </tr>
+            <tr>
+                <td><b>DNI:</b></td>
+                <td>{{=grid.view_form.custom.widget.dni}}</td>
+            </tr>
+            <tr>
+                <td><b>Email:</b></td>
+                <td>{{=grid.view_form.custom.widget.email}}</td>
+            </tr>
+            <tr>
+                <td><b>Matricula:</b></td>
+                <td>{{=grid.view_form.custom.widget.matricula}}</td>
+            </tr>
+            <tr>
+                <td><b>Telefono:</b></td>
+                <td>{{=grid.view_form.custom.widget.telefono}}</td>
+            </tr>
+            <tr>
+                <td><b>Domicilio:</b></td>
+                <td>{{=grid.view_form.custom.widget.domicilio}}</td>
+            </tr>
         </tbody>
     </table>
-    </div>
 </div>
