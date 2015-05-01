@@ -17,8 +17,8 @@ def oncreate(form):
 
 def js_append_inscripto(form):
     """ Append new inscripto """
-    item = """<li class="list-group-item" id="inscripto-%(id)s">
-                <a class="btn btn-xs remove-item-nodb">
+    item = """<li class="list-group-item" data-target="inscripto-%(id)s" data-db="false">
+                <a class="btn btn-xs remove-item">
                     <span class="glyphicon glyphicon-minus-sign"></span>
                 </a>
                 <input type="hidden" name="curso_inscripto", value="%(id)s">

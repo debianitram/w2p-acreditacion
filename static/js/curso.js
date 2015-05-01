@@ -1,21 +1,19 @@
 $('.remove-item').on('click',
     function(event){
-        Item = $(this).parent()[0];
+        console.log('On click in remove-item');
+        Item = $(event.currentTarget).parent('li')[0];
         target = Item.dataset.target;
 
-        $.get("/init/curso/delete_item/",
-            {'target': target},
-            function(data){
-                $('*[data-target='+data+']').slideToggle();
-            }
-        );
-    }
-);
-
-$('.remove-item-nodb').on('click',
-    function(event){
-        Item = $(this).parent()[0];
-        Item.remove();
+        if (Item.dataset.db == 'true'){
+            $.get("/init/curso/delete_item/",
+                {'target': target},
+                function(data){
+                    $(Item).slideToggle();
+                }
+            );
+        } else {
+            $(Item).remove();  // Sin impacto en db.
+        }
     }
 );
 
@@ -44,10 +42,10 @@ $('.typeahead').typeahead(
             );
         },
     }
-    
 ).bind("typeahead:selected", function(obj, datum, name) {
     $('#typeahead-id').val(datum.id);
 });
+
 
 $('.new-inscripto').on('click',
     function(event){
@@ -56,9 +54,8 @@ $('.new-inscripto').on('click',
 
         if ((inscripto_id) && (inscripto_name)){
 
-            UL      = $('.list-group');
-            item = "<li class='list-group-item' id='inscripto-[id-inscripto]'> \
-                        <a class='btn btn-xs remove-item-nodb'><span class='glyphicon glyphicon-minus-sign'></span></a> \
+            item = "<li class='list-group-item' data-target='inscripto-[id-inscripto]' data-db='false'> \
+                        <a class='btn btn-xs remove-item'><span class='glyphicon glyphicon-minus-sign'></span></a> \
                         <input type='hidden' name='curso_inscripto', value='[id-inscripto]'> \
                         [value-inscripto] \
                     </li>";
@@ -67,11 +64,10 @@ $('.new-inscripto').on('click',
             item = item.replace("[value-inscripto]", inscripto_name);
 
             $('.list-group').append(item);
-
-            // Reset
-            $('#typeahead-id').val('');
-            $('#curso-inscripto').val('');
         }
+        // Reset
+        $('#typeahead-id').val('');
+        $('#curso-inscripto').val('');
     }
 );
 
