@@ -20,9 +20,6 @@
             {{=TABLE(TBODY(TR(*[TD(c) for c in grid.components[0]])))}}
         </div>
     </div>
-    <div class='col-xs-12'>
-        <hr>
-    </div>
 </div>
 
 <div class="row-fluid">
@@ -40,8 +37,8 @@
                 <td>{{=object.custom.widget.lugar}}</td>
                 <td rowspan="2">
                     <ul class='list-group'>
-                        {{for f in object.attributes["fecha"](object.custom.dspval.id):}}
-                            <li class="list-group-item" data-target='cfecha-{{=f.id}}'>
+                        {{for f in object.attributes["fecha"]():}}
+                            <li class="list-group-item" data-target='cfecha-{{=f.id}}' data-db='true'>
                                 <a class='btn btn-xs remove-item'>
                                     <span class='glyphicon glyphicon-minus-sign'></span>
                                 </a>
@@ -59,8 +56,8 @@
                 <td valign="top"><b>Docentes</b></td>
                 <td colspan="2">
                     <ul class='list-group'>
-                        {{for d in object.attributes["docente"](object.custom.dspval.id):}}
-                            <li class="list-group-item" data-target='inscripto-{{=d.id}}'>
+                        {{for d in object.attributes["docente"]():}}
+                            <li class="list-group-item" data-target='inscripto-{{=d.id}}' data-db='true'>
                                 <a class='btn btn-xs remove-item'>
                                     <span class='glyphicon glyphicon-minus-sign'></span>
                                 </a>

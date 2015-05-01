@@ -6,6 +6,7 @@
                     <thead>
                         <tr>
                             <th>Cursos</th>
+                            <th>Docente?</th>
                             <th>Finalizo</th>
                             <th>Pago</th>
                         </tr>
@@ -14,6 +15,12 @@
                         {{for row in inscripciones:}}
                             <tr>
                                 <td>{{=row.curso.titulo}}</td>
+                                <td>{{if row.docente:}}
+                                        <center><span class='glyphicon glyphicon-ok'></span></center>
+                                    {{else:}}
+                                        <center><span class='glyphicon glyphicon-remove'></span></center>
+                                    {{pass}}
+                                </td>
                                  <td>{{if row.acreditado:}}
                                         <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}

@@ -21,12 +21,11 @@
                             {{=A(SPAN(_class='glyphicon glyphicon-arrow-left'), ' Atrás',
                                 _href=URL(c='curso', f='index', args=('view', 'curso', curso.id),
                                           user_signature=True),
-                                _class='btn btn-xs btn-warning'
-                                )
+                                _class='btn btn-xs btn-warning')
                             }}
                         </div>
                         <input id='typeahead-id' type='hidden'>
-                        <input id='curso-inscripto' class='typeahead form-control' type='text'>
+                        <input id='curso-inscripto' class='typeahead form-control' type='text' placeholder='Nombre Apellido | DNI'>
                     </div>
                 </div>
                 
@@ -52,5 +51,5 @@
 {{=modal.modal()}}
 
 {{block page_js}}
-    <script src="{{=URL('static', 'js/curso.js')}}"></script>
+    <script type="text/javascript" src="{{=URL('static', 'js/curso.js')}}"></script>
 {{end page_js}}

@@ -29,7 +29,14 @@
                     <tbody>
                         {{for row in inscriptos:}}
                             <tr id='inscripto-{{=row.id}}'>
-                                <td>{{=label_inscripto(row)}}</td>
+                                <td>{{=A(label_inscripto(row),
+                                        _href=URL(c='persona',
+                                                  f='index',
+                                                  args=('view', 'persona', row.persona),
+                                                  user_signature=True)
+                                        )
+                                    }}
+                                </td>
                                 <td>{{=row.persona.matricula or 'sin matricula'}}</td>
                                 <td>{{=row.persona.dni or '-'}}</td>
                                 <td>{{=row.persona.domicilio or '-'}}</td>
