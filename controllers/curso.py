@@ -138,7 +138,8 @@ def add_inscriptos():
                             btn_name='Nueva Persona',
                             btn_class='btn btn-default btn-xs',
                             modal_title='Nueva Persona',
-                            modal_key=key)
+                            modal_key=key,
+                            lambda_js=curso_aux.js_append_inscripto)
 
 
     if request.ajax and not request.vars._ajax_add:
