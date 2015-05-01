@@ -33,3 +33,8 @@ CFecha.hora_fin.requires = IS_NOT_EMPTY()
 ########### Requires - Validators ###########
 # Persona
 Persona.dni.label = 'DNI'
+
+########### Represent ###########
+# Curso
+Curso.precio.represent = lambda v, r: SPAN('$ {:,.2f}'.format(v),
+                                              _class='label label-success')

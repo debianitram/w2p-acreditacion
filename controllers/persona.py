@@ -34,6 +34,10 @@ def index():
                         orderby=~Persona.created_on,
                         )
 
+    if 'view' in request.args:
+        for i in grid.elements('.btn'):
+            i.add_class('btn-xs btn-warning',)
+
     return dict(grid=grid)
 
 
@@ -44,12 +48,14 @@ def persona_ajax():
     if not result.isempty():
         return json([{'id': r.id, 'value': Persona._format % r.as_dict()} \
                     for r in result.select()])
+    else:
+        return json([{'id': '',
+                      'value': '<span style="color:red">Sin resultados</span>'}])
 
 
 def tab_inscripciones():
     persona = request.args(0, cast=int)
-    query = ((Inscripto.persona == persona) & (Inscripto.docente != True))
-    inscripciones = db(query).select()
+    inscripciones = db(Inscripto.persona == persona).select()
     return dict(inscripciones=inscripciones)
 
 

@@ -16,26 +16,28 @@ def index():
     ### Config Grid
     fields = (Curso.titulo, Curso.precio, Curso.created_on)
     # Represent Columns
-    Curso.precio.represent = lambda v, r: SPAN('$ {:,.2f}'.format(v),
-                                              _class='label label-success')
     Curso.created_on.represent = lambda v, r: SPAN(prettydate(v),
                                                    _title=v)
     # Readable&Writable
     Curso.created_on.readable = True
 
+    # Pre Construct SQLFORM.grid
     if 'new' in request.args or 'edit' in request.args:
         response.subtitle = 'Nuevo' if 'new' in request.args else 'Edición'
         Curso.created_on.readable = False
 
-
+    
     if 'view' in request.args:
-        response.subtitle = 'Detalle'
         readable_signature(Curso)
+        row = Curso(request.args(-1, cast=int))
+        response.subtitle = 'Detalle > %s' % row.titulo
+        
         f_cfecha = (CFecha.id, CFecha.fecha, CFecha.hora_inicio, CFecha.hora_fin)
         f_docente = (Inscripto.id, Inscripto.persona, Inscripto.docente)
+
         viewargs = dict(
-            fecha = lambda c: Curso(c).cfecha.select(*f_cfecha, orderby=CFecha.fecha),
-            docente = lambda c: Curso(c).inscripto.select(*f_docente).find(lambda r: r['docente'])
+            fecha = lambda: row.cfecha.select(*f_cfecha, orderby=CFecha.fecha),
+            docente = lambda: row.inscripto.select(*f_docente).find(lambda r: r['docente'])
         )
         
 
@@ -52,6 +54,7 @@ def index():
                         orderby=~Curso.created_on,
                         )
 
+    # Post Construct SQLFORM.grid
     if 'view' in request.args:
         for i in grid.elements('.btn'):
             i.add_class('btn-xs btn-warning',)
@@ -60,12 +63,12 @@ def index():
 
 
 def tab_inscriptos():
-    # Represent
-    Inscripto.persona.represent = lambda r, v: SPAN('Saludos')
-    
     curso = request.args(0, cast=int)
-    query = ((Inscripto.curso == curso) & (Inscripto.docente != True) & (Persona.id == Inscripto.persona))
-    # Fields
+
+    query = ((Inscripto.curso == curso) & 
+             (Inscripto.docente != True) & 
+             (Persona.id == Inscripto.persona))
+
     fields = (Inscripto.id,
               Inscripto.persona,
               Inscripto.pago,
@@ -86,21 +89,28 @@ def tab_asistencias():
 
 def add_docente():
     """ Add Docente from Ajax """
-    inscripto = Storage()
-    inscripto.pago = True
-    inscripto.acreditado = True
-    inscripto.docente = True
-    inscripto.fecha_inscripcion = request.now
-    inscripto.curso = request.args(0, cast=int)
-    inscripto.persona = request.vars.get('inscripto_docente')
-    inscripto.consultas_docente = '-'
-    inscripto.sugerencia = '-'
-    result = Inscripto.validate_and_insert(**inscripto)
+    curso = request.args(0, cast=int)
+    persona = request.vars.get('inscripto_docente')
+    query = ((Inscripto.curso == curso) & (Inscripto.persona == persona))
 
-    # Próxima versión: Comprobar la persona no está inscripta en el curso.
+    if db(query).isempty():
+        inscripto = Storage()
+        inscripto.pago = True
+        inscripto.acreditado = True
+        inscripto.docente = True
+        inscripto.fecha_inscripcion = request.now
+        inscripto.curso = curso
+        inscripto.persona = persona
+        inscripto.consultas_docente = '-'
+        inscripto.sugerencia = '-'
+
+        result = Inscripto.validate_and_insert(**inscripto)
+
+    else:
+        result = db(query).validate_and_update(docente=True)
 
     if result.errors:
-        return "alert('%s');" % 'Error al intentar cargar un docente'
+        return "alert('Error al intentar cargar un docente: %s');" % result
 
     return ''
 
@@ -149,13 +159,14 @@ def add_inscriptos():
             if not isinstance(inscriptos, (list, tuple)):
                 inscriptos = [inscriptos, ]
                 
-            for count, item in enumerate(inscriptos):
-                # Evitamos dos inscriptos iguales.
-                if item not in inscriptos[count + 1:]:
+            for item in inscriptos:
+                # Rechazamos una persona inscripta dos veces en el mismo curso.
+                query  = Inscripto.curso == curso.id 
+                query &= Inscripto.persona == int(item)
+                if db(query).isempty():
                     Inscripto.validate_and_insert(curso=curso.id,
                                                   persona=int(item),
                                                   fecha_inscripcion=request.now)
-
             redirect(URL(c='curso',
                          f='index',
                          args=('view', Curso._tablename, curso.id),
