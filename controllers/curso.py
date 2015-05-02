@@ -1,5 +1,7 @@
 #!-*- encoding:utf-8 -*-
 # Colmenalabs 2015
+import csv
+
 from gluon.tools import prettydate
 from gluon.storage import Storage
 
@@ -116,8 +118,11 @@ def add_docente():
 
 
 def import_inscriptos():
+    # Listo para las jornadas ...
+    # Modificar para el sistema del Consejo
     response.view = 'curso/import_inscriptos.html'
     curso = Curso(request.args(0, cast=int))
+    rows = []
 
     form = SQLFORM.factory(
             Field('csv_inscriptos',
@@ -129,12 +134,39 @@ def import_inscriptos():
 
     if form.process().accepted:
         csvfile = request.vars.csv_inscriptos.file
-        print type(csvfile)
         csvfile.seek(0)
-        print csvfile.read()
 
+        # jump_first_iteration = False
 
-    return dict(form=form, curso=curso)
+        for line in csv.DictReader(csvfile):
+            persona = db(Persona.dni == line['inscripcion.dni']).select()
+
+            if not persona:
+                # Agregamos una nueva persona
+                persona = Persona.insert(
+                    profesion=line['inscripcion.profesion'],
+                    nombre_apellido='%(inscripcion.nombre)s, %(inscripcion.apellido)s' % line,
+                    dni=line['inscripcion.dni'],
+                    email=line['inscripcion.email'],
+                    matricula=line['inscripcion.matricula'],
+                    telefono=line['inscripcion.telefono'],
+                    domicilio=line['consejo.nombre']
+                )
+                persona = [persona]
+            
+            if db((Inscripto.curso == curso) & (Inscripto.persona == persona[0].id)).isempty():
+                inscripto = Inscripto.insert(curso=curso,
+                                             persona=persona[0].id,
+                                             fecha_inscripcion=request.now)
+
+        session.flash = 'Se importó con éxitos!'
+        csvfile.close()
+        redirect(URL(c='curso',
+                     f='index',
+                     args=('view', 'curso', curso.id),
+                     user_signature=True))
+
+    return dict(form=form, curso=curso, rows=rows)
 
 
 def add_inscriptos():
