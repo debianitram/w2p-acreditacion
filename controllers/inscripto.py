@@ -1,3 +1,8 @@
+#!-*- encoding: utf-8 -*-
+
+from decimal import Decimal
+
+
 @auth.requires_login()
 def index():
     response.title = 'Administración'
@@ -34,33 +39,60 @@ def index():
     return dict(grid=grid)
 
 
-
+@auth.requires_login()
 def actions():
-    js  = "$('.modal').modal('hide');"
-    js += "$('*[data-object=%(target)s]').find('.%(action)s').html('%(result)s');"
+    hide_modal  = "$('.modal').modal('hide');"
+    js = "$('*[data-object=%(target)s]').find('.%(action)s').html('%(result)s');"
     js += "$('*[data-object=%(target)s]').find('*[data-action=%(action)s]')"
     js += ".attr('class', 'btn btn-default btn-xs disabled');"
 
     action, target = request.args
     model, id = target.split('-')
+    row_inscripto = Inscripto(id)
+
+    print request.vars
 
     if action == 'abonar':
-        expresion = {'pago': True}
-        js = js % {'target': target,
-                   'action': action,
-                   'result': CENTER(
-                                SPAN(_class='glyphicon glyphicon-ok'),
-                                _class='alert-success')}
+        if auth.has_membership('cajero') or auth.has_membership('administrador'):
+            expresion = {'pago': True}
+            expresion_pago = {'inscripto': row_inscripto.id,
+                              'monto': request.vars.monto,
+                              'nro_recibo': request.vars.nro_recibo}
+
+            # Agregamos Pago para inscripto.
+            result = Pagos.validate_and_insert(**expresion_pago)
+            
+            if result.errors:
+                return hide_modal + 'alert("Errors al acreditar %s");' % result.errors
+
+            js = hide_modal + js
+            js = js % {'target': target,
+                       'action': action,
+                       'result': CENTER(
+                                    SPAN(_class='glyphicon glyphicon-ok'),
+                                    _class='alert-success')}
+        else:
+            return hide_modal + 'alert("No tiene permisos suficientes");'
 
     elif action == 'acreditar':
-        expresion = {'acreditado': True}
-        js = js % {'target': target,
-                   'action': action,
-                   'result': CENTER(
-                                SPAN(_class='glyphicon glyphicon-ok'),
-                                _class='alert-success')}
+        if auth.has_membership('colaborador') or auth.has_membership('administrador'):
+            
+            if not row_inscripto.pago:
+                return hide_modal + 'alert("Debe abonar para ser acreditado");'
+            
+            expresion = {'acreditado': True}
+            js = hide_modal + js
+            js = js % {'target': target,
+                       'action': action,
+                       'result': CENTER(
+                                    SPAN(_class='glyphicon glyphicon-ok'),
+                                    _class='alert-success')}
+        else:
+            return hide_modal + 'alert("No tiene permisos suficientes");'
 
-    if Inscripto(id).update_record(**expresion):
+    if row_inscripto.update_record(**expresion):
+        response.flash = 'Se aplicaron los cambios'
         return js
+
     else:
         return 'alert("Problemas al procesar la acción: %s");' % action

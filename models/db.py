@@ -28,6 +28,8 @@ auth.define_tables(username=False, signature=False)
 
 # Custom attributes of table.auth_user
 db.auth_user._format = '%(last_name)s, %(first_name)s'
+db.auth_membership.user_id.represent = lambda v, r: db.auth_user._format % r.user_id
+db.auth_membership.group_id.represent = lambda v, r: r.group_id.role
 
 ## Configure email
 mail = auth.settings.mailer
@@ -40,13 +42,15 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
+auth.settings.create_user_groups = None
+
 
 # Config String to Search for Field
 PersonaSearch = '{nombre_apellido} {dni} {matricula} {domicilio}'
 
 ## Define Tables
 Profesion = db.define_table('profesion',
-                Field('nombre'),
+                Field('nombre', length=100),
                 Field('abreviatura', length=5),
                 auth.signature,
                 common_filter=lambda q: db.profesion.is_active == True,
@@ -57,8 +61,8 @@ Profesion = db.define_table('profesion',
 Persona = db.define_table('persona',
                 Field('profesion', Profesion),
                 Field('nombre_apellido', length=250),
-                Field('dni', length=30),
-                Field('email', length=100),
+                Field('dni', length=25, unique=True),
+                Field('email', length=150),
                 Field('matricula', length=15),
                 Field('telefono', length=30),
                 Field('domicilio', length=150),
@@ -72,7 +76,7 @@ Persona = db.define_table('persona',
 Curso = db.define_table('curso',
                 Field('titulo', length=200),
                 Field('lugar', length=200),
-                Field('precio', 'decimal(8,2)', default=0.0),
+                Field('precio', 'decimal(10,2)', default=0.0),
                 auth.signature,
                 common_filter=lambda q: db.curso.is_active == True,
                 format='%(titulo)s'
@@ -89,14 +93,14 @@ Inscripto = db.define_table('inscripto',
                 Field('pago', 'boolean', default=False),
                 Field('acreditado', 'boolean', default=False),
                 auth.signature,
-                format=lambda r: '%s> %s' % (r.curso.titulo, r.persona.apellido),
+                format=lambda r: '%s> %s' % (r.curso.titulo, r.persona.nombre_apellido),
                 )
 
 Pagos = db.define_table('pagos',
                 Field('inscripto', Inscripto),
-                Field('monto', 'decimal(8,2)', default=0.0),
+                Field('monto', 'decimal(8,2)'),
                 Field('fecha', 'datetime', default=request.now),
-                Field('nro_recibo', length=50),
+                Field('nro_recibo', length=50, default="0" * 10),
                 auth.signature
                 )
 

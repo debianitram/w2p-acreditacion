@@ -143,9 +143,9 @@ def import_inscriptos():
 
             if not persona:
                 # Agregamos una nueva persona
-                persona = Persona.insert(
+                persona = Persona.validate_and_insert(
                     profesion=line['inscripcion.profesion'],
-                    nombre_apellido='%(inscripcion.nombre)s, %(inscripcion.apellido)s' % line,
+                    nombre_apellido='%(inscripcion.apellido)s, %(inscripcion.nombre)s' % line,
                     dni=line['inscripcion.dni'],
                     email=line['inscripcion.email'],
                     matricula=line['inscripcion.matricula'],

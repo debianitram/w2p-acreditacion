@@ -17,7 +17,8 @@ CFecha.curso.writable = False
 Profesion.nombre.requires = IS_NOT_EMPTY()
 
 # Persona
-Persona.nombre_apellido.requires = IS_NOT_EMPTY()
+Persona.nombre_apellido.requires = [IS_NOT_EMPTY(), IS_UPPER()]
+Persona.dni.requires = IS_NOT_IN_DB(db, Persona.dni)
 Persona.email.requires = IS_EMAIL()
 
 # Curso
@@ -28,6 +29,9 @@ CFecha.curso.requires = IS_NOT_EMPTY()
 CFecha.fecha.requires = IS_NOT_EMPTY()
 CFecha.hora_inicio.requires = IS_NOT_EMPTY()
 CFecha.hora_fin.requires = IS_NOT_EMPTY()
+
+# Pagos
+Pagos.monto.requires = IS_NOT_EMPTY()
 
 
 ########### Requires - Validators ###########
