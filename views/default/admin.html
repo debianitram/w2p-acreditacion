@@ -1,0 +1,55 @@
+{{extend 'layout.html'}}
+
+<div class="row">
+    <div class="page-header">
+        <h2>{{=title}}</h2>
+    </div>
+</div>
+
+<div class='row'>
+    {{if target == 'actions':}}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-6">
+                    <div class="thumbnail">
+                        {{=IMG(_src=URL('static', 'images/users.png'),
+                               _class='img-circle')}}
+                        <div class="caption">
+                            <h2>Usuarios</h2>
+                            <p>Administrar los usuarios del sistema.</p>
+                            <p>
+                                {{=A('ingresar',
+                                    _href=URL(c='default', 
+                                              f='admin', 
+                                              vars=dict(target='users')),
+                                    _class='btn btn-default')}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="thumbnail">
+                        {{=IMG(_src=URL('static', 'images/key.png'),
+                               _class='img-circle')}}
+                        <div class="caption">
+                            <h2>Permisos</h2>
+                            <p>Asignar permiso a los usuarios del sistema.</p>
+                            <p>
+                                {{=A('ingresar',
+                                    _href=URL(c='default', 
+                                              f='admin', 
+                                              vars=dict(target='permission')),
+                                    _class='btn btn-default')}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {{else:}}
+        {{=grid}}
+    
+    {{pass}}
+
+</div>

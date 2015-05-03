@@ -33,4 +33,10 @@ response.menu = [(T('Inicio'), False, URL('default', 'index')),
     			(T('Reportes'), False, URL('default', 'index')),
     	])]
 
+if auth.has_membership('administrador'):
+    response.menu.append((T('Administración'),
+                          False,
+                          URL('default', 'admin', user_signature=True)
+                        ))
+
 if "auth" in locals(): auth.wikimenu() 
