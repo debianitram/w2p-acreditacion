@@ -32,3 +32,35 @@ def index():
                         )
 
     return dict(grid=grid)
+
+
+
+def actions():
+    js  = "$('.modal').modal('hide');"
+    js += "$('*[data-object=%(target)s]').find('.%(action)s').html('%(result)s');"
+    js += "$('*[data-object=%(target)s]').find('*[data-action=%(action)s]')"
+    js += ".attr('class', 'btn btn-default btn-xs disabled');"
+
+    action, target = request.args
+    model, id = target.split('-')
+
+    if action == 'abonar':
+        expresion = {'pago': True}
+        js = js % {'target': target,
+                   'action': action,
+                   'result': CENTER(
+                                SPAN(_class='glyphicon glyphicon-ok'),
+                                _class='alert-success')}
+
+    elif action == 'acreditar':
+        expresion = {'acreditado': True}
+        js = js % {'target': target,
+                   'action': action,
+                   'result': CENTER(
+                                SPAN(_class='glyphicon glyphicon-ok'),
+                                _class='alert-success')}
+
+    if Inscripto(id).update_record(**expresion):
+        return js
+    else:
+        return 'alert("Problemas al procesar la acción: %s");' % action

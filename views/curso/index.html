@@ -15,7 +15,7 @@
             {{object = grid.view_form}}
             {{=object.custom.begin}}
                 <div class='row'>
-                    <div class='col-md-9'>
+                    <div class='col-md-12'>
                        
                         <div class="tabbable-panel">
                             <div class="tabbable-line">
@@ -25,6 +25,9 @@
                                     </li>
                                     <li>
                                         <a href="#tab_inscriptos" data-toggle="tab"> Inscriptos </a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_registro" data-toggle="tab"> Registro </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -43,12 +46,13 @@
                                         }}
                                         <div class="clearfix"></div>
                                     </div>
+                                    <div class="tab-pane" id="tab_registro">
+                                        {{include 'signature.html'}}
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class='col-md-3 col-xs-12'>
-                        {{include 'signature.html'}}
                     </div>
                 </div>
             {{=object.custom.end}}
