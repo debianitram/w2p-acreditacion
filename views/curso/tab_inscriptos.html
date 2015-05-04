@@ -57,10 +57,10 @@
                                 </td>   
                                 <td>
                                     <div class='btn-group'>
-                                        <a class='btn btn-default btn-xs {{="disabled" if row.pago else ""}}' title='Abonar' data-title="Realizar Pago" data-action="abonar" onclick="actions(this);">
+                                        <a class='btn btn-default btn-xs actions {{="disabled" if row.pago else ""}}' title='Abonar' data-title="Realizar Pago" data-action="abonar">
                                             <span class='glyphicon glyphicon-usd'></span>
                                         </a>
-                                        <a class='btn btn-default btn-xs {{="disabled" if row.acreditado else ""}}' title='Asistio' data-title="Confirma Asistencia?" data-action='acreditar' onclick="actions(this);">
+                                        <a class='btn btn-default btn-xs actions {{="disabled" if row.acreditado else ""}}' title='Asistio' data-title="Confirma Asistencia?" data-action='acreditar'>
                                             <span class='glyphicon glyphicon glyphicon-list-alt'></span>
                                         </a>
                                         <a id="btn-certificado" class='btn btn-default btn-xs' title='Imprimir Certificado'>
@@ -98,47 +98,49 @@
 
 
 <script>
-    $('#curso-inscriptos').dataTable();
+    $('#curso-inscriptos').dataTable({
+        oLanguage: {sUrl: "{{=URL('static', 'media/translate/dataTables.spanish.txt')}}"}
+    });
+    $(document).on('click', '.actions',
+        function(event) {
+            Button = $(event.currentTarget);
+            person_name = Button.parents('tr').find('.link-person').text();
+            ok = '<a class="btn btn-primary" onclick="{ajax}">{name}</a>';
 
-    var actions = function(event){
-        Button = $(event);
-        person_name = Button.parents('tr').find('.link-person').text();
-        ok = '<a class="btn btn-primary" onclick="{ajax}">{name}</a>';
+            if (Button.data('action') == 'abonar'){
+                ax = "ajax('{URL}', ['monto', 'nro_recibo'], ':eval');"
+                content = 'Está por realizar el pago de ' + person_name;
+                content += '<hr><div class="form-horizontal> \
+                                <div class="form-group"> \
+                                    <label class="form-label">Monto $</label> \
+                                    <input class="form-control" type="number" name="monto" > \
+                                </div> \
+                                <div class="form-group"> \
+                                    <label class="form-label">Nro Recibo</label>\
+                                    <input class="form-control" type="text" name="nro_recibo"> \
+                                </div> \
+                            </div>';
 
-        if (Button.data('action') == 'abonar'){
-            ax = "ajax('{URL}', ['monto', 'nro_recibo'], ':eval');"
-            content = 'Está por realizar el pago de ' + person_name;
-            content += '<hr><div class="form-horizontal> \
-                            <div class="form-group"> \
-                                <label class="form-label">Monto $</label> \
-                                <input class="form-control" type="number" name="monto" > \
-                            </div> \
-                            <div class="form-group"> \
-                                <label class="form-label">Nro Recibo</label>\
-                                <input class="form-control" type="text" name="nro_recibo"> \
-                            </div> \
-                        </div>';
+                ok = ok.replace('{name}', Button.data('action'));
+                ax = ax.replace('{URL}', '{{=URL(c="inscripto", f="actions", args=("abonar", "data-object"), user_signature=True)}}');
+                ax = ax.replace('data-object', Button.parents('tr').data('object'));
+                ok = ok.replace('{ajax}', ax);
+                
+            }
 
-            ok = ok.replace('{name}', Button.data('action'));
-            ax = ax.replace('{URL}', '{{=URL(c="inscripto", f="actions", args=("abonar", "data-object"), user_signature=True)}}');
-            ax = ax.replace('data-object', Button.parents('tr').data('object'));
-            ok = ok.replace('{ajax}', ax);
-            
+            else if (Button.data('action') == 'acreditar'){
+                ax = "ajax('{URL}', [], ':eval');"
+                content = 'Está por acreditar a ' + person_name;
+                ok = ok.replace('{name}', Button.data('action'));
+                ax = ax.replace('{URL}', '{{=URL(c="inscripto", f="actions", args=("acreditar", "data-object"), user_signature=True)}}');
+                ax = ax.replace('data-object', Button.parents('tr').data('object'));
+                ok = ok.replace('{ajax}', ax);
+            }
+
+            $('.modal').find('#titulo').html(Button.data('title'));
+            $('.modal').find('#contenido').html(content);
+            $('.modal').find('.btn-ok').html(ok);
+            $('.modal').modal('show');
         }
-
-        else if (Button.data('action') == 'acreditar'){
-            ax = "ajax('{URL}', [], ':eval');"
-            content = 'Está por acreditar a ' + person_name;
-            ok = ok.replace('{name}', Button.data('action'));
-            ax = ax.replace('{URL}', '{{=URL(c="inscripto", f="actions", args=("acreditar", "data-object"), user_signature=True)}}');
-            ax = ax.replace('data-object', Button.parents('tr').data('object'));
-            ok = ok.replace('{ajax}', ax);
-        }
-
-        $('.modal').find('#titulo').html(Button.data('title'));
-        $('.modal').find('#contenido').html(content);
-        $('.modal').find('.btn-ok').html(ok);
-        $('.modal').modal('show');
-    };
-
+    );
 </script>

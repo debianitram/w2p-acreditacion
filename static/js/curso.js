@@ -1,6 +1,5 @@
-$('.remove-item').on('click',
+$(document).on('click', '.remove-item',
     function(event){
-        console.log('On click in remove-item');
         Item = $(event.currentTarget).parent('li')[0];
         target = Item.dataset.target;
 
@@ -77,5 +76,4 @@ $('#add-fecha').on('show.bs.collapse', function () {
 
 $('#add-docente').on('show.bs.collapse', function () {
     $('#add-fecha').collapse('hide');
-})
-
+});
