@@ -25,13 +25,13 @@ response.google_analytics_id = None
 
 response.menu = [(T('Inicio'), False, URL('default', 'index')),
 	(T('Personas'), False, '#', [
-               	(T('Gestión Profesiones'), False, URL('profesion', 'index')),
-                (T('Gestión Personas'), False, URL('persona', 'index'))
-              ]),
+        (T('Gestión Personas'), False, URL('persona', 'index', user_signature=True)),
+        (T('Gestión Profesiones'), False, URL('persona', 'profesion', user_signature=True)),
+    ]),
     (T('Cursos'), False, '#',[
-    			(T('Gestión Cursos'), False, URL('curso', 'index')),
-    			(T('Reportes'), False, URL('default', 'index')),
-    	])]
+        (T('Gestión Cursos'), False, URL('curso', 'index', user_signature=True)),
+    	(T('Reportes'), False, URL('default', 'index', user_signature=True)),
+    ])]
 
 if auth.has_membership('administrador'):
     response.menu.append((T('Administración'),

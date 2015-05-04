@@ -50,8 +50,6 @@ def actions():
     model, id = target.split('-')
     row_inscripto = Inscripto(id)
 
-    print request.vars
-
     if action == 'abonar':
         if auth.has_membership('cajero') or auth.has_membership('administrador'):
             expresion = {'pago': True}

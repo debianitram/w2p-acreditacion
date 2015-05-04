@@ -77,7 +77,7 @@ def tab_inscriptos():
               Inscripto.acreditado
               )
 
-    inscriptos = db(query).select(*fields)
+    inscriptos = db(query).select(*fields, orderby=Inscripto.persona)
 
     return dict(inscriptos=inscriptos, curso=curso)
 

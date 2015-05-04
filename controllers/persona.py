@@ -10,18 +10,16 @@ def index():
     createargs = viewargs = None
 
     ### Config Grid
-    fields = (Persona.nombre_apellido,
-              Persona.dni,
-              Persona.matricula
-              )
+    fields = (Persona.nombre_apellido, Persona.dni, Persona.matricula)
 
     if 'new' in request.args or 'edit' in request.args:
         response.subtitle = 'Nuevo' if 'new' in request.args else 'Edición'
 
 
     if 'view' in request.args:
-        response.subtitle = 'Detalle'
         readable_signature(Persona)
+        row = Persona(request.args(-1, cast=int))
+        response.subtitle = 'Detalle > %s' % row.nombre_apellido
 
 
     grid = SQLFORM.grid(Persona,
@@ -31,7 +29,7 @@ def index():
                         ondelete=hide_record,
                         user_signature=True,
                         showbuttontext=False,
-                        orderby=~Persona.created_on,
+                        orderby=Persona.nombre_apellido,
                         )
 
     if 'view' in request.args:
@@ -40,6 +38,33 @@ def index():
 
     return dict(grid=grid)
 
+
+
+@auth.requires_login()
+def profesion():
+    response.title = 'Administración'
+    response.subtitle = 'grilla'
+    createargs = viewargs = None
+
+    ### Config Grid
+    fields = (Profesion.nombre, Profesion.created_on)
+    # Represent Columns
+    Profesion.created_on.represent = lambda v, r: SPAN(prettydate(v),
+                                                   _title=v)
+    # Readable&Writable
+    Profesion.created_on.readable = True
+
+    grid = SQLFORM.grid(Profesion,
+                        csv=False,
+                        fields=fields,
+                        maxtextlength=200,
+                        ondelete=hide_record,
+                        user_signature=True,
+                        showbuttontext=False,
+                        orderby=~Profesion.created_on,
+                        )
+
+    return dict(grid=grid)
 
 
 def persona_ajax():
@@ -53,12 +78,14 @@ def persona_ajax():
                       'value': '<span style="color:red">Sin resultados</span>'}])
 
 
+@auth.requires_login()
 def tab_inscripciones():
     persona = request.args(0, cast=int)
     inscripciones = db(Inscripto.persona == persona).select()
     return dict(inscripciones=inscripciones)
 
 
+@auth.requires_login()
 def tab_pagos():
     persona = request.args(0, cast=int)
     query = ((Pagos.inscripto == Inscripto.id) & (Inscripto.persona == persona))
@@ -66,6 +93,7 @@ def tab_pagos():
     return dict(pagos=pagos)
 
 
+@auth.requires_login()
 def tab_asistencias():
     persona = request.args(0, cast=int)
     query = ((Asistencia.inscripto == Inscripto.id) & (Inscripto.persona == persona))
