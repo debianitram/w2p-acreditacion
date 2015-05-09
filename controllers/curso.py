@@ -74,7 +74,8 @@ def tab_inscriptos():
     fields = (Inscripto.id,
               Inscripto.persona,
               Inscripto.pago,
-              Inscripto.acreditado
+              Inscripto.acreditado,
+              Inscripto.total_abonado
               )
 
     inscriptos = db(query).select(*fields, orderby=Inscripto.persona)
@@ -89,6 +90,7 @@ def tab_asistencias():
     return dict(asistencias=asistencias)
 
 
+@auth.requires_membership('administrador')
 def add_docente():
     """ Add Docente from Ajax """
     curso = request.args(0, cast=int)
@@ -117,6 +119,7 @@ def add_docente():
     return ''
 
 
+@auth.requires_membership('administrador')
 def import_inscriptos():
     # Listo para las jornadas ...
     # Modificar para el sistema del Consejo
@@ -169,6 +172,7 @@ def import_inscriptos():
     return dict(form=form, curso=curso, rows=rows)
 
 
+@auth.requires_membership('administrador')
 def add_inscriptos():
     response.view = 'curso/add_inscriptos.html'
     curso = Curso(request.args(0, cast=int))
@@ -210,6 +214,7 @@ def add_inscriptos():
     return dict(curso=curso, modal=modal)
 
 
+@auth.requires_membership('administrador')
 def add_fecha():
     """ Add Fecha from Ajax """
     curso = request.args(0, cast=int)
@@ -224,6 +229,7 @@ def add_fecha():
     return ''
 
 
+@auth.requires_membership('administrador')
 def delete_item():
     target = request.vars.get('target')
     table, object_id = target.split('-')

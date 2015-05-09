@@ -20,7 +20,7 @@
                             <th>Matricula</th>
                             <th>Documento</th>
                             <th>Domicilio</th>
-                            <th><span class='glyphicon glyphicon-usd' title='Abonó?'></span></th>
+                            <th><span class='glyphicon glyphicon-usd' title='Cantidad abonada'></span></th>
                             <th><span class='glyphicon glyphicon glyphicon-list-alt' title='Se acreditó?'></span></th>
                             <th></th>
                         </tr>
@@ -28,7 +28,7 @@
 
                     <tbody>
                         {{for row in inscriptos:}}
-                            <tr data-object='inscripto-{{=row.id}}'>
+                            <tr data-target='inscripto-{{=row.id}}'>
                                 <td>{{=A(label_inscripto(row),
                                         _href=URL(c='persona',
                                                   f='index',
@@ -43,9 +43,9 @@
                                 <td>{{=row.persona.domicilio or '-'}}</td>
                                 <td class='abonar'>
                                     {{if row.pago:}}
-                                        <center class='alert-success'><span class='glyphicon glyphicon-ok'></span></center>
+                                        <center class='alert-success'>$ {{=row.total_abonado}}</center>
                                     {{else:}}
-                                        <center class='alert-danger'><span class='glyphicon glyphicon-remove'></span></center>
+                                        <center class='alert-danger'>$ {{=row.total_abonado}}</center>
                                     {{pass}}
                                 </td>
                                 <td class='acreditar'>
@@ -86,7 +86,7 @@
                 <h3><span id='titulo'></span></h3>
             </div>
             <div class="modal-body">
-                <div id='contenido'>Contenido</div>
+                <div id='contenido' class='container-fluid'></div>
             </div>
             <div class="modal-footer">
                 <span class='btn-ok'></span>
@@ -99,48 +99,27 @@
 
 <script>
     $('#curso-inscriptos').dataTable({
+        lengthMenu: [[100, 150, 200, -1], [100, 150, 200, "All"]],
         oLanguage: {sUrl: "{{=URL('static', 'media/translate/dataTables.spanish.txt')}}"}
     });
+
     $(document).on('click', '.actions',
         function(event) {
             Button = $(event.currentTarget);
-            person_name = Button.parents('tr').find('.link-person').text();
-            ok = '<a class="btn btn-primary" onclick="{ajax}">{name}</a>';
+            
+            url = '/init/inscripto/actions_view/{actions}/{target}'
+            url = url.replace('{actions}', Button.data('action'));
+            url = url.replace('{target}', Button.parents('tr').data('target'))
 
-            if (Button.data('action') == 'abonar'){
-                ax = "ajax('{URL}', ['monto', 'nro_recibo'], ':eval');"
-                content = 'Está por realizar el pago de ' + person_name;
-                content += '<hr><div class="form-horizontal> \
-                                <div class="form-group"> \
-                                    <label class="form-label">Monto $</label> \
-                                    <input class="form-control" type="number" name="monto" > \
-                                </div> \
-                                <div class="form-group"> \
-                                    <label class="form-label">Nro Recibo</label>\
-                                    <input class="form-control" type="text" name="nro_recibo"> \
-                                </div> \
-                            </div>';
-
-                ok = ok.replace('{name}', Button.data('action'));
-                ax = ax.replace('{URL}', '{{=URL(c="inscripto", f="actions", args=("abonar", "data-object"), user_signature=True)}}');
-                ax = ax.replace('data-object', Button.parents('tr').data('object'));
-                ok = ok.replace('{ajax}', ax);
-                
-            }
-
-            else if (Button.data('action') == 'acreditar'){
-                ax = "ajax('{URL}', [], ':eval');"
-                content = 'Está por acreditar a ' + person_name;
-                ok = ok.replace('{name}', Button.data('action'));
-                ax = ax.replace('{URL}', '{{=URL(c="inscripto", f="actions", args=("acreditar", "data-object"), user_signature=True)}}');
-                ax = ax.replace('data-object', Button.parents('tr').data('object'));
-                ok = ok.replace('{ajax}', ax);
-            }
-
-            $('.modal').find('#titulo').html(Button.data('title'));
-            $('.modal').find('#contenido').html(content);
-            $('.modal').find('.btn-ok').html(ok);
-            $('.modal').modal('show');
+            $.get(url, {}, function(data){
+                result = JSON.parse(data);
+                btn = result['btn'];
+                content = result['content'];
+                $('.modal').find('#titulo').html(Button.data('title'));
+                $('.modal').find('#contenido').html(content);
+                $('.modal').find('.btn-ok').html(btn);
+                $('.modal').modal('show');
+            });
         }
     );
 </script>

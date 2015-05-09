@@ -1,3 +1,4 @@
+
 ########### Readable/Writable ###########
 # Inscripto
 Inscripto.curso.writable = False
@@ -42,3 +43,27 @@ Persona.dni.label = 'DNI'
 # Curso
 Curso.precio.represent = lambda v, r: SPAN('$ {:,.2f}'.format(v),
                                               _class='label label-success')
+
+# Inscripto
+Inscripto.curso.represent = lambda v, r: Curso._format % v
+Inscripto.persona.represent = lambda v, r: Persona._format % v
+
+
+
+########### Callback before/after where insert/update/delete #############
+def pago_after_in(row, id):
+    inscripto = Inscripto(row.inscripto)
+    precio_curso = inscripto.curso.precio
+    total_abonado = [i.monto for i in inscripto.pagos.select(Pagos.monto)]
+
+    monto = sum(total_abonado) if total_abonado else row.monto
+    expresion = {'total_abonado': monto}
+
+
+    if precio_curso <= monto:
+        expresion.update(pago=True)
+
+    inscripto.update_record(**expresion)
+    db.commit()
+
+Pagos._after_insert.append(lambda row, id: pago_after_in(row, id))

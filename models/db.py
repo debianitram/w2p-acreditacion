@@ -90,8 +90,9 @@ Inscripto = db.define_table('inscripto',
                 Field('fecha_inscripcion', 'datetime'),
                 Field('consultas_docente', 'text'),
                 Field('sugerencia', 'text'),
-                Field('pago', 'boolean', default=False),
                 Field('acreditado', 'boolean', default=False),
+                Field('pago', 'boolean', default=False),
+                Field('total_abonado', 'decimal(8, 2)', default=0.0),
                 auth.signature,
                 format=lambda r: '%s> %s' % (r.curso.titulo, r.persona.nombre_apellido),
                 )
@@ -99,7 +100,6 @@ Inscripto = db.define_table('inscripto',
 Pagos = db.define_table('pagos',
                 Field('inscripto', Inscripto),
                 Field('monto', 'decimal(8,2)'),
-                Field('fecha', 'datetime', default=request.now),
                 Field('nro_recibo', length=50, default="0" * 10),
                 auth.signature
                 )
