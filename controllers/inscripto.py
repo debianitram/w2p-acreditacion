@@ -60,6 +60,7 @@ def actions_view():
     inscripto = Inscripto(id)
     nombre_persona = Persona._format % inscripto.persona
     tag = TAG['']()
+    btnok = ''
 
     if action == 'abonar':
         if auth.has_membership('cajero') or auth.has_membership('administrador'):
@@ -94,6 +95,8 @@ def actions_view():
                               args=('abonar', target),
                               user_signature=True)
             btnok = A('abonar', _class='btn btn-primary', _onclick=ajax)
+        else:
+            tag = DIV('No tiene permisos suficientes', _class='alert alert-danger')
             
 
     elif action == 'acreditar':
@@ -108,6 +111,9 @@ def actions_view():
             btnok = A('acreditar', _class='btn btn-primary', _onclick=ajax)
 
             tag.append(message)
+
+        else:
+            tag = DIV('No tiene permisos suficientes', _class='alert alert-danger')
 
     return json(dict(content=tag, btn=btnok))
 

@@ -22,8 +22,15 @@
                     <tbody>
                         {{for row in pagos:}}
                             <tr>
-                                <td>{{=row.inscripto.curso.titulo}}</td>
-                                <td>{{=row.pagos.fecha}}</td>
+                                <td>{{=A(row.inscripto.curso.titulo,
+                                        _href=URL(c='curso',
+                                                  f='index',
+                                                  args=('view', 'curso', row.inscripto.curso),
+                                                  user_signature=True),
+                                        )
+                                    }}
+                                </td>
+                                <td>{{=row.pagos.created_on}}</td>
                                 <td><center><span class="label label-primary">{{=row.pagos.monto}}</span></center></td>
                                 <td>{{=row.pagos.nro_recibo}}</td>
                             </tr>

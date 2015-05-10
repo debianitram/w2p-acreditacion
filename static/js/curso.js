@@ -77,3 +77,23 @@ $('#add-fecha').on('show.bs.collapse', function () {
 $('#add-docente').on('show.bs.collapse', function () {
     $('#add-fecha').collapse('hide');
 });
+
+$(document).on('click', '.actions',
+        function(event) {
+            Button = $(event.currentTarget);
+            
+            url = '/init/inscripto/actions_view/{actions}/{target}'
+            url = url.replace('{actions}', Button.data('action'));
+            url = url.replace('{target}', Button.parents('tr').data('target'))
+
+            $.get(url, {}, function(data){
+                result = JSON.parse(data);
+                btn = result['btn'];
+                content = result['content'];
+                $('.modal').find('#titulo').html(Button.data('title'));
+                $('.modal').find('#contenido').html(content);
+                $('.modal').find('.btn-ok').html(btn);
+                $('.modal').modal('show');
+            });
+        }
+    );

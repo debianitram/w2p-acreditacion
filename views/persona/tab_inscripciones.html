@@ -14,7 +14,13 @@
                     <tbody>
                         {{for row in inscripciones:}}
                             <tr>
-                                <td>{{=row.curso.titulo}}</td>
+                                <td>{{=A(row.curso.titulo,
+                                        _href=URL(c='curso',
+                                                  f='index',
+                                                  args=('view', 'curso', row.curso),
+                                                  user_signature=True),
+                                        )
+                                    }}</td>
                                 <td>{{if row.docente:}}
                                         <center><span class='glyphicon glyphicon-ok'></span></center>
                                     {{else:}}
