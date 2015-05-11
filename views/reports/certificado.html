@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <style>
+            @page {
+                size: a4 landscape;
+
+                @frame titulo_curso {
+                    -pdf-frame-content: titulo_curso;
+                    left: 6.5cm;
+                    width: 17.5cm;
+                    top: 2cm;
+                    height: 3cm;
+                    -pdf-frame-border: 0;    /* for debugging the layout */
+                }
+                @frame content_frame {          /* Content Frame */
+                    left: 3cm;
+                    width: 23.5cm;
+                    top: 6cm;
+                    height: 5.5cm;
+                    -pdf-frame-border: 0;    /* for debugging the layout */
+                }
+                @frame extendido {
+                    -pdf-frame-content: extendido;
+                    left: 3cm;
+                    width: 23.5cm;
+                    top: 12cm;
+                    height: 1.5cm;
+                    -pdf-frame-border: 0;    /* for debugging the layout */
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='titulo_curso'>
+            <center><h4>CURSO</h4></center>
+            <center><h3>{{=inscriptos[0].curso.titulo}}</h3></center>
+        </div>
+
+        {{for inscripto in inscriptos:}}
+            <div id='inscripto'>
+                <center><h5>CERTIFICAMOS QUE</h5></center>
+                <center><h3>{{=inscripto.persona.nombre_apellido}}</h3></center>
+            </div>
+            <div id='descripcion'>
+                <p class='lead'>Ha participado como {{='DOCENTE' if inscripto.docente else 'ASISTENTE'}}
+                en el curso: "{{=inscripto.curso.titulo}}", los días ..., ... y ... con un total de 
+                8 horas, a cargo de la CPN Irma Reynoso(Catamarca), organizado por el Consejo Profesional
+                de Ciencias Económicas de Catamarca</p>
+            </div>
+            <pdf:nextpage>
+        {{pass}}
+
+        <div id='extendido'>
+            <p class='extendido'>
+                Se extiende el presente certificado en la ciudad de San Fernando del Valle de Catamarca a los
+                11 días del mes de Octubre de 2014
+            </p>
+        </div>
+    </body>
+</html>
+

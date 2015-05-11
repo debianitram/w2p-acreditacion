@@ -185,3 +185,29 @@ def actions_process():
             return hide_modal + 'alert("No tiene permisos suficientes");'
 
 
+
+
+def certificado():
+    response.view = 'reports/certificado.html'
+    inscriptos = db(Inscripto.id < 10).select()
+    context = dict(inscriptos=inscriptos)
+
+    if request.extension == 'pdf':
+        import os
+        import StringIO
+        from xhtml2pdf.pisa import CreatePDF
+
+        path_css = os.path.join(request.env.web2py_path,
+                                'applications/init/static/css/reporte_cert.css')
+        
+        with open(path_css, 'r') as rcss:
+            css = rcss.read()
+
+        html = response.render(response.view, context)
+        doc = StringIO.StringIO()
+        pdf = CreatePDF(html,
+                        dest=doc,
+                        default_css=css,
+                        encoding='utf-8')
+        return doc.getvalue()
+    return context

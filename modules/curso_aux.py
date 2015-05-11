@@ -9,6 +9,10 @@ from gluon.http import redirect
 
 
 Curso = current.globalenv.get('Curso')
+Inscripto = current.globalenv.get('Inscripto')
+Pagos = current.globalenv.get('Pagos')
+db = current.globalenv.get('db')
+
 
 def oncreate(form):
     redirect(URL(args=('view', Curso._tablename, form.vars.id),
