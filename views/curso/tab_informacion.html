@@ -12,9 +12,13 @@
                                  _type='button',
                                  _class='btn btn-xs',
                                  **{"_data-toggle": 'collapse', "_data-target": "#add-docente"})
+            bt_asistencia = A(SPAN(_class='glyphicon glyphicon-print'), ' Registro Asistencias',
+                            _href=URL(c='inscripto', f='asistencias', extension='pdf', args=object.custom.dspval.id),
+                            _class='btn btn-default btn-xs')
 
             grid.components[0].components.append(bt_fechas)
             grid.components[0].components.append(bt_docente)
+            grid.components[0].components.append(bt_asistencia)
             }}
 
             {{=TABLE(TBODY(TR(*[TD(c) for c in grid.components[0]])))}}
