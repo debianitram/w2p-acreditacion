@@ -111,18 +111,22 @@
                 <div class='form-group'>
                     <label for='inscripto-docente'>Nuevo Docente</label>
                     <input id='typeahead-id' type='hidden' name='inscripto_docente'>
-                    <input id='inscripto-docente' class="typeahead form-control" type="text" name='docente'>
+                    <div id="scrollable-dropdown-menu">
+                        <input id='inscripto-docente' class="typeahead form-control" type="text" name='docente'>
+                        <div class="pull-right">
+                            <button class='btn btn-primary'
+                                    onclick="ajax(
+                                            '{{=URL('curso', 
+                                                    'add_docente', 
+                                                    args=object.custom.dspval.id,
+                                                    user_signature=True)}}', 
+                                            ['inscripto_docente'],
+                                            ':eval')">
+                                <span class='glyphicon glyphicon-plus-sign'></span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button class='btn btn-primary'
-                        onclick="ajax(
-                                '{{=URL('curso', 
-                                        'add_docente', 
-                                        args=object.custom.dspval.id,
-                                        user_signature=True)}}', 
-                                ['inscripto_docente'],
-                                ':eval')">
-                    <span class='glyphicon glyphicon-plus-sign'></span>
-                </button>
             </div>
         </div>
     </div>

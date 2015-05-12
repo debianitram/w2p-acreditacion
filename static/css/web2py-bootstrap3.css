@@ -467,3 +467,8 @@ Licensed under MIT
 .content-docente-curso{
    margin-left:5px; 
 }
+
+#scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
+}

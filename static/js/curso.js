@@ -4,8 +4,7 @@ $(document).on('click', '.remove-item',
         if (!Item){
             Item = $(event.currentTarget).parents('tr')[0];
         }
-        console.log('Item db: ', Item.dataset.db);
-        console.log('Item target:', Item.dataset.target);
+
         target = Item.dataset.target;
 
         if (Item.dataset.db == 'true'){
@@ -22,13 +21,14 @@ $(document).on('click', '.remove-item',
 );
 
 
-$('.typeahead').typeahead(
+$('#scrollable-dropdown-menu .typeahead').typeahead(
     {
         hint: true,
         highlight: true,
-        minLength: 4
+        minLength: 4,
     },
     {
+        limit: 15,
         name: 'states',
         displayKey: 'value',
         source: function (query, process) {
