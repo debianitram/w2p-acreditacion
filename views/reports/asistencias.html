@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <style>
+            @page {
+                size: a4 portrait;
+                @frame header_frame {
+                    -pdf-frame-content: header_content;
+                    left: 1cm;
+                    width: 19cm;
+                    top: 1cm;
+                    height: 3.5cm;
+                    
+                }
+                @frame content_frame {          /* Content Frame */
+                    left: 1cm;
+                    width: 19cm;
+                    top: 4.5cm;
+                    height: 23.5cm;
+                    
+                }
+                @frame footer_frame {
+                    -pdf-frame-content: footer_content;
+                    left: 1cm;
+                    width: 19cm;
+                    top: 28.2cm;
+                    height: .7cm;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="header_content">
+            <table class='table-bordered'>
+                <tbody>
+                    <tr>
+                        <td width="40%" align="center">
+                            <img src="images/sfap-iram.jpg" style='zoom:60%'></td>
+                        <td>
+                            <center>
+                                <h4>REGISTRO DE ASISTENCIA</h4>
+                            </center>
+                        </td>
+                        <td width="40%" align="center">
+                             <img src="images/cpcec.jpg" style='zoom:60%'></td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>  
+        </div>
+
+
+        {{for d in fechas:}}
+            <table class='table'>
+                <tbody>
+                    <tr>
+                        <td width="10%">Curso:</td>
+                        <td width="80%">{{=curso.titulo}}</td>
+                        <td width="10%">Fecha:</td>
+                        <td width="20%">{{=d.fecha}}</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">Expositores:</td>
+                        <td>{{=SPAN(*[I(i.persona.nombre_apellido, '/ ') for i in docentes])}}</td>
+                        <td>Hora:</td>
+                        <td>{{=d.hora_inicio}} a {{=d.hora_fin}}</td>
+                    </tr>
+                    <tr>
+                        <td>Lugar:</td>
+                        <td colspan="3">{{=curso.lugar}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table class='table table-bordered'>
+                <thead>
+                    <tr>
+                        <th>Nº ORD</th>
+                        <th>APELLIDO/ NOMBRES</th>
+                        <th>MATRICULA</th>
+                        <th>FIRMA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{for count, inscripto in enumerate(inscriptos):}}
+                        <tr>
+                            <td>{{=count}}</td>
+                            <td>{{=inscripto.persona.nombre_apellido}}</td>
+                            <td>{{=inscripto.persona.matricula}}</td>
+                            <td></td>
+                        </tr>
+                    {{pass}}
+                </tbody>
+            </table>
+        {{pass}}
+
+
+
+
+        <div id="footer_content">
+            <p class='footer'>
+                Colmenalabs (c) 2015 | Versión: 0.2 - Página <pdf:pagenumber> de <pdf:pagecount>
+            </p>
+        </div>
+        
+    </body>
+</html>
+
