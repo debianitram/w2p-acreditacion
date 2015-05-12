@@ -1,7 +1,11 @@
 #!-*- encoding: utf-8 -*-
 
 from decimal import Decimal
+
 from gluon.serializers import json
+
+from curso_aux import date_reportcert, time_reportcert
+
 
 @auth.requires_login()
 def index():
@@ -187,10 +191,28 @@ def actions_process():
 
 
 
-def certificado():
+def certificados():
     response.view = 'reports/certificado.html'
-    inscriptos = db(Inscripto.id < 10).select()
-    context = dict(inscriptos=inscriptos)
+
+    if 'all' in request.args:
+        curso = Curso(request.args(0, cast=int))
+        fechas = curso.cfecha.select(CFecha.fecha,
+                                     CFecha.hora_inicio,
+                                     CFecha.hora_fin)
+
+        inscriptos = curso.inscripto.select(
+            Inscripto.persona,
+            Inscripto.docente,
+            Inscripto.acreditado
+        ).find(lambda r: r['acreditado'])
+
+        text_date = date_reportcert(fechas)
+        text_hours_count = time_reportcert(fechas)
+
+        context = dict(curso=curso,
+                       inscriptos=inscriptos,
+                       text_date=text_date,
+                       count_hours=text_hours_count)
 
     if request.extension == 'pdf':
         import os

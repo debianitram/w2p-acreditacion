@@ -2,6 +2,7 @@
 
 # Colmena Labs - Catamarca - Argentina
 # debianitram (at) gmail.com
+from datetime import datetime, timedelta
 
 from gluon import current
 from gluon.html import A, URL
@@ -31,3 +32,40 @@ def js_append_inscripto(form):
         """ % form.vars
 
     return "$('.list-group').append('%s');" % item
+
+
+def date_reportcert(rows_dates):
+    result = ''
+    n_dates = len(rows_dates)
+    for c, item in enumerate(rows_dates):
+        if c != 0 and c == n_dates - 1:
+            result += ' y '
+        elif c > 0 and c < n_dates:
+            result += ', '
+        
+        result += item.fecha.strftime('%d/%m/%Y')
+    return result
+
+def time_reportcert(rows_date):
+    hours = []
+    for d in rows_date:
+        f1 = datetime(year=d.fecha.year,
+                      month=d.fecha.month,
+                      day=d.fecha.day,
+                      hour=d.hora_inicio.hour,
+                      minute=d.hora_inicio.minute)
+        f2 = datetime(year=d.fecha.year,
+                      month=d.fecha.month,
+                      day=d.fecha.day,
+                      hour=d.hora_fin.hour,
+                      minute=d.hora_fin.minute)
+        
+        r = (f2 - f1).seconds / 60. ** 2
+        hours.append(r)
+        
+    return sum(hours)
+
+        
+
+
+

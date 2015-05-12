@@ -10,14 +10,14 @@
                     width: 17.5cm;
                     top: 2cm;
                     height: 3cm;
-                    -pdf-frame-border: 0;    /* for debugging the layout */
+                    /*  -pdf-frame-border: 0;    for debugging the layout */
                 }
                 @frame content_frame {          /* Content Frame */
                     left: 3cm;
                     width: 23.5cm;
                     top: 6cm;
                     height: 5.5cm;
-                    -pdf-frame-border: 0;    /* for debugging the layout */
+                    /*  -pdf-frame-border: 0;    for debugging the layout */
                 }
                 @frame extendido {
                     -pdf-frame-content: extendido;
@@ -25,7 +25,7 @@
                     width: 23.5cm;
                     top: 12cm;
                     height: 1.5cm;
-                    -pdf-frame-border: 0;    /* for debugging the layout */
+                    /* -pdf-frame-border: 0;    for debugging the layout */
                 }
             }
         </style>
@@ -34,7 +34,7 @@
     <body>
         <div id='titulo_curso'>
             <center><h4>CURSO</h4></center>
-            <center><h3>{{=inscriptos[0].curso.titulo}}</h3></center>
+            <center><h3>{{=curso.titulo}}</h3></center>
         </div>
 
         {{for inscripto in inscriptos:}}
@@ -44,9 +44,8 @@
             </div>
             <div id='descripcion'>
                 <p class='lead'>Ha participado como {{='DOCENTE' if inscripto.docente else 'ASISTENTE'}}
-                en el curso: "{{=inscripto.curso.titulo}}", los días ..., ... y ... con un total de 
-                8 horas, a cargo de la CPN Irma Reynoso(Catamarca), organizado por el Consejo Profesional
-                de Ciencias Económicas de Catamarca</p>
+                en el curso: "{{=curso.titulo}}", los días {{=text_date}} con un total de 
+                {{=count_hours}} horas, organizado por el Consejo Profesional de Ciencias Económicas de Catamarca</p>
             </div>
             <pdf:nextpage>
         {{pass}}
@@ -54,9 +53,10 @@
         <div id='extendido'>
             <p class='extendido'>
                 Se extiende el presente certificado en la ciudad de San Fernando del Valle de Catamarca a los
-                11 días del mes de Octubre de 2014
+                {{=request.now.strftime('%d días del mes de %B de %Y')}}
             </p>
         </div>
+
     </body>
 </html>
 

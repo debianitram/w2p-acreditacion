@@ -2,8 +2,15 @@
     <div class='col-md-12'>
         <div class='pull-right'>
             <div class="btn-group">
-                <a href="{{=URL('curso', 'add_inscriptos', args=curso)}}" class="btn btn-xs btn-default">Inscribir Nuevo</a>
-                <a href="{{=URL('curso', 'import_inscriptos', args=curso)}}" class="btn btn-xs btn-default">Importar</a>
+                <a href="{{=URL('curso', 'add_inscriptos', args=curso)}}" class="btn btn-xs btn-default">
+                    <span class='glyphicon glyphicon-plus'></span> Inscribir Nuevo
+                </a>
+                <a href="{{=URL('curso', 'import_inscriptos', args=curso)}}" class="btn btn-xs btn-default">
+                    <span class='glyphicon glyphicon-paperclip'></span> Importar
+                </a>
+                <a href="{{=URL('inscripto', 'certificados.pdf', args=(curso, 'all'))}}" class="btn btn-xs btn-default">
+                    <span class='glyphicon glyphicon-print'></span> Certificados
+                </a>
             </div>
         </div>
     </div>
