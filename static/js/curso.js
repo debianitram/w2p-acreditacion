@@ -1,6 +1,11 @@
 $(document).on('click', '.remove-item',
     function(event){
         Item = $(event.currentTarget).parent('li')[0];
+        if (!Item){
+            Item = $(event.currentTarget).parents('tr')[0];
+        }
+        console.log('Item db: ', Item.dataset.db);
+        console.log('Item target:', Item.dataset.target);
         target = Item.dataset.target;
 
         if (Item.dataset.db == 'true'){

@@ -8,7 +8,7 @@
                 <a href="{{=URL('curso', 'import_inscriptos', args=curso)}}" class="btn btn-xs btn-default">
                     <span class='glyphicon glyphicon-paperclip'></span> Importar
                 </a>
-                <a href="{{=URL('inscripto', 'certificados.pdf', args=(curso, 'all'))}}" class="btn btn-xs btn-default">
+                <a href="{{=URL('inscripto', 'certificados', args=(curso, 'all'), extension='pdf')}}" class="btn btn-xs btn-default">
                     <span class='glyphicon glyphicon-print'></span> Certificados
                 </a>
             </div>
@@ -35,7 +35,7 @@
 
                     <tbody>
                         {{for row in inscriptos:}}
-                            <tr data-target='inscripto-{{=row.id}}'>
+                            <tr data-target='inscripto-{{=row.id}}' data-db='true'>
                                 <td>{{=A(label_inscripto(row),
                                         _href=URL(c='persona',
                                                   f='index',
@@ -70,12 +70,13 @@
                                         <a class='btn btn-default btn-xs actions {{="disabled" if row.acreditado else ""}}' title='Asistio' data-title="Confirma Asistencia?" data-action='acreditar'>
                                             <span class='glyphicon glyphicon glyphicon-list-alt'></span>
                                         </a>
-                                        <a id="btn-certificado" class='btn btn-default btn-xs' title='Imprimir Certificado'>
+                                        <a href="{{=URL('inscripto', 'certificados', extension='pdf', args=(curso, row.id))}}" class='btn btn-default btn-xs {{="disabled" if not row.acreditado else ""}}' title='Imprimir Certificado'>
                                             <span class='glyphicon glyphicon-print'></span>
                                         </a>
-                                        <a class='btn btn-danger btn-xs remove-item' data-db='false' title='Eliminar'>
+                                        <a class='btn btn-danger btn-xs remove-item' title='Eliminar'>
                                             <span class='glyphicon glyphicon-remove-sign'></span>
-                                        </a>  
+                                        </a>
+                                    </div>
                                 </td> 
                             </tr>
                         {{pass}}

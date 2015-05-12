@@ -43,7 +43,7 @@ def date_reportcert(rows_dates):
         elif c > 0 and c < n_dates:
             result += ', '
         
-        result += item.fecha.strftime('%d/%m/%Y')
+        result += item.fecha.strftime('%x')
     return result
 
 def time_reportcert(rows_date):

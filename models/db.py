@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import locale
 from gluon.contrib.appconfig import AppConfig
+
+# Config Locale
+locale.setlocale(locale.LC_ALL, ('es_AR', 'UTF-8'))
 
 ## once in production, remove reload=True to gain full speed
 myconf = AppConfig(reload=True)

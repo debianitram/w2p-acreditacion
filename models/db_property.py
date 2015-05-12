@@ -52,6 +52,7 @@ Inscripto.persona.represent = lambda v, r: Persona._format % v
 
 ########### Callback before/after where insert/update/delete #############
 def pago_after_in(row, id):
+    # Calculamos el pago.
     inscripto = Inscripto(row.inscripto)
     precio_curso = inscripto.curso.precio
     total_abonado = [i.monto for i in inscripto.pagos.select(Pagos.monto)]
@@ -65,5 +66,8 @@ def pago_after_in(row, id):
 
     inscripto.update_record(**expresion)
     db.commit()
+
+def pago_after_update(row, id):
+    pass
 
 Pagos._after_insert.append(lambda row, id: pago_after_in(row, id))
