@@ -8,7 +8,10 @@
                 <a href="{{=URL('curso', 'import_inscriptos', args=curso)}}" class="btn btn-xs btn-default">
                     <span class='glyphicon glyphicon-paperclip'></span> Importar
                 </a>
-                <a href="{{=URL('inscripto', 'certificados', args=(curso, 'all'), extension='pdf')}}" class="btn btn-xs btn-default">
+                <a href="{{=URL(c='reports',
+                                f='certificados',
+                                args=(curso, 'all'),
+                                extension='pdf')}}" class="btn btn-xs btn-default">
                     <span class='glyphicon glyphicon-print'></span> Certificados
                 </a>
             </div>
@@ -70,7 +73,10 @@
                                         <a class='btn btn-default btn-xs actions {{="disabled" if row.acreditado else ""}}' title='Asistio' data-title="Confirma Asistencia?" data-action='acreditar'>
                                             <span class='glyphicon glyphicon glyphicon-list-alt'></span>
                                         </a>
-                                        <a href="{{=URL('inscripto', 'certificados', extension='pdf', args=(curso, row.id))}}" class='btn btn-default btn-xs {{="disabled" if not row.acreditado else ""}}' title='Imprimir Certificado'>
+                                        <a href="{{=URL(c='reports',
+                                                        f='certificados',
+                                                        extension='pdf',
+                                                        args=(curso, row.id))}}" class='btn btn-default btn-xs {{="disabled" if not row.acreditado else ""}}' title='Imprimir Certificado'>
                                             <span class='glyphicon glyphicon-print'></span>
                                         </a>
                                         <a class='btn btn-danger btn-xs remove-item' title='Eliminar'>

@@ -2,7 +2,7 @@
     <head>
         <style>
             @page {
-                size: a4 portrait;
+                size: A4;
                 @frame header_frame {
                     -pdf-frame-content: header_content;
                     left: 1cm;
@@ -54,44 +54,45 @@
             <table class='table'>
                 <tbody>
                     <tr>
-                        <td width="10%">Curso:</td>
-                        <td width="80%">{{=curso.titulo}}</td>
-                        <td width="10%">Fecha:</td>
-                        <td width="20%">{{=d.fecha}}</td>
+                        <td width="2cm" class='tright'>Curso:</td>
+                        <td width="13.5cm">{{=curso.titulo}}</td>
+                        <td width="1.5cm" class='tright'>Fecha:</td>
+                        <td width="3cm">{{=d.fecha}}</td>
                     </tr>
                     <tr>
-                        <td width="10%">Expositores:</td>
-                        <td>{{=SPAN(*[I(i.persona.nombre_apellido, '/ ') for i in docentes])}}</td>
-                        <td>Hora:</td>
+                        <td class='tright'>Expositores:</td>
+                        <td>{{=SPAN(*[I(label_inscripto(i), '/ ') for i in docentes])}}</td>
+                        <td class='tright'>Hora:</td>
                         <td>{{=d.hora_inicio}} a {{=d.hora_fin}}</td>
                     </tr>
                     <tr>
-                        <td>Lugar:</td>
+                        <td class='tright'>Lugar:</td>
                         <td colspan="3">{{=curso.lugar}}</td>
                     </tr>
                 </tbody>
             </table>
             
-            <table class='table table-bordered'>
+            <table class='table table-bordered asistencias '>
                 <thead>
                     <tr>
-                        <th>Nº ORD</th>
-                        <th>APELLIDO/ NOMBRES</th>
-                        <th>MATRICULA</th>
-                        <th>FIRMA</th>
+                        <th width="1.5cm">Nº ORD</th>
+                        <th width="11cm">APELLIDO/ NOMBRES</th>
+                        <th width="2cm">MATRICULA</th>
+                        <th width="4.5cm">FIRMA</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{for count, inscripto in enumerate(inscriptos):}}
                         <tr>
-                            <td>{{=count}}</td>
+                            <td class='nro-orden'>{{=count}}</td>
                             <td>{{=inscripto.persona.nombre_apellido}}</td>
-                            <td>{{=inscripto.persona.matricula}}</td>
+                            <td class='matricula'>{{=inscripto.persona.matricula}}</td>
                             <td></td>
                         </tr>
                     {{pass}}
                 </tbody>
             </table>
+            <pdf:nextpage>
         {{pass}}
 
 
