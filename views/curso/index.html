@@ -21,29 +21,29 @@
                             <div class="tabbable-line">
                                 <ul class="nav nav-tabs ">
                                     <li class="active">
-                                        <a href="#tab_informacion" data-toggle="tab"> Información </a>
+                                        <a href="#tab_inscriptos" data-toggle="tab"> Inscriptos </a>
                                     </li>
                                     <li>
-                                        <a href="#tab_inscriptos" data-toggle="tab"> Inscriptos </a>
+                                        <a href="#tab_informacion" data-toggle="tab"> Información </a>
                                     </li>
                                     <li>
                                         <a href="#tab_registro" data-toggle="tab"> Registro </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="tab_informacion">
-                                        <div id='curso-fecha'>
-                                            {{include 'curso/tab_informacion.html'}}
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="tab-pane" id="tab_inscriptos">
+                                    <div class="tab-pane active" id="tab_inscriptos">
                                         {{=LOAD(c='curso',
                                                 f='tab_inscriptos',
                                                 args=(object.custom.dspval.id),
                                                 target='tab_inscriptos_load',
                                                 ajax=True)
                                         }}
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_informacion">
+                                        <div id='curso-fecha'>
+                                            {{include 'curso/tab_informacion.html'}}
+                                        </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="tab-pane" id="tab_registro">
