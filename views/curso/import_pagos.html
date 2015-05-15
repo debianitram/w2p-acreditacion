@@ -1,0 +1,22 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+    <h2>{{=request.controller.title()}} <small> > Importar Pagos - (Temporal)</small></h2>
+    <hr>
+{{end}}
+
+<div class='row'>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well well-lg">
+            <div class='pull-right'>
+                {{=A(SPAN(_class='glyphicon glyphicon-arrow-left'), ' Atrás',
+                    _href=URL(c='curso', f='index', args=('view', 'curso', curso_id),
+                              user_signature=True),
+                    _class='btn btn-xs btn-warning'
+                    )
+                }}
+            </div>
+            {{=form}}
+        </div>
+    </div>
+</div>

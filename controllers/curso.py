@@ -242,3 +242,61 @@ def delete_item():
     db[table](object_id).delete_record()
 
     return target
+
+
+def import_pagos():
+    # Importar Pagos desde csv [Exclusivo para XIJORNADAS SECTOR PUBLICO]
+    curso_id = request.args(0, cast=int)
+    fields = (Inscripto.id, Inscripto.persona, Persona.dni)
+    inscriptos = db(Inscripto.curso == curso_id).select(
+                    *fields, left=Inscripto.on(Inscripto.persona==Persona.id))
+
+    rows = []
+
+    form = SQLFORM.factory(
+            Field('csv_pagos',
+                  'upload',
+                  label='Archivo CSV PAGOS',
+                  uploadfolder='uploads/csv/'),
+            formstyle='bootstrap3_stacked')
+
+    if form.process().accepted:
+        csvfile = request.vars.csv_pagos.file
+        csvfile.seek(0)
+
+        for line in csv.DictReader(csvfile, delimiter=';'):
+            row = inscriptos.find(
+                lambda r: r['persona']['dni'] == curso_aux.sanitize_dni(line['dni']))
+
+            msg = '0' * 15
+            permitir_acreditacion = False
+
+            if row:
+                row = row[0]
+                print row
+                if line['innominadas']:
+                    msg = 'INNOMINADAS Monto: %.2f' % float(line['innominadas'])
+                    permitir_acreditacion = True
+
+
+                pago = Pagos.validate_and_insert(
+                            inscripto=row.inscripto.id,
+                            monto=line['pago_total'],
+                            nro_recibo=msg,
+                            created_on=curso_aux.str2date(line['fecha_pago']))
+
+                if not pago.errors:
+                    if permitir_acreditacion:
+                        row.inscripto.update_record(pago=True)
+                else:
+
+                    print 'Linea: ', line
+                    print 'Error: ', pago.errors
+
+        session.flash = 'Se importó con éxitos los pagos'
+        csvfile.close()
+        redirect(URL(c='curso',
+                     f='index',
+                     args=('view', 'curso', curso_id),
+                     user_signature=True))
+    return dict(form=form, curso_id=curso_id)

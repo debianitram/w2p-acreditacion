@@ -105,7 +105,7 @@ Inscripto = db.define_table('inscripto',
 Pagos = db.define_table('pagos',
                 Field('inscripto', Inscripto),
                 Field('monto', 'decimal(8,2)'),
-                Field('nro_recibo', length=50, default="0" * 10),
+                Field('nro_recibo', length=100, default="0" * 10),
                 auth.signature
                 )
 

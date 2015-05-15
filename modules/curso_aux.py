@@ -70,7 +70,15 @@ def time_reportcert(rows_date):
         
     return sum(hours)
 
-        
 
-
-
+def str2date(date):
+    if date:
+        date = date.split('/')
+        try:
+            year = int(date[-1])
+            month = int(date[-2]) if date[-2][0] != 0 else int(date[-2][-1])
+            day = int(date[0])
+            return datetime(year, month, day)
+        except:
+            return datetime.now()
+    return datetime.now()
