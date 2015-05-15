@@ -145,16 +145,22 @@ def import_inscriptos():
             persona = db(Persona.dni == line['inscripcion.dni']).select()
 
             if not persona:
+                print curso_aux.sanitize_dni(line['inscripcion.dni'])
                 # Agregamos una nueva persona
                 persona = Persona.validate_and_insert(
                     profesion=line['inscripcion.profesion'],
                     nombre_apellido='%(inscripcion.apellido)s, %(inscripcion.nombre)s' % line,
-                    dni=line['inscripcion.dni'],
+                    dni=curso_aux.sanitize_dni(line['inscripcion.dni']),
                     email=line['inscripcion.email'],
                     matricula=line['inscripcion.matricula'],
                     telefono=line['inscripcion.telefono'],
                     domicilio=line['consejo.nombre']
                 )
+                
+                if persona.errors:
+                    print 'Linea: ', line
+                    print 'Error: ', persona.errors
+
                 persona = [persona]
             
             if db((Inscripto.curso == curso) & (Inscripto.persona == persona[0].id)).isempty():

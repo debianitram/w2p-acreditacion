@@ -34,6 +34,11 @@ def js_append_inscripto(form):
     return "$('.list-group').append('%s');" % item
 
 
+def sanitize_dni(number):
+    if number:
+        return number.replace('.', '').strip()
+
+
 def date_reportcert(rows_dates):
     result = ''
     n_dates = len(rows_dates)

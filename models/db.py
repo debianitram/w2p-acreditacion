@@ -8,6 +8,7 @@ locale.setlocale(locale.LC_ALL, ('es_AR', 'UTF-8'))
 
 ## once in production, remove reload=True to gain full speed
 myconf = AppConfig(reload=True)
+install = True
 
 db = DAL(myconf.take('db.uri'),
          pool_size=myconf.take('db.pool_size', cast=int),
@@ -67,7 +68,7 @@ Persona = db.define_table('persona',
                 Field('nombre_apellido', length=250),
                 Field('dni', length=25, unique=True),
                 Field('email', length=150),
-                Field('matricula', length=15),
+                Field('matricula', length=100),
                 Field('telefono', length=30),
                 Field('domicilio', length=150),
                 Field('fsearch',

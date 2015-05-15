@@ -20,7 +20,7 @@ Profesion.nombre.requires = IS_NOT_EMPTY()
 # Persona
 Persona.nombre_apellido.requires = [IS_NOT_EMPTY(), IS_UPPER()]
 Persona.dni.requires = IS_NOT_IN_DB(db, Persona.dni)
-Persona.email.requires = IS_EMAIL()
+# Persona.email.requires = IS_EMAIL()
 
 # Curso
 Curso.titulo.requires = [IS_NOT_IN_DB(db, Curso.titulo), IS_UPPER()]
