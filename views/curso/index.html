@@ -1,6 +1,10 @@
 <!-- Add script for dataTables -->
 {{response.files.append(URL('static', 'media/css/jquery.dataTables.css'))}}
+{{response.files.append(URL('static', 'extensions/TableTools/css/dataTables.tableTools.css'))}}
+{{response.files.append(URL('static', 'extensions/TableTools/css/dataTables.bootstrap.css'))}}
 {{response.files.append(URL('static', 'media/js/jquery.dataTables.min.js'))}}
+{{response.files.append(URL('static', 'extensions/TableTools/js/dataTables.tableTools.js'))}}
+{{response.files.append(URL('static', 'extensions/TableTools/js/dataTables.bootstrap.js'))}}
 
 {{extend 'layout.html'}}
 
@@ -56,7 +60,6 @@
                     </div>
                 </div>
             {{=object.custom.end}}
-
 
         {{else:}}
             {{=grid}}

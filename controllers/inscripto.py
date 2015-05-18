@@ -63,7 +63,7 @@ def actions_view():
     btnok = ''
 
     if action == 'abonar':
-        if auth.has_membership('cajero') or auth.has_membership('administrador'):
+        if memberships('cajero', 'administrador'):
             message = DIV('Realizar pago de: %s' % nombre_persona, _class='col-md-12')
             form = DIV(
                 DIV(
@@ -100,7 +100,7 @@ def actions_view():
             
 
     elif action == 'acreditar':
-        if auth.has_membership('colaborador') or auth.has_membership('administrador'):
+        if memberships('colaborador', 'administrador'):
             message = DIV('Desea acreditar a: %s' % nombre_persona,
                           _class='col-md-12')
             ajax = "ajax('%s', [], ':eval');"
@@ -130,7 +130,7 @@ def actions_process():
     inscripto = Inscripto(id)
 
     if action == 'abonar':
-        if auth.has_membership('cajero') or auth.has_membership('administrador'):
+        if memberships('cajero', 'administrador'):
 
             if request.vars.pago:
                 inscripto.update_record(pago=True)
@@ -166,7 +166,7 @@ def actions_process():
             return hide_modal + 'alert("No tiene permisos suficientes");'
 
     elif action == 'acreditar':
-        if auth.has_membership('colaborador') or auth.has_membership('administrador'):
+        if memberships('colaborador', 'administrador'):
             if not inscripto.pago:
                 return hide_modal + 'alert("Debe abonar para ser acreditado");'
             

@@ -15,6 +15,12 @@ def label_inscripto(row):
     return SPAN('%s %s' % (row.persona.profesion.abreviatura, persona))
 
 
+def memberships(*groups):
+    for g in groups:
+        if g in auth.user_groups.values():
+            return True
+    return False
+
 ### First Execution After of Install.
 if not install:
     # add User Root

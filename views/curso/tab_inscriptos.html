@@ -1,7 +1,7 @@
 <div class='row-fluid'>
     <div class='col-md-12'>
         <div class='pull-right'>
-            <div class="btn-group">
+            <div class="btn-group botonera">
                 <a href="{{=URL('curso', 'add_inscriptos', args=curso)}}" class="btn btn-xs btn-default">
                     <span class='glyphicon glyphicon-plus'></span> Inscribir Nuevo
                 </a>
@@ -70,7 +70,7 @@
                                         <a class='btn btn-default btn-xs actions {{="disabled" if row.pago else ""}}' title='Abonar' data-title="Realizar Pago" data-action="abonar">
                                             <span class='glyphicon glyphicon-usd'></span>
                                         </a>
-                                        <a class='btn btn-default btn-xs actions {{="disabled" if row.acreditado else ""}}' title='Asistio' data-title="Confirma Asistencia?" data-action='acreditar'>
+                                        <a class='btn btn-default btn-xs actions {{="disabled" if row.acreditado or not row.pago else ""}}' title='Asistio' data-title="Confirma Asistencia?" data-action='acreditar'>
                                             <span class='glyphicon glyphicon glyphicon-list-alt'></span>
                                         </a>
                                         <a href="{{=URL(c='reports',
@@ -79,9 +79,11 @@
                                                         args=(curso, row.id))}}" class='btn btn-default btn-xs {{="disabled" if not row.acreditado else ""}}' title='Imprimir Certificado'>
                                             <span class='glyphicon glyphicon-print'></span>
                                         </a>
-                                        <a class='btn btn-danger btn-xs remove-item' title='Eliminar'>
-                                            <span class='glyphicon glyphicon-remove-sign'></span>
-                                        </a>
+                                        {{if auth.has_membership('administrador'):}}
+                                            <a class='btn btn-danger btn-xs remove-item' title='Eliminar'>
+                                                <span class='glyphicon glyphicon-remove-sign'></span>
+                                            </a>
+                                        {{pass}}
                                     </div>
                                 </td> 
                             </tr>
@@ -112,8 +114,33 @@
 
 
 <script>
-    $('#curso-inscriptos').dataTable({
-        lengthMenu: [[100, 150, 200, -1], [100, 150, 200, "All"]],
-        oLanguage: {sUrl: "{{=URL('static', 'media/translate/dataTables.spanish.txt')}}"}
+    $.extend(true, $.fn.DataTable.TableTools.classes, {
+        "container" : "btn-group btn-group-xs",
+        "buttons" : {
+            "normal" : "btn btn-default btn-xs btn-success",
+            "disabled" : "disabled"
+        },
+        "collection" : {
+            "container" : "DTTT_dropdown dropdown-menu dropdown-toggle",
+            "buttons" : {
+                "normal" : "",
+                "disabled" : "disabled"
+            }
+        },
+        "select" : {
+            "row" : "active"
+        }
     });
+
+    var table = $('#curso-inscriptos').dataTable({
+        lengthMenu: [[100, 150, 200, -1], [100, 150, 200, "All"]],
+        oLanguage: {sUrl: "{{=URL('static', 'media/translate/dataTables.spanish.txt')}}"},
+        
+    });
+    
+    var tt = new $.fn.dataTable.TableTools(table, {
+            sSwfPath: "{{=URL('static', 'extensions/TableTools/swf/copy_csv_xls_pdf.swf')}}",
+        });
+
+    $(tt.fnContainer()).insertAfter('div.botonera');
 </script>
