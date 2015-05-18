@@ -52,11 +52,13 @@
                                 <td>{{=row.persona.dni or '-'}}</td>
                                 <td>{{=row.persona.domicilio or '-'}}</td>
                                 <td class='abonar'>
-                                    {{if row.pago:}}
-                                        <center class='alert-success'>$ {{=row.total_abonado}}</center>
-                                    {{else:}}
-                                        <center class='alert-danger'>$ {{=row.total_abonado}}</center>
-                                    {{pass}}
+                                    <span class='actions' title='Ver detalle', data-title='Detalle Pagos' data-action='detalle-pagos'>
+                                        {{if row.pago:}}
+                                            <center class='alert-success'>$ {{=row.total_abonado}}</center>
+                                        {{else:}}
+                                            <center class='alert-danger'>$ {{=row.total_abonado}}</center>
+                                        {{pass}}
+                                    </span>
                                 </td>
                                 <td class='acreditar'>
                                     {{if row.acreditado:}}

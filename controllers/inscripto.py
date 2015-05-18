@@ -42,12 +42,25 @@ def index():
 @auth.requires_login()
 def tabla_abonado(inscripto):
     inscripto = inscripto
+    precio_curso = inscripto.curso.precio
+
     table = TABLE(THEAD(TR(TH('fecha'), TH('monto'))),
                   _class='table table-condensed')
     fields = (Pagos.created_on, Pagos.monto)
     pagos = inscripto.pagos.select(*fields, orderby=fields[0])
 
     body = [TR(TD(i.created_on), TD('$ ', i.monto)) for i in pagos]
+
+    saldo = sum([i.monto for i in pagos]) - precio_curso
+
+    if saldo < 0:
+        rsaldo = TD('- $ %.2f' % saldo, _class='alert-danger')
+    else:
+        rsaldo = TD('+ $ %.2f' % saldo, _class='alert-success')
+    
+    body.append(TR(TD('Precio Curso', _style='text-align:right'),
+                   TD('$ ', precio_curso, _class='alert-warning')))
+    body.append(TR(TD(B('Total'), _style='text-align:right'), rsaldo))
     table.append(TBODY(*body))
 
     return table
@@ -114,6 +127,12 @@ def actions_view():
 
         else:
             tag = DIV('No tiene permisos suficientes', _class='alert alert-danger')
+
+    elif action == 'detalle-pagos':
+        message = DIV('Detalle de pagos: %s' % nombre_persona)
+        table = DIV(tabla_abonado(inscripto), _class='col-md-12')
+        tag.append(message)
+        tag.append(table)
 
     return json(dict(content=tag, btn=btnok))
 

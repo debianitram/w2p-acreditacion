@@ -148,7 +148,6 @@ def import_inscriptos():
             persona = db(Persona.dni == line['inscripcion.dni']).select()
 
             if not persona:
-                print curso_aux.sanitize_dni(line['inscripcion.dni'])
                 # Agregamos una nueva persona
                 persona = Persona.validate_and_insert(
                     profesion=line['inscripcion.profesion'],
@@ -161,8 +160,9 @@ def import_inscriptos():
                 )
                 
                 if persona.errors:
-                    print 'Linea: ', line
-                    print 'Error: ', persona.errors
+                    # control de personas con errores al importar.
+                    pass
+
 
                 persona = [persona]
             
@@ -276,7 +276,6 @@ def import_pagos():
 
             if row:
                 row = row[0]
-                print row
                 if line['innominadas']:
                     msg = 'INNOMINADAS Monto: %.2f' % float(line['innominadas'])
                     permitir_acreditacion = True
@@ -291,10 +290,6 @@ def import_pagos():
                 if not pago.errors:
                     if permitir_acreditacion:
                         row.inscripto.update_record(pago=True)
-                else:
-
-                    print 'Linea: ', line
-                    print 'Error: ', pago.errors
 
         session.flash = 'Se importó con éxitos los pagos'
         csvfile.close()
