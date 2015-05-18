@@ -17,11 +17,12 @@
                             <th>Fecha</th>
                             <th>Monto</th>
                             <th>N° Recibo</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {{for row in pagos:}}
-                            <tr>
+                            <tr data-target='pagos-{{=row.pagos.id}}' data-db='true'>
                                 <td>{{=A(row.inscripto.curso.titulo,
                                         _href=URL(c='curso',
                                                   f='index',
@@ -33,6 +34,13 @@
                                 <td>{{=row.pagos.created_on}}</td>
                                 <td><center><span class="label label-primary">$ {{=row.pagos.monto}}</span></center></td>
                                 <td>{{=row.pagos.nro_recibo}}</td>
+                                <td>
+                                    {{if auth.has_membership('administrador'):}}
+                                        <a class='btn btn-danger btn-xs remove-item' title='Eliminar'>
+                                            <span class='glyphicon glyphicon-remove-sign'></span> Eliminar
+                                        </a>
+                                    {{pass}}
+                                </td>
                             </tr>
                         {{pass}}
                     </tbody>
@@ -42,5 +50,8 @@
 </div>
 
 <script>
-    $('#persona-pagos').dataTable();
+    $('#persona-pagos').dataTable({
+        lengthMenu: [[100, 150, 200, -1], [100, 150, 200, "All"]],
+        oLanguage: {sUrl: "{{=URL('static', 'media/translate/dataTables.spanish.txt')}}"},
+    });
 </script>

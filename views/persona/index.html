@@ -1,6 +1,8 @@
 <!-- Add script for dataTables -->
 {{response.files.append(URL('static', 'media/css/jquery.dataTables.css'))}}
+{{response.files.append(URL('static', 'extensions/TableTools/css/dataTables.bootstrap.css'))}}
 {{response.files.append(URL('static', 'media/js/jquery.dataTables.min.js'))}}
+{{response.files.append(URL('static', 'extensions/TableTools/js/dataTables.bootstrap.js'))}}
 {{response.files.append(URL('static', 'js/curso.js'))}}
 
 {{extend 'layout.html'}}

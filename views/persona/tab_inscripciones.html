@@ -48,5 +48,8 @@
 </div>
 
 <script>
-    $('#persona-inscripciones').dataTable();
+    $('#persona-inscripciones').dataTable({
+        lengthMenu: [[100, 150, 200, -1], [100, 150, 200, "All"]],
+        oLanguage: {sUrl: "{{=URL('static', 'media/translate/dataTables.spanish.txt')}}"},
+    });
 </script>

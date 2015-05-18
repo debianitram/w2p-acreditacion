@@ -67,7 +67,24 @@ def pago_after_in(row, id):
     inscripto.update_record(**expresion)
     db.commit()
 
-def pago_after_update(row, id):
-    pass
+def pago_before_delete(set_delete):
+    row = set_delete.select()[0]
+
+    inscripto = Inscripto(row.inscripto.id)
+    curso = row.inscripto.curso
+
+    keys = {}
+
+    inscripto_monto_total = inscripto.total_abonado - row.monto
+    keys.update(total_abonado=inscripto_monto_total)
+
+    if inscripto_monto_total < curso.precio:
+        keys.update(pago=False, acreditado=False)
+    else:
+        keys.update(pago=True)
+
+    inscripto.update_record(**keys)   # Actualizamos datos de Inscripto
+    db.commit()
 
 Pagos._after_insert.append(lambda row, id: pago_after_in(row, id))
+Pagos._before_delete.append(lambda s: pago_before_delete(s))

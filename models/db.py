@@ -99,7 +99,7 @@ Inscripto = db.define_table('inscripto',
                 Field('pago', 'boolean', default=False),
                 Field('total_abonado', 'decimal(8, 2)', default=0.0),
                 auth.signature,
-                format=lambda r: '%s> %s' % (r.curso.titulo, r.persona.nombre_apellido),
+                format=lambda r: '%s> %s' % (r.curso.titulo, r.persona),
                 )
 
 Pagos = db.define_table('pagos',

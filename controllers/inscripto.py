@@ -148,8 +148,12 @@ def actions_process():
             total = sum([i.monto for i in inscripto.pagos.select(Pagos.monto)])
             
             if inscripto.pago:
+                # Deshabilitamos el botón de abonar
                 js += "$('*[data-target=%(target)s]').find('*[data-action=%(action)s]')"
                 js += ".attr('class', 'btn btn-default btn-xs disabled');"
+                # Habilitamos el botón de acreditar
+                js += "$('*[data-target=%(target)s]').find('*[data-action=acreditar]')"
+                js += ".attr('class', 'btn btn-default btn-xs actions');"
                 span = CENTER(SPAN('$ ', total), _class='alert-success')
             else:
                 span = CENTER(SPAN('$ ', total), _class='alert-danger')
@@ -172,6 +176,12 @@ def actions_process():
             
             inscripto.update_record(acreditado=True)
             js = hide_modal + js
+            # Deshabilitamos el botón de acreditación
+            js += "$('*[data-target=%(target)s]').find('*[data-action=%(action)s]')"
+            js += ".attr('class', 'btn btn-default btn-xs disabled');"
+            # Habilitamos el botón de imprimir
+            js += "$('*[data-target=%(target)s]').find('*[data-action=imprimir]')"
+            js += ".attr('class', 'btn btn-default btn-xs');"
             js = js % {'target': target,
                        'action': action,
                        'result': CENTER(

@@ -76,7 +76,7 @@
                                         <a href="{{=URL(c='reports',
                                                         f='certificados',
                                                         extension='pdf',
-                                                        args=(curso, row.id))}}" class='btn btn-default btn-xs {{="disabled" if not row.acreditado else ""}}' title='Imprimir Certificado'>
+                                                        args=(curso, row.id))}}" class='btn btn-default btn-xs {{="disabled" if not row.acreditado else ""}}' title='Imprimir Certificado' data-action='imprimir'>
                                             <span class='glyphicon glyphicon-print'></span>
                                         </a>
                                         {{if auth.has_membership('administrador'):}}
