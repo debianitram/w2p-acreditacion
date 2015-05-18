@@ -19,7 +19,7 @@ db = DAL(myconf.take('db.uri'),
 response.generic_patterns = ['*'] if request.is_local else []
 
 ## Style Forms
-response.formstyle = myconf.take('forms.formstyle')  # or 'bootstrap3_stacked' or 'bootstrap2' or other
+response.formstyle = myconf.take('forms.formstyle')
 response.form_label_separator = myconf.take('forms.separator')
 
 from gluon.tools import Auth, Service, PluginManager

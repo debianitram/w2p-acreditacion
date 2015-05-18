@@ -46,7 +46,7 @@ Curso.precio.represent = lambda v, r: SPAN('$ {:,.2f}'.format(v),
 
 # Inscripto
 Inscripto.curso.represent = lambda v, r: Curso._format % v
-Inscripto.persona.represent = lambda v, r: Persona._format % v
+Inscripto.persona.represent = lambda v, r: Persona._format % v if v else 'Error User'
 
 
 
