@@ -51,16 +51,19 @@ def tabla_abonado(inscripto):
 
     body = [TR(TD(i.created_on), TD('$ ', i.monto)) for i in pagos]
 
-    saldo = sum([i.monto for i in pagos]) - precio_curso
+    abonado = sum([i.monto for i in pagos])
+    saldo = abonado - precio_curso
 
     if saldo < 0:
         rsaldo = TD('- $ %.2f' % saldo, _class='alert-danger')
     else:
         rsaldo = TD('+ $ %.2f' % saldo, _class='alert-success')
     
-    body.append(TR(TD('Precio Curso', _style='text-align:right'),
+    body.append(TR(TD(B('Total abonado'), _style='text-align:right'), 
+                   TD('$ ', abonado)))
+    body.append(TR(TD(B('Precio Curso'), _style='text-align:right'),
                    TD('$ ', precio_curso, _class='alert-warning')))
-    body.append(TR(TD(B('Total'), _style='text-align:right'), rsaldo))
+    body.append(TR(TD(B('Saldo'), _style='text-align:right'), rsaldo))
     table.append(TBODY(*body))
 
     return table
