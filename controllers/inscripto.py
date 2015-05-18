@@ -176,10 +176,15 @@ def actions_process():
                 # Habilitamos el botón de acreditar
                 js += "$('*[data-target=%(target)s]').find('*[data-action=acreditar]')"
                 js += ".attr('class', 'btn btn-default btn-xs actions');"
-                span = CENTER(SPAN('$ ', total), _class='alert-success')
+                rt = CENTER('$ %s' % total, _class='alert-success')
             else:
-                span = CENTER(SPAN('$ ', total), _class='alert-danger')
+                rt = CENTER('$ %s' % total, _class='alert-danger')
 
+            span = SPAN(_class='actions',
+                        _title='Ver detalle',
+                        **{'_data-title': 'Detalle Pagos',
+                           '_data-action': 'detalle-pagos'})
+            span.append(rt)
             js = hide_modal + js
             js = js % {'target': target,
                        'action': action,
