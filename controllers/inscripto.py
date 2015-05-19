@@ -176,9 +176,7 @@ def actions_process():
             js += ".attr('class', 'btn btn-default btn-xs');"
             js = js % {'target': target,
                        'action': action,
-                       'result': CENTER(
-                                    SPAN(_class='glyphicon glyphicon-ok'),
-                                    _class='alert-success')}
+                       'result': CENTER(STRONG('Si'), _class='alert-success')}
 
             response.flash = 'Inscripto acreditado'
             return js

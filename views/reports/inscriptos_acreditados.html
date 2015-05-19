@@ -61,6 +61,8 @@
             </table>
         </div>
 
+        {{total_recaudado = []}}
+
         {{for domicilio in rows_groups.keys():}}
             <h4>Origen: {{=domicilio}} <small>> Cantidad: {{=len(rows_groups[domicilio])}}</small></h4>
             <table class='table'>
@@ -68,8 +70,6 @@
                     <tr>
                         <th>Nombre/Apellido</th>
                         <th>DNI</th>
-                        <th>Abono</th>
-                        <th>Acreditado</th>
                         <th>Total Abonado</th>
                     </tr>
                 </thead>
@@ -78,18 +78,20 @@
                         <tr>
                             <td>{{=items.persona.nombre_apellido}}</td>
                             <td><center>{{=items.persona.dni}}</center></td>
-                            <td><center>{{=items.inscripto.pago}}</center></td>
-                            <td><center>{{=items.inscripto.acreditado}}</center></td>
                             <td class='tright'>$ {{=items.inscripto.total_abonado}}</td>
                         </tr>
                     {{pass}}
+                    {{total_x_origen = sum([i.inscripto.total_abonado for i in rows_groups[domicilio]])}}
+                    {{total_recaudado.append(total_x_origen)}}
                     <tr>
-                        <td colspan="4" class='tright'><b>TOTAL<b></td>
-                        <td class='tright'><b>{{='$ %.2f' % sum([i.inscripto.total_abonado for i in rows_groups[domicilio]])}}</b></td>
+                        <td colspan="2" class='tright'><b>TOTAL<b></td>
+                        <td class='tright'><b>{{='$ %.2f' % total_x_origen}}</b></td>
                     </tr>
                 </tbody>
             </table>
         {{pass}}
+
+        <h3>Total recaudado: <span style='color:red'>$ {{=sum(total_recaudado)}}</span></h3>
 
         <div id="footer_content">
             <p class='footer'>

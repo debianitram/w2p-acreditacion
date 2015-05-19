@@ -76,9 +76,9 @@
                                 </td>
                                 <td class='acreditar'>
                                     {{if row.acreditado:}}
-                                        <center class='alert-success'><span class='glyphicon glyphicon-ok'></span></center>
+                                        <center class='alert-success'><strong>Si</strong></center>
                                     {{else:}}
-                                        <center class='alert-danger'><span class='glyphicon glyphicon-remove'></span></center>
+                                        <center class='alert-danger'><strong>No</strong></center>
                                     {{pass}}
                                 </td>   
                                 <td>
@@ -156,6 +156,22 @@
     
     var tt = new $.fn.dataTable.TableTools(table, {
             sSwfPath: "{{=URL('static', 'extensions/TableTools/swf/copy_csv_xls_pdf.swf')}}",
+            aButtons: [
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "CSV"
+                },
+                {
+                    "sExtends": "xls",
+                    "oSelectorOpts": {
+                        page: 'current'
+                    }
+                },
+                {
+                    "sExtends": "print",
+                    "sButtonText": "Print",
+                },
+            ]
         });
 
     $(tt.fnContainer()).insertAfter('div.botonera');
