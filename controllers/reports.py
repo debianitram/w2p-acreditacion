@@ -96,14 +96,14 @@ def inscriptos_acreditados():
     response.view = 'reports/inscriptos_acreditados.html'
     curso = Curso(request.args(-1, cast=int))
     fields = (Inscripto.id,
+              Inscripto.pago,
               Inscripto.acreditado,
               Inscripto.total_abonado,
-              Persona.id,
               Persona.dni,
               Persona.domicilio,
               Persona.nombre_apellido)
 
-    query = (Inscripto.curso == curso.id) & (Inscripto.acreditado == True)
+    query = (Inscripto.curso == curso.id)
 
     rows = db(query).select(*fields,
                             left=Inscripto.on(Inscripto.persona == Persona.id))

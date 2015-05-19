@@ -68,6 +68,8 @@
                     <tr>
                         <th>Nombre/Apellido</th>
                         <th>DNI</th>
+                        <th>Abono</th>
+                        <th>Acreditado</th>
                         <th>Total Abonado</th>
                     </tr>
                 </thead>
@@ -75,12 +77,14 @@
                     {{for items in rows_groups[domicilio]:}}
                         <tr>
                             <td>{{=items.persona.nombre_apellido}}</td>
-                            <td class='nro_orden'>{{=items.persona.dni}}</td>
+                            <td><center>{{=items.persona.dni}}</center></td>
+                            <td><center>{{=items.inscripto.pago}}</center></td>
+                            <td><center>{{=items.inscripto.acreditado}}</center></td>
                             <td class='tright'>$ {{=items.inscripto.total_abonado}}</td>
                         </tr>
                     {{pass}}
                     <tr>
-                        <td colspan="2" class='tright'><b>TOTAL<b></td>
+                        <td colspan="4" class='tright'><b>TOTAL<b></td>
                         <td class='tright'><b>{{='$ %.2f' % sum([i.inscripto.total_abonado for i in rows_groups[domicilio]])}}</b></td>
                     </tr>
                 </tbody>
