@@ -273,7 +273,6 @@ def import_pagos():
 
             msg = '0' * 15
             permitir_acreditacion = False
-            acreditado = False
 
             if row:
                 row = row[0]
@@ -282,8 +281,7 @@ def import_pagos():
                     permitir_acreditacion = True
 
                 if line['acreditado'] == '*':
-                    # permitir acreditacion
-                    acreditado = True
+                    permitir_acreditacion = True
 
 
 
@@ -294,8 +292,7 @@ def import_pagos():
                             created_on=curso_aux.str2date(line['fecha_pago']))
 
                 if not pago.errors:
-                    row.inscripto.update_record(pago=permitir_acreditacion,
-                                                acreditado=acreditado)
+                    row.inscripto.update_record(pago=permitir_acreditacion)
 
         session.flash = 'Se importó con éxitos los pagos'
         csvfile.close()
