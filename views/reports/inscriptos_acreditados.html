@@ -62,7 +62,7 @@
         </div>
 
         {{for domicilio in rows_groups.keys():}}
-            <h4>Consejo de Origen: {{=domicilio}}</h4>
+            <h4>Origen: {{=domicilio}} <small>> Cantidad: {{=len(rows_groups[domicilio])}}</small></h4>
             <table class='table'>
                 <thead>
                     <tr>

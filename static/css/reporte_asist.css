@@ -40,6 +40,11 @@ ins {
     text-decoration: underline;
 }
 
+small {
+    color: #d0d0d0;
+    font-size: 15px;
+}
+
 del {
     color: red;
     text-decoration: line-through;
