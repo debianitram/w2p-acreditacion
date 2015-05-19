@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <style>
+            @page {
+                size: A4;
+                @frame header_frame {
+                    -pdf-frame-content: header_content;
+                    left: 1cm;
+                    width: 19cm;
+                    top: 1cm;
+                    height: 6cm;
+                    
+                }
+                @frame content_frame {          /* Content Frame */
+                    left: 1cm;
+                    width: 19cm;
+                    top: 6.2cm;
+                    height: 19.5cm;
+                    
+                }
+                @frame footer_frame {
+                    -pdf-frame-content: footer_content;
+                    left: 1cm;
+                    width: 19cm;
+                    top: 28.2cm;
+                    height: .7cm;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="header_content">
+            <table class='table-bordered'>
+                <tbody>
+                    <tr>
+                        <td width="40%" align="center">
+                            <img src="images/sfap-iram.jpg" style='zoom:60%'></td>
+                        <td>
+                            <center>
+                                <h4>REGISTRO DE ACREDITADOS</h4>
+                            </center>
+                        </td>
+                        <td width="40%" align="center">
+                             <img src="images/cpcec.jpg" style='zoom:60%'></td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class='table-bordered'>
+                <tbody>
+                    <tr>
+                        <td width="3cm" class='tright'>Curso:</td>
+                        <td>{{=curso.titulo}}</td>
+                    </tr>
+                    <tr>
+                        <td class='tright'>Lugar:</td>
+                        <td>{{=curso.lugar}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {{for domicilio in rows_groups.keys():}}
+            <h4>Consejo de Origen: {{=domicilio}}</h4>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>Nombre/Apellido</th>
+                        <th>DNI</th>
+                        <th>Total Abonado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{for items in rows_groups[domicilio]:}}
+                        <tr>
+                            <td>{{=items.persona.nombre_apellido}}</td>
+                            <td class='nro_orden'>{{=items.persona.dni}}</td>
+                            <td class='tright'>$ {{=items.inscripto.total_abonado}}</td>
+                        </tr>
+                    {{pass}}
+                    <tr>
+                        <td colspan="2" class='tright'><b>TOTAL<b></td>
+                        <td class='tright'><b>{{='$ %.2f' % sum([i.inscripto.total_abonado for i in rows_groups[domicilio]])}}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        {{pass}}
+
+        <div id="footer_content">
+            <p class='footer'>
+                Colmenalabs (c) 2015 | Versión: 0.2 - Página <pdf:pagenumber> de <pdf:pagecount>
+            </p>
+        </div>
+        
+    </body>
+</html>
+

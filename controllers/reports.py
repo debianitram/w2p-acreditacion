@@ -4,10 +4,10 @@ import StringIO
 from os import path
 from xhtml2pdf.pisa import CreatePDF
 
-
 from curso_aux import date_reportcert, time_reportcert
 
 
+@auth.requires(memberships('colaborador', 'administrador'))
 def certificados():
     response.view = 'reports/certificado.html'
 
@@ -57,6 +57,7 @@ def certificados():
         return doc.getvalue()
 
 
+@auth.requires_membership('administrador')
 def asistencias():
     response.view = 'reports/asistencias.html'
 
@@ -89,3 +90,41 @@ def asistencias():
                         encoding='utf-8')
         return doc.getvalue()
 
+
+@auth.requires_membership('administrador')
+def inscriptos_acreditados():
+    response.view = 'reports/inscriptos_acreditados.html'
+    curso = Curso(request.args(-1, cast=int))
+    fields = (Inscripto.id,
+              Inscripto.acreditado,
+              Inscripto.total_abonado,
+              Persona.id,
+              Persona.dni,
+              Persona.domicilio,
+              Persona.nombre_apellido)
+
+    query = (Inscripto.curso == curso.id) & (Inscripto.acreditado == True)
+
+    rows = db(query).select(*fields,
+                            left=Inscripto.on(Inscripto.persona == Persona.id))
+
+    rows_groups = rows.group_by_value(Persona.domicilio)
+
+    context =  dict(curso=curso, rows_groups=rows_groups)
+
+    if request.extension == 'pdf':
+        path_static = path.join(request.env.web2py_path,
+                                'applications/init/static')
+        
+        with open(path.join(path_static, 'css/reporte_asist.css'), 'r') as rcss:
+            css = rcss.read()
+
+        html = response.render(response.view, context)
+        doc = StringIO.StringIO()
+        pdf = CreatePDF(html,
+                        dest=doc,
+                        path=path.join(path_static, 'images'),
+                        default_css=css,
+                        encoding='utf-8')
+        return doc.getvalue()
+    return context

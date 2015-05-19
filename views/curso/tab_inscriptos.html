@@ -8,12 +8,26 @@
                 <a href="{{=URL('curso', 'import_inscriptos', args=curso)}}" class="btn btn-xs btn-default">
                     <span class='glyphicon glyphicon-paperclip'></span> Importar
                 </a>
-                <a href="{{=URL(c='reports',
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Reportes <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{=URL(c='reports',
                                 f='certificados',
                                 args=(curso, 'all'),
-                                extension='pdf')}}" class="btn btn-xs btn-default">
-                    <span class='glyphicon glyphicon-print'></span> Certificados
-                </a>
+                                extension='pdf')}}">
+                                <span class='glyphicon glyphicon-print'></span> Certificados
+                            </a>
+                        </li>
+                        <li><a href="{{=URL(c='reports',
+                                f='inscriptos_acreditados',
+                                args=(curso),
+                                extension='pdf')}}">
+                                <span class='glyphicon glyphicon-ok'></span> Acreditados
+                            </a>
+                        </li>
+                    </ul>
+               </div>
             </div>
         </div>
     </div>
