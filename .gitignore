@@ -3,7 +3,6 @@
 *.bak
 *.*~
 ~*.*
-private/*
 errors/*
 sessions/*
 uploads/*
